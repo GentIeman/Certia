@@ -20,6 +20,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/carousel.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -33,7 +34,7 @@
                 <button class="header__btn btn menu-burger-icon" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                             <span class="dropdown__icon home-icon"></span>
                             <a href="#" class="dropdown__link dropdown__link_hover dropdown__link_focus">Home</a>
                         </li>
@@ -82,6 +83,68 @@
             </ul>
         </div>
     </div>
+</section>
+<section class="hero">
+   <div class="carousel">
+       <ul class="carousel__track">
+           <li class="carousel__slide">
+               <div class="carousel__slide-content">
+                   <div class="carousel__slide-text">
+                       <h1 class="carousel__slide-headline">
+                           <span class="carousel__title">Important information for our users</span>
+                           <span class="carousel__subtitle">Our bank is working as usual</span>
+                       </h1>
+                       <a tabindex="-1" href="#" class="carousel__link carousel__link_hover">Learn more</a>
+                   </div>
+                   <div class="carousel__image european-anglerfish"></div>
+               </div>
+           </li>
+           <li class="carousel__slide">
+               <div class="carousel__slide-content">
+                   <div class="carousel__slide-text">
+                       <h1 class="carousel__slide-headline">
+                           <span class="carousel__title">End of Covid - 19</span>
+                           <span class="carousel__subtitle">Our team has started to work in full force</span>
+                       </h1>
+                       <a tabindex="-1" href="#" class="carousel__link carousel__link_hover">Learn more</a>
+                   </div>
+                   <div class="carousel__image bedroom"></div>
+               </div>
+           </li>
+           <li class="carousel__slide">
+               <div class="carousel__slide-content">
+                   <div class="carousel__slide-text">
+                       <h1 class="carousel__slide-headline">
+                           <span class="carousel__title">Work tirelessly</span>
+                           <span class="carousel__subtitle">We work day and night to do more for you</span>
+                       </h1>
+                       <a tabindex="-1" href="#" class="carousel__link carousel__link_hover">Learn more</a>
+                   </div>
+                   <div class="carousel__image owl"></div>
+               </div>
+           </li>
+       </ul>
+       <ul class="carousel__dots">
+           <li tabindex="0" class="carousel__dot carousel__dot_hover carousel__dot_focus carousel__dot_active">
+               <div class="carousel__dot-image info-icon"></div>
+               <p class="carousel__dot-content">
+                   Important information for our users
+               </p>
+           </li>
+           <li tabindex="0" class="carousel__dot carousel__dot_hover carousel__dot_focus">
+               <div class="carousel__dot-image smile-icon"></div>
+               <p class="carousel__dot-content">
+                   We are with us again
+               </p>
+           </li>
+           <li tabindex="0" class="carousel__dot carousel__dot_hover carousel__dot_focus">
+               <div class="carousel__dot-image laptop-icon"></div>
+               <p class="carousel__dot-content">
+                   Hands are always ready
+               </p>
+           </li>
+       </ul>
+   </div>
 </section>
 </body>
 </html>
