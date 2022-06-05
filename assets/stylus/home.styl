@@ -10,7 +10,7 @@
     min-height: 530px
     overflow: hidden
 
-    &__track{
+    &__track {
       display: flex
       width: inherit
       height: inherit
@@ -76,7 +76,7 @@
         transform: translate(160%, -50%)
         width: 14px
         height: 14px
-        background: no-repeat center/100% url("../../static/icons/arrow-small-right-gr.svg")
+        background: no-repeat center / 100% url("../../static/icons/arrow-small-right-gr.svg")
       }
     }
 
@@ -85,15 +85,15 @@
       height: 400px
 
       &.european-anglerfish {
-        background: no-repeat center/100% url("../../static/images/european-anglerfish.svg")
+        background: no-repeat center / 100% url("../../static/images/european-anglerfish.svg")
       }
 
       &.bedroom {
-        background: no-repeat center/100% url("../../static/images/bedroom.svg")
+        background: no-repeat center / 100% url("../../static/images/bedroom.svg")
       }
 
       &.owl {
-        background: no-repeat center/70% url("../../static/images/owl.svg")
+        background: no-repeat center / 70% url("../../static/images/owl.svg")
       }
     }
 
@@ -130,15 +130,15 @@
       }
 
       &:is(&_hover:hover, &_focus:focus, &_active) .info-icon {
-        background: no-repeat center/100% url("../../static/icons/info-bl.svg")
+        background: no-repeat center / 100% url("../../static/icons/info-bl.svg")
       }
 
       &:is(&_hover:hover, &_focus:focus, &_active) .smile-icon {
-        background: no-repeat center/100% url("../../static/icons/smile-bl.svg")
+        background: no-repeat center / 100% url("../../static/icons/smile-bl.svg")
       }
 
       &:is(&_hover:hover, &_focus:focus, &_active) .laptop-icon {
-        background: no-repeat center/100% url("../../static/icons/laptop-bl.svg")
+        background: no-repeat center / 100% url("../../static/icons/laptop-bl.svg")
       }
     }
 
@@ -147,20 +147,188 @@
       height: 50px
 
       &.info-icon {
-        background: no-repeat center/100% url("../../static/icons/info-gr.svg")
+        background: no-repeat center / 100% url("../../static/icons/info-gr.svg")
       }
 
       &.smile-icon {
-        background: no-repeat center/100% url("../../static/icons/smile-gr.svg")
+        background: no-repeat center / 100% url("../../static/icons/smile-gr.svg")
       }
 
       &.laptop-icon {
-        background: no-repeat center/100% url("../../static/icons/laptop-gr.svg")
+        background: no-repeat center / 100% url("../../static/icons/laptop-gr.svg")
       }
     }
 
     &__dot-content {
       font-style(normal, var(--small-size), var(--accent-font), var(--accent-color))
     }
+  }
+}
+
+.offers {
+  width: 100%
+  height: auto
+  margin: 100px 0
+  padding: var(--main-padding)
+
+  &__header {
+    margin-bottom: 40px
+  }
+
+  &__headline {
+    font-style(bold, var(--headings), var(--accent-font), var(--decorative-color))
+  }
+
+  &__list {
+    display: flex
+    justify-content: space-between
+    width: 100%
+    height: auto
+  }
+
+  &__card {
+    display: grid
+    grid-template-rows: auto 100px
+    place-items: center
+    width: 250px
+    height: 300px
+    background-color: var(--background-wt)
+    box-shadow 0 2px 2px 0 rgba(0, 0, 0, .5)
+    border-radius var(--border-radius)
+  }
+
+  &__card-image {
+    width: 200px
+    height: 200px
+
+    &.saving {
+      background: no-repeat center / 100% url("../../static/images/savings.svg")
+    }
+
+    &.forex {
+      background: no-repeat center / 100% url("../../static/images/forex.svg")
+    }
+
+    &.lend {
+      background: no-repeat center / 100% url("../../static/images/lend.svg")
+    }
+
+    &.tax {
+      background: no-repeat center / 100% url("../../static/images/tax.svg")
+    }
+  }
+
+  &__card-content {
+    display: grid
+    place-items: center
+    width: 100%
+    height: 100%
+    border-radius: 0 0 var(--border-radius) var(--border-radius)
+    background-color: var(--decorative-color)
+  }
+
+  &__card-description {
+    font-style(bold, var(--meduim-size), var(--accent-font), var(--dark-green))
+  }
+}
+
+.services {
+  width: 100%
+  height: auto
+  margin: 100px 0
+  padding: var(--main-padding)
+
+  &__header {
+    margin-bottom: 40px
+  }
+
+  &__headline {
+    font-style(bold, var(--headings), var(--accent-font), var(--decorative-color))
+  }
+
+  &__list {
+    display: flex
+    justify-content: space-between
+    width: 100%
+    height: auto
+  }
+
+  &__card {
+    display: grid
+    grid-template-rows: auto 100px
+    place-items: center
+    width: 250px
+    height: 300px
+    background-color: var(--background-wt)
+    border-radius var(--border-radius)
+    box-shadow: 0 0 0 2px var(--accent-color), 0 2px 2px 0 rgba(0, 0, 0, .5)
+    cursor: pointer
+    transition: all .3s linear
+
+    &:is(&_hover:hover) {
+      background-color: var(--accent-color)
+
+      .map-marker-icon {
+        background: no-repeat center / 100% url("../../static/icons/map-marker-wt.svg")
+      }
+
+      .euro-icon {
+        background: no-repeat center / 100% url("../../static/icons/euro-wt.svg")
+      }
+
+      .paper-plan-icon {
+        background: no-repeat center / 100% url("../../static/icons/paper-plane-wt.svg")
+      }
+
+      .gift-icon {
+        background: no-repeat center / 100% url("../../static/icons/gift-wt.svg")
+      }
+    }
+  }
+
+  &__card-image {
+    width: 150px
+    height: 150px
+
+    &.map-marker-icon {
+      background: no-repeat center / 100% url("../../static/icons/map-marker-gr.svg")
+    }
+
+    &.euro-icon {
+      background: no-repeat center / 100% url("../../static/icons/euro-gr.svg")
+    }
+
+    &.paper-plan-icon {
+      background: no-repeat center / 100% url("../../static/icons/paper-plane-gr.svg")
+    }
+
+    &.gift-icon {
+      background: no-repeat center / 100% url("../../static/icons/gift-gr.svg")
+    }
+  }
+
+  &__card-content {
+    display: grid
+    place-items: center
+    width: 100%
+    height: 100%
+    border-radius: 0 0 var(--border-radius) var(--border-radius)
+    background-color: var(--decorative-color)
+    padding: 20px
+  }
+
+  &__card-description {
+    display: flex
+    flex-direction: column
+    gap: 7px 0
+  }
+
+  &__title {
+    display: block
+  }
+
+  &__subtitle {
+    display: block
+    font-style(normal, var(--small-size), var(--accent-font), var(--accent-color))
   }
 }
