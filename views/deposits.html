@@ -6,20 +6,19 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Web resource for Certia Bank">
-    <meta name="keywords" content="credits, certia, Bank, Credit, credits">
+    <meta name="keywords" content="deposits, certia, Bank, Deposits, Certia">
     <meta name="author" content="Ilya Shepelev">
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robot" content="all">
-    <title>Credits</title>
-    <link rel="stylesheet" href="../assets/stylus/credits.css">
+    <title>Deposits</title>
+    <link rel="stylesheet" href="../assets/stylus/deposits.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/goToBottom.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -37,11 +36,11 @@
                             <span class="dropdown__icon home-icon"></span>
                             <a href="#" class="dropdown__link">Home</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
                             <a href="#" class="dropdown__link">Credits</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                             <span class="dropdown__icon pyramid-icon"></span>
                             <a href="#" class="dropdown__link">Deposits</a>
                         </li>
@@ -84,56 +83,82 @@
         </div>
     </div>
 </div>
-<section class="hero">
-    <div class="hero__inner">
-        <div class="hero__content">
-            <h1 class="hero__headline">
-                <span class="hero__title">I want to get a loan, but I don't know how</span>
-                <span class="hero__subtitle">We will help</span>
-            </h1>
-            <button class="hero__btn btn btn_background">Go to products</button>
-        </div>
-        <div class="hero__image"></div>
-    </div>
-    <div class="hero__circle"></div>
-</section>
-<section class="products">
-    <header class="products__header">
-        <h1 class="products__headline headings">Products</h1>
+<section class="deposits">
+    <header class="deposits__header">
+        <h1 class="deposits__headline headings">Deposits</h1>
     </header>
-    <ul class="products__cards">
-        <li class="products__card">
-            <div class="products__card-content">
-                <h2 class="products__card-headline">Cash loan</h2>
-                <p class="products__card-description">Don't delay shopping - fill out an application
-                    and get a loan for your needs</p>
-                <a href="#" class="products__card-link">Learn more</a>
+    <ul class="deposits__cards">
+        <li class="deposits__card">
+            <div class="deposits__card-content">
+                <h2 class="deposits__card-headline">Behind the wall</h2>
+                <div class="deposits__card-description">
+                    <p class="deposits__card-description-title">from 12%
+                        <span class="deposits__card-description-subtitle">Income</span>
+                    </p>
+                    <p class="deposits__card-description-title">from 10$
+                        <span class="deposits__card-description-subtitle">Min. amount</span>
+                    </p>
+                    <p class="deposits__card-description-title">∞
+                        <span class="deposits__card-description-subtitle">Perpetual</span>
+                    </p>
+                </div>
+                <a href="#" class="deposits__card-link">Learn more</a>
             </div>
-            <div class="products__card-image money-icon"></div>
+            <div class="deposits__card-image layout-fluid-icon"></div>
         </li>
-        <li class="products__card">
-            <div class="products__card-content">
-                <h2 class="products__card-headline">Educational loan</h2>
-                <p class="products__card-description">Education may be available</p>
-                <a href="#" class="products__card-link">Learn more</a>
+        <li class="deposits__card">
+            <div class="deposits__card-content">
+                <h2 class="deposits__card-headline">New time</h2>
+                <div class="deposits__card-description">
+                    <p class="deposits__card-description-title">from 5%
+                        <span class="deposits__card-description-subtitle">Income</span>
+                    </p>
+                    <p class="deposits__card-description-title">from 1000$
+                        <span class="deposits__card-description-subtitle">Min. amount</span>
+                    </p>
+                    <p class="deposits__card-description-title">180 days
+                        <span class="deposits__card-description-subtitle">Term</span>
+                    </p>
+                </div>
+                <a href="#" class="deposits__card-link">Learn more</a>
             </div>
-            <div class="products__card-image book-icon"></div>
+            <div class="deposits__card-image clock-icon"></div>
         </li>
-        <li class="products__card">
-            <div class="products__card-content">
-                <h2 class="products__card-headline">Loan for equipment</h2>
-                <p class="products__card-description">Replacement of your favorite equipment without collateral and guarantors</p>
-                <a href="#" class="products__card-link">Learn more</a>
+        <li class="deposits__card">
+            <div class="deposits__card-content">
+                <h2 class="deposits__card-headline">A solid foundation</h2>
+                <div class="deposits__card-description">
+                    <p class="deposits__card-description-title">from 8%
+                        <span class="deposits__card-description-subtitle">Income</span>
+                    </p>
+                    <p class="deposits__card-description-title">from 2000$
+                        <span class="deposits__card-description-subtitle">Min. amount</span>
+                    </p>
+                    <p class="deposits__card-description-title">1 year
+                        <span class="deposits__card-description-subtitle">Term</span>
+                    </p>
+                </div>
+                <a href="#" class="deposits__card-link">Learn more</a>
             </div>
-            <div class="products__card-image computer-icon"></div>
+            <div class="deposits__card-image chart-pyramid-icon"></div>
         </li>
-        <li class="products__card">
-            <div class="products__card-content">
-                <h2 class="products__card-headline">Repair loan</h2>
-                <p class="products__card-description">Cosmetic or capital. Apartments or houses. Without collateral and guarantors</p>
-                <a href="#" class="products__card-link">Learn more</a>
+        <li class="deposits__card">
+            <div class="deposits__card-content">
+                <h2 class="deposits__card-headline">History of success</h2>
+                <div class="deposits__card-description">
+                    <p class="deposits__card-description-title">from 5%
+                        <span class="deposits__card-description-subtitle">Income</span>
+                    </p>
+                    <p class="deposits__card-description-title">from 5000$
+                        <span class="deposits__card-description-subtitle">Min. amount</span>
+                    </p>
+                    <p class="deposits__card-description-title">720 days
+                        <span class="deposits__card-description-subtitle">Term</span>
+                    </p>
+                </div>
+                <a href="#" class="deposits__card-link">Learn more</a>
             </div>
-            <div class="products__card-image fill-icon"></div>
+            <div class="deposits__card-image chat-arrow-grow-icon"></div>
         </li>
     </ul>
 </section>
