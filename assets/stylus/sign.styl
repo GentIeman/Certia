@@ -1,0 +1,176 @@
+@import "mixins.styl"
+
+body {
+  display: grid
+  place-items: center
+  width: 100%
+  min-height: 100vh
+}
+
+.sign {
+  display: grid
+  grid-template-rows: auto auto 110px
+  place-items: center
+  gap: 10px
+  width: 640px
+  min-height: 200px
+  box-shadow: 0 3px 6px 0 rgba(0,0,0,0.5)
+  border-radius: var(--border-radius)
+  background-color: var(--decorative-color)
+
+  &__header {
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    margin-top: 20px
+  }
+
+  &__headline {
+    font-style(normal, var(--large-size), var(--roboto), var(--text-color-wt))
+  }
+
+  &__image {
+    width: 100px
+    height: 100px
+    border-radius: 50%
+    border: solid 2px var(--background-wt)
+    background: no-repeat center/50% url("../../static/icons/user-wt.svg") var(--accent-color)
+  }
+
+  &__form {
+    display: flex
+    flex-direction: column
+    width: 484px
+    height: auto
+  }
+
+  &__input-container {
+    width: 100%
+    height: auto
+  }
+
+  &__input-wrap {
+    display: grid
+    grid-template-columns: auto
+    place-items: center
+    position: relative
+    width: inherit
+    height: 50px
+    overflow: hidden
+    background-color: var(--background-wt)
+
+    &_password{
+      grid-template-columns: auto 60px
+    }
+
+    &_underline {
+      border-bottom: solid 1.5px var(--accent-color)
+    }
+
+    &:first-child {
+      border-radius: var(--border-radius) var(--border-radius) 0 0
+    }
+
+    &:last-child {
+      border-radius: 0 0 var(--border-radius) var(--border-radius)
+    }
+
+    &:is(&_hover:hover, &_focus:focus-within) {
+      background-color: var(--background-gr)
+    }
+  }
+
+  &__input {
+    width: 100%
+    height: 100%
+    padding: 0 20px
+    border: none
+    background-color: transparent
+    font-style(bold, var(--medium-text), var(--roboto), var(--accent-color))
+  }
+
+  &__show-password {
+    width: 22px
+    height: 22px
+    cursor: pointer
+    background: no-repeat center/100% url("../../static/icons/eye-crossed.svg")
+
+    &.show {
+      background: no-repeat center/100% url("../../static/icons/eye.svg")
+    }
+  }
+
+  &__forgot-password {
+    position: relative
+    margin-top: 5px
+    width: max-content
+    font-style(normal, var(--small-size), var(--roboto), var(--accent-color))
+
+    &:before {
+      content: ""
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 0
+      height: 1.5px
+      background-color: var(--accent-color)
+      transition: width .4s linear
+    }
+
+    &:is(&_hover:hover, &_focus:focus):before {
+      width: 100%
+    }
+  }
+
+  &__btn {
+    padding: 15px 30px
+    width: max-content
+    margin: 10px 0
+    align-self: end
+    font-style(bold, var(--medium-size), var(--accent-font), var(--text-color-wt))
+    border-radius: var(--border-radius)
+    border: none
+    background-color: var(--accent-color)
+    cursor: pointer
+    transition: box-shadow .2s linear
+
+    &:is(&_hover:hover, &_focus:focus) {
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px
+    }
+  }
+
+  &__footer {
+    display: grid
+    place-items: center
+    width: inherit
+    height: 110px
+    background-color: var(--dark-green)
+    border-radius: 0 0 var(--border-radius) var(--border-radius)
+  }
+
+  &__footer-content {
+    font-style(normal, 1.363rem, var(--accent-font), var(--text-color-wt))
+  }
+
+  &__link {
+    position: relative
+    font-weight: bold
+    color: var(--accent-color)
+
+    &:before {
+      content: ""
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 0
+      height: 1px
+      background-color: var(--accent-color)
+      transition: width .4s linear
+    }
+
+    &:is(&_hover:hover, &_focus:focus):before {
+      width: 100%
+    }
+  }
+}
