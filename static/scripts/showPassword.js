@@ -1,5 +1,5 @@
-const showPasswordBtn = document.querySelector(".sign-in__show-password")
-const password = document.querySelector(".sign-in__input_password")
+const showPasswordBtn = document.querySelector(".sign__show-password")
+const password = document.querySelector(".sign__input_password")
 
 showPasswordBtn.addEventListener("click", () => {
     if (password.type === "password") {
