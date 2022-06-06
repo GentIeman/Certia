@@ -239,6 +239,8 @@
 .btn {
   border: none
   cursor: pointer
+  font-style(normal, var(--small-size), var(--accent-font), var(--text-color-wt))
+  border-radius: var(--border-radius)
 
   &:is(&_background) {
     background-color: var(--accent-color)
@@ -253,7 +255,7 @@
 
 .footer {
   display: grid
-  grid-template-columns: 200px auto 200px
+  grid-template-columns: 250px auto 250px
   gap: 40px
   place-items: start
   width: 100%
@@ -379,4 +381,8 @@
     margin-top: 10px
     font-style(normal, var(--small-text), var(--accent-font), var(--footer-text))
   }
+}
+
+.headings {
+  font-style(bold, var(--headings), var(--accent-font), var(--decorative-color))
 }
