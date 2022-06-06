@@ -386,3 +386,41 @@
 .headings {
   font-style(bold, var(--headings), var(--accent-font), var(--decorative-color))
 }
+
+.modal {
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  min-width: 600px
+  height: 200px
+  border-radius: var(--border-radius)
+  border: none
+  background-color: var(--decorative-color)
+
+  &__container {
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 0 50px
+    min-width: inherit
+    height: inherit
+  }
+
+  &__icon {
+    width: 70px
+    height: 70px
+
+    &.check {
+      background: no-repeat center/100% url("../../static/icons/comment-check.svg")
+    }
+  }
+
+  &__content {
+    font-style(normal, var(--large-size), var(--accent-font), var(--dark-green))
+  }
+
+  &:backdrop {
+    background-color: rgba(0,0,0,.5)
+  }
+}
