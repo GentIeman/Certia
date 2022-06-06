@@ -28,19 +28,19 @@
     <form class="sign__form">
         <div class="sign__input-container">
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input" placeholder="Full name">
+                <input type="text" class="sign__input" placeholder="Full name" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input" placeholder="Address">
+                <input type="text" class="sign__input" placeholder="Address" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input" placeholder="Phone">
+                <input type="tel" class="sign__input" placeholder="Phone" maxlength="12" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input" placeholder="Email">
+                <input type="email" class="sign__input" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="password" class="sign__input sign__input_password" placeholder="Password">
+                <input type="password" class="sign__input sign__input_password" placeholder="Password" required>
                 <span class="sign__show-password"></span>
             </label>
         </div>
