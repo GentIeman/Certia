@@ -9,6 +9,7 @@
 
   &__inner {
     display: flex
+    justify-content: space-between
     width: 100%
     height: auto
     padding: var(--main-padding)
@@ -87,9 +88,10 @@
   &__card {
     display: grid
     grid-template-columns: repeat(2, 1fr)
+    place-items: center
     width: 550px
     min-height: 250px
-    padding: 30px 50px 30px 40px
+    padding: 30px
     background-color: var(--background-gr)
     border-radius: var(--border-radius)
   }
@@ -97,7 +99,7 @@
   &__card-content {
     display: grid
     grid-template-rows: repeat(3, 1fr)
-    width: 300px
+    min-width: 300px
     height: 193px
   }
 
@@ -107,14 +109,14 @@
 
   &__card-description {
     align-self: start
-    width: 250px
+    min-width: inherit
     font-style(normal, var(--small-size), var(--accent-font), var(--text-color-black))
     line-height: 25px
   }
 
   &__card-image {
-    width: 150px
-    height: 150px
+    width: 120px
+    height: 120px
 
     &.money-icon {
       background: no-repeat center/100% url("../../static/icons/money-gr.svg")
