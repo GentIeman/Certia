@@ -494,6 +494,15 @@
     font-style(normal, var(--medium-size), var(--accent-font), var(--accent-color))
   }
 
+  &__deposit-type {
+    margin: 20px 0 10px
+    font-style(normal, 1.5rem, var(--accent-font), var(--text-color-black))
+
+    &_accent-color {
+      color: var(--accent-color)
+    }
+  }
+
   &__select-card {
     padding: var(--padding-input)
     background-color: var(--background-field)
@@ -585,7 +594,7 @@
   }
 }
 
-.loan-data {
+.loan-data, .deposit-data {
   display: flex
   align-items: center
   gap: 0 10px
@@ -621,7 +630,7 @@
   left: 50%
   transform translate(-50%, -50%)
   padding: 40px
-  width: 700px
+  width: 800px
   height: max-content
   border-radius: var(--border-radius)
   border: none
@@ -648,6 +657,15 @@
   &__subtitle {
     margin: 20px 0 10px
     font-style(normal, var(--subtitle), var(--accent-font), var(--text-color-black))
+  }
+
+  &__deposit-type {
+    margin: 20px 0 10px
+    font-style(normal, 1.5rem, var(--accent-font), var(--text-color-black))
+
+    &_accent-color {
+      color: var(--accent-color)
+    }
   }
 
   &__time {
