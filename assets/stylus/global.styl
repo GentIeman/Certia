@@ -396,7 +396,10 @@
   height: 200px
   border-radius: var(--border-radius)
   border: none
-  background-color: var(--decorative-color)
+
+  &_background {
+    background-color: var(--decorative-color)
+  }
 
   &__container {
     display: flex
@@ -412,7 +415,7 @@
     height: 70px
 
     &.check {
-      background: no-repeat center/100% url("../../static/icons/comment-check.svg")
+      background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
     }
   }
 
@@ -421,6 +424,262 @@
   }
 
   &:backdrop {
-    background-color: rgba(0,0,0,.5)
+    background-color: rgba(0, 0, 0, .5)
+  }
+}
+
+.user-data {
+  padding: 50px 30px
+  width: 400px
+  height: max-content
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: var(--border-radius)
+
+  &__header {
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 30px
+    width: 100%
+    height: auto
+  }
+
+  &__list {
+    display: flex
+    flex-direction: column
+    gap: 20px 0
+  }
+
+  &__headline {
+    font-style(bold, var(--large-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__content {
+    font-style(bold, var(--medium-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__subtitle {
+    font-style(bold, var(--small-size), var(--accent-font), var(--decorative-color))
+  }
+}
+
+.form-registration {
+  display: flex
+  flex-direction: column
+  padding: 50px
+  min-width: 700px
+  min-height: 450px
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: var(--border-radius)
+
+  &__header {
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 30px
+    width: 100%
+    height: auto
+  }
+
+  &__headline {
+    font-style(bold, var(--large-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__subtitle {
+    margin: 20px 0 10px
+    font-style(normal, var(--subtitle), var(--accent-font), var(--text-color-black))
+  }
+
+  &__time {
+    font-style(normal, var(--medium-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__select-card {
+    padding: var(--padding-input)
+    background-color: var(--background-field)
+    border: none
+    border-radius: 5px
+    font-style(normal, var(--small-size), var(--roboto), var(--accent-color))
+    transition: box-shadow .4s linear
+
+    &:is(&_hover:hover, &_focus:focus-within) {
+      box-shadow: 0 0 0 2px var(--accent-color)
+    }
+  }
+
+  &__btn {
+    margin-top: 20px
+    padding: 15px 45px
+    align-self: center
+    font-size: var(--medium-size)
+    background-color: var(--decorative-color)
+    border-radius: var(--border-radius)
+    border: none
+    color: var(--text-color-wt)
+    transition: background-color .3s linear
+    cursor: pointer
+
+    &:is(&_hover:hover, &_focus:focus) {
+      background-color: var(--accent-color)
+    }
+  }
+
+  .agreement {
+    display: flex
+    align-items: center
+    margin-top: 10px
+    gap: 0 15px
+
+    &__checkbox-wrap {
+      display: flex
+      justify-content: center
+      align-items: center
+      position: relative
+      width: 15px
+      height: 15px
+      border-radius: 3px
+      background-color: var(--checkbox-color)
+      transition: box-shadow .4s linear
+
+      &:is(&_hover:hover, &_focus:focus-within) {
+        box-shadow: 0 0 0 1px var(--accent-color)
+      }
+    }
+
+    &__checkbox {
+      position: absolute
+      opacity: 0
+      cursor: pointer
+
+      &:checked ~ .agreement__checkbox-icon {
+        display: block
+      }
+    }
+
+    &__checkbox-icon {
+      display: none
+      position: relative
+      border-radius: 3px
+      width: 15px
+      height: 15px
+      background-color: var(--accent-color)
+      cursor: pointer
+
+      &:after {
+        content: ""
+        position: absolute
+        transform: translate(2px, -2px)
+        width: 15px
+        height: 15px
+        background: no-repeat center / 100% url("../../static/icons/check-gr.svg")
+      }
+    }
+
+    &__content {
+      font-style(normal, var(--small-size), var(--roboto), var(--text-color-gr))
+
+      &_accent-color {
+        color: var(--accent-color)
+      }
+    }
+  }
+}
+
+.loan-data {
+  display: flex
+  align-items: center
+  gap: 0 10px
+  width: max-content
+
+  &__input {
+    padding: var(--padding-input)
+    background-color: var(--background-field)
+    border: none
+    border-radius: 5px
+    font-style(normal, var(--small-size), var(--roboto), var(--accent-color))
+  }
+
+  &__under {
+    font-style(normal, var(--small-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__percent {
+    display: flex
+    flex-direction: column
+    font-style(normal, 1.3rem, var(--accent-font), var(--accent-color))
+  }
+
+  &__subtitle {
+    display: block
+    font-style(normal, var(--small-size), var(--accent-font), var(--decorative-color))
+  }
+}
+
+.checkout {
+  position: fixed
+  top: 50%
+  left: 50%
+  transform translate(-50%, -50%)
+  padding: 40px
+  width: 700px
+  height: max-content
+  border-radius: var(--border-radius)
+  border: none
+
+  &__container {
+    display: flex
+    justify-content: space-between
+    align-items: center
+  }
+
+  &__header {
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 30px
+    width: 100%
+    height: auto
+  }
+
+  &__headline {
+    font-style(bold, var(--large-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__subtitle {
+    margin: 20px 0 10px
+    font-style(normal, var(--subtitle), var(--accent-font), var(--text-color-black))
+  }
+
+  &__time {
+    font-style(normal, var(--medium-size), var(--accent-font), var(--accent-color))
+  }
+
+  &__select-card {
+    padding: var(--padding-input)
+    background-color: var(--background-field)
+    border: none
+    border-radius: 5px
+    font-style(normal, var(--small-size), var(--roboto), var(--accent-color))
+    transition: box-shadow .4s linear
+
+    &:is(&_hover:hover, &_focus:focus-within) {
+      box-shadow: 0 0 0 2px var(--accent-color)
+    }
+  }
+
+  &__image {
+    position: relative
+    width: 200px
+    height: 200px
+    background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
+
+    &:after {
+      content: "Approved"
+      position: absolute
+      bottom 0
+      left: 50%
+      transform: translate(-50%, 150%)
+      font-style(normal, var(--subtitle), var(--accent-font), var(--accent-color))
+    }
   }
 }
