@@ -6,19 +6,20 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Web resource for Certia Bank">
-    <meta name="keywords" content="about us, certia, Bank, About us, Certia">
+    <meta name="keywords" content="bank, certia, Bank, Certia">
     <meta name="author" content="Ilya Shepelev">
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
-    <title>About us</title>
-    <link rel="stylesheet" href="../assets/stylus/aboutus.css">
+    <title>Loan processing</title>
+    <link rel="stylesheet" href="../assets/stylus/processing.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/modal.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -40,7 +41,7 @@
                             <span class="dropdown__icon money-icon"></span>
                             <a href="#" class="dropdown__link">Credits</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
                             <a href="#" class="dropdown__link">Deposits</a>
                         </li>
@@ -83,48 +84,106 @@
         </div>
     </div>
 </div>
-<section class="about-us">
-    <header class="about-us__header">
-        <h1 class="about-us__headline headings">A little about our</h1>
+<section class="loan-processing">
+    <header class="loan-processing__header">
+        <h1 class="loan-processing__headline headings">Loan processing</h1>
     </header>
-    <div class="about-us__hero">
-        <p class="about-us__description">Our bank focuses on the technological process. Our team is working hard to add
-            the best amenities for you.
-
-            The speed of our work is achieved by automating almost all routine business processes, by introducing the
-            maximum number of technologies into our product. </p>
-        <div class="about-us__image"></div>
-    </div>
-    <div class="about-us__circle"></div>
-    <section class="filials">
-        <header class="filials__header">
-            <h2 class="filials__headline">
-                <span class="filials__title">Where are we?</span>
-                <span class="filials__subtitle">Below you can find an interactive map of our affiliated societies</span>
-            </h2>
+    <div class="user-data">
+        <header class="user-data__header">
+            <h2 class="user-data__headline">User info</h2>
         </header>
-        <ul class="filials__list">
-            <li class="filials__item">
-                <h2 class="filials__street">Wall Street</h2>
-                <p class="filials__address">57 Wall St, New York, NY 10005, USA</p>
-                <p class="filials__time">Time: 9AM-21PM </p>
+        <ul class="user-data__list">
+            <li class="user-data__item">
+                <p class="user-data__content">Ilya Shepelev</p>
+                <span class="user-data__subtitle">Username</span>
             </li>
-            <li class="filials__item">
-                <h2 class="filials__street">Park Place</h2>
-                <p class="filials__address">101 Church St, New York, NY 10007,  USA</p>
-                <p class="filials__time">Time: 9AM-21PM </p>
+            <li class="user-data__item">
+                <p class="user-data__content">3000$</p>
+                <span class="user-data__subtitle">* 1234</span>
             </li>
-            <li class="filials__item">
-                <h2 class="filials__street">Murray St</h2>
-                <p class="filials__address">111 Murray St , New York, NY 10007, USA</p>
-                <p class="filials__time">Time: 9AM-21PM </p>
+            <li class="user-data__item">
+                <p class="user-data__content">2000 $</p>
+                <span class="user-data__subtitle">* 5678</span>
+            </li>
+            <li class="user-data__item">
+                <p class="user-data__content">Loans: none</p>
+            </li>
+            <li class="user-data__item">
+                <p class="user-data__content">Debts: none</p>
             </li>
         </ul>
-        <div class="filials__map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.627529545747!2d-74.01025439106593!3d40.70733003807744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1710b6a0a1%3A0x277c2e31942cde8f!2sSamuel%20Eber%20Law%20Office%3A%20Eber%20Samuel!5e0!3m2!1sen!2sus!4v1654583451256!5m2!1sen!2sus" width="800" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <form class="form-registration form-submit">
+        <header class="form-registration__header">
+            <h2 class="form-registration__headline">Credit form</h2>
+        </header>
+        <ul class="form-registration__list">
+            <li class="form-registration__item">
+                <h3 class="form-registration__subtitle">Loan details</h3>
+                <div class="loan-data">
+                    <label class="loan-data__label">
+                        <input type="text" class="loan-data__input" disabled value="4000$">
+                    </label>
+                    <span class="loan-data__under">under</span>
+                    <p class="loan-data__percent">5,6%
+                        <span class="loan-data__subtitle">percent</span>
+                    </p>
+                </div>
+            </li>
+            <li class="form-registration__item">
+                <h3 class="form-registration__subtitle">Period</h3>
+                <p class="form-registration__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            </li>
+            <li class="form-registration__item">
+                <h3 class="form-registration__subtitle">Select card</h3>
+                <label class="form-registration__label">
+                    <input type="text" list="cards" class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus" required>
+                </label>
+                <datalist id="cards">
+                    <option value="* 1234">3000$</option>
+                    <option value="* 5678">5000$</option>
+                </datalist>
+            </li>
+        </ul>
+        <div class="agreement">
+            <label class="agreement__checkbox-wrap agreement__checkbox-wrap_hover agreement__checkbox-wrap_focus">
+                <input type="checkbox" class="agreement__checkbox" required>
+                <span class="agreement__checkbox-icon" ></span>
+            </label>
+            <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span> and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-    </section>
+        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal">Checkout</button>
+    </form>
 </section>
+<dialog class="modal checkout">
+    <div class="checkout__container">
+        <ul class="checkout__list">
+            <li class="checkout__item">
+                <h3 class="checkout__subtitle">Loan details</h3>
+                <div class="loan-data">
+                    <label class="loan-data__label">
+                        <input type="text" class="loan-data__input" disabled value="4000$">
+                    </label>
+                    <span class="loan-data__under">under</span>
+                    <p class="loan-data__percent">5,6%
+                        <span class="loan-data__subtitle">percent</span>
+                    </p>
+                </div>
+            </li>
+            <li class="checkout__item">
+                <h3 class="checkout__subtitle">Period</h3>
+                <p class="checkout__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            </li>
+            <li class="checkout__item">
+                <h3 class="checkout__subtitle">Selected card</h3>
+                <label class="checkout__label">
+                    <input type="text" class="checkout__select-card" value="* 1234" disabled>
+                </label>
+            </li>
+        </ul>
+        <div class="checkout__image"></div>
+    </div>
+</dialog>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
