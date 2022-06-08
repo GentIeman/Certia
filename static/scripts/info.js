@@ -1,7 +1,7 @@
 const loanBtn = document.querySelector(".operation__btn-loan")
 const loanModal = document.querySelector(".loan-info")
-const successfulModal = document.querySelector(".modal-successful-loan")
-const repay = document.querySelector(".modal__repay")
+const successfulModal = document.querySelector(".successful-modal-loan")
+const repay = document.querySelector(".info-modal__repay")
 const depositBtn = document.querySelector(".operation__btn-deposit")
 const depositModal = document.querySelector(".deposit-info")
 

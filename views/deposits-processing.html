@@ -161,33 +161,38 @@
         </button>
     </form>
 </section>
-<dialog class="modal checkout">
-    <div class="checkout__container">
-        <ul class="checkout__list">
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Loan details</h3>
+<dialog class="modal reference-modal">
+    <div class="reference-modal__container modal__container_grid">
+        <header class="reference-modal__header">
+            <h3 class="reference-modal__headline">Deposit reference</h3>
+        </header>
+        <ul class="reference-modal__list">
+            <li class="reference-modal__item">
+                <h3 class="reference-modal__subtitle">Deposit details</h3>
+            </li>
+            <li class="reference-modal__item">
                 <div class="deposit-data">
                     <label class="deposit-data__label">
                         <input type="text" class="deposit-data__input" disabled value="4000$">
                     </label>
                 </div>
             </li>
-            <li class="checkout__item">
-                <p class="checkout__deposit-type">Type: <span class="checkout__deposit-type_accent-color">saving</span>
+            <li class="reference-modal__item">
+                <p class="reference-modal__subtitle">Type: <span class="reference-modal__subtitle_accent-color">saving</span>
                 </p>
             </li>
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Period</h3>
-                <p class="checkout__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            <li class="reference-modal__item">
+                <h3 class="reference-modal__subtitle">Period</h3>
+                <p class="reference-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
             </li>
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Selected card</h3>
-                <label class="checkout__label">
-                    <input type="text" class="checkout__select-card" value="* 1234" disabled>
+            <li class="reference-modal__item">
+                <h3 class="reference-modal__subtitle">Selected card</h3>
+                <label class="reference-modal__label">
+                    <input type="text" class="deposit-data__input" value="* 1234" disabled>
                 </label>
             </li>
         </ul>
-        <div class="checkout__image  checkout__image_approved"></div>
+        <div class="reference-modal__image check"></div>
     </div>
 </dialog>
 <footer class="footer">
@@ -195,19 +200,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.html" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.html" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
