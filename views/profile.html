@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <script type="module" src="../static/scripts/closeModal.js"></script>
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/transfer.js" defer></script>
     <script src="../static/scripts/info.js" defer></script>
@@ -209,94 +210,104 @@
     <section class="feedback">
         <h2 class="feedback__content">You liked the level of our work, or you have any suggestions?
             Then you can leave your feedback by filling out a special form</h2>
-        <a href="#" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
+        <a href="./feedbacks.html" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
     </section>
 </section>
-<dialog class="modal transfer">
-    <div class="transfer__container">
-        <header class="transfer__header">
-            <h3 class="transfer__headline">Select the debit facility</h3>
+<dialog class="modal transfer-modal" open>
+    <div class="transfer-modal__container">
+        <header class="transfer-modal__header">
+            <h3 class="transfer-modal__headline">transfer to another account</h3>
         </header>
-        <form class="transfer__form">
-            <label class="transfer__label">
-                <input type="text" list="card" class="transfer__input transfer__input_hover transfer__input_focus"
+        <form class="transfer-modal__form">
+            <label class="transfer-modal__label">
+                <input type="text" list="card" class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus"
                        placeholder="Where to write off money from" required>
                 <datalist id="card">
                     <option value="* 1234">3000$</option>
                     <option value="* 5678">5000$</option>
                 </datalist>
             </label>
-            <label class="transfer__label">
+            <label class="transfer-modal__label">
                 <input type="number"
-                       class="transfer__input transfer__input_hover transfer__input_focus transfer__input_card"
+                       class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_card"
                        placeholder="Recipient's card number" required>
             </label>
-            <label class="transfer__label">
+            <label class="transfer-modal__label">
                 <input type="number" min="50"
-                       class="transfer__input transfer__input_hover transfer__input_focus transfer__input_amount"
+                       class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_amount"
                        placeholder="Amount" required>
             </label>
-            <button type="submit" class="transfer__btn transfer__btn_hover transfer__btn_focus">Transfer</button>
+            <button type="submit" class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus">Transfer</button>
         </form>
     </div>
 </dialog>
-<dialog class="modal successful-transfer modal_background">
-    <div class="modal__container">
-        <span class="modal__icon check"></span>
-        <p class="modal__content">Successful transfer</p>
+<dialog class="success-modal successful-transfer">
+    <div class="success-modal__container">
+        <span class="success-modal__icon check"></span>
+        <p class="success-modal__content">Successful transfer</p>
     </div>
 </dialog>
-<dialog class="modal modal_padding-50 loan-info">
-    <div class="modal__image modal__image_approved"></div>
-    <div class="modal__container modal__container_column">
-        <header class="modal__header">
-            <h3 class="modal__headline">Loan info</h3>
+<dialog class="modal info-modal loan-info">
+    <div class="info-modal__image"></div>
+    <div class="info-modal__container">
+        <header class="info-modal__header">
+            <h3 class="info-modal__headline">Loan info</h3>
         </header>
-        <ul class="modal__loan-data loan-data loan-data_column">
-            <li class="loan-data__item">
-                <label class="loan-data__label">
-                    <input type="text" class="loan-data__input" disabled value="4000$">
-                </label>
-                <span class="loan-data__under">under</span>
-                <p class="loan-data__percent">5,6%
-                    <span class="loan-data__subtitle">percent</span>
-                </p>
+        <ul class="info-modal__list">
+            <li class="info-modal__item">
+                <h3 class="info-modal__subtitle">Loan details</h3>
+                <div class="loan-data">
+                    <label class="loan-data__label">
+                        <input type="text" class="loan-data__input" disabled value="4000$">
+                    </label>
+                    <span class="loan-data__under">under</span>
+                    <p class="loan-data__percent">5,6%
+                        <span class="loan-data__subtitle">percent</span>
+                    </p>
+                </div>
             </li>
-            <li class="loan-data__item loan-data__item_column">
-                <h3 class="loan-data__period">Period</h3>
-                <p class="loan-data__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            <li class="info-modal__item">
+                <h3 class="info-modal__subtitle">Period</h3>
+                <p class="info-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
             </li>
-            <li class="loan-data__item">
-                <p class="loan-data__status">Status: <span class="loan-data__status_accent-color">Paid</span></p>
+            <li class="info-modal__item">
+                <p class="info-modal__status">Status: <span class="info-modal__status_accent-color">Paid</span></p>
             </li>
         </ul>
-        <button class="modal__repay modal__repay_hover modal__repay_focus">I want to repay the loan</button>
+        <button class="info-modal__repay info-modal__repay_hover info-modal__repay_focus">I want to repay the loan</button>
     </div>
 </dialog>
-<dialog class="modal modal-successful-loan modal_padding-30 modal_background">
-    <div class="modal__container">
-        <span class="modal__icon check"></span>
-        <p class="modal__content">The loan was successfully closed</p>
+<dialog class="success-modal successful-modal-loan">
+    <div class="success-modal__container">
+        <span class="success-modal__icon check"></span>
+        <p class="success-modal__content">The loan was successfully closed</p>
     </div>
 </dialog>
-<dialog class="modal modal_padding-50 deposit-info">
-    <div class="modal__image modal__image_approved"></div>
-    <div class="modal__container modal__container_column">
-        <header class="modal__header">
-            <h3 class="modal__headline">Deposit info</h3>
+<dialog class="modal info-modal deposit-info">
+    <div class="info-modal__image"></div>
+    <div class="info-modal__container">
+        <header class="info-modal__header">
+            <h3 class="info-modal__headline">Deposit info</h3>
         </header>
-        <ul class="modal__loan-data deposit-data deposit-data_column">
-            <li class="deposit-data__item">
-                <label class="deposit-data__label">
-                    <input type="text" class="loan-data__input" disabled value="4000$">
-                </label>
+        <ul class="info-modal__list">
+            <li class="info-modal__item">
+                <h3 class="info-modal__subtitle">Loan details</h3>
+                <div class="loan-data">
+                    <label class="loan-data__label">
+                        <input type="text" class="loan-data__input" disabled value="4000$">
+                    </label>
+                    <span class="loan-data__under">under</span>
+                    <p class="loan-data__percent">5,6%
+                        <span class="loan-data__subtitle">percent</span>
+                    </p>
+                </div>
             </li>
-            <li class="deposit-data__item loan-data__item_column">
-                <h3 class="deposit-data__period">Period</h3>
-                <p class="deposit-data__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            <li class="info-modal__item">
+                <h3 class="info-modal__subtitle">Period</h3>
+                <p class="info-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
             </li>
-            <li class="deposit-data__item">
-                <p class="deposit-data__type">Type: <span class="deposit-data__type_accent-color">Saving</span></p>
+            <li class="info-modal__item">
+                <p class="info-modal__type">Type: <span class="deposit-data__type_accent-color">Saving</span></p>
             </li>
         </ul>
     </div>
@@ -306,19 +317,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.html" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.html" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
