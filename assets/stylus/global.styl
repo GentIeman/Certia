@@ -396,18 +396,54 @@
   min-height: 200px
   border-radius: var(--border-radius)
   border: none
+  overflow: hidden
+  z-index: 3
 
   &_background {
     background-color: var(--decorative-color)
+  }
+
+  &_padding-50 {
+    padding: 50px
+  }
+
+  &_padding-30 {
+    padding: 0 30px
   }
 
   &__container {
     display: flex
     justify-content: center
     align-items: center
+    position: relative
     gap: 0 50px
     min-width: inherit
     min-height: inherit
+
+    &_column {
+      flex-direction: column
+    }
+  }
+
+  &__header {
+    margin: 30px 0
+  }
+
+  &__headline {
+    font-style(bold, var(--large-size), var(--accent-font), var(--text-color-black))
+  }
+
+  &__image {
+    width: 150px
+    height: 150px
+
+    &_approved {
+      position: absolute
+      right: 0
+      top: 0
+      transform: rotate(-30deg) translate(10%, 0)
+      background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
+    }
   }
 
   &__icon {
@@ -416,6 +452,25 @@
 
     &.check {
       background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
+    }
+  }
+
+  &__loan-data {
+    margin-bottom: 100px
+  }
+
+  &__repay {
+    border: solid 1.5px var(--accent-color)
+    font-style(normal, var(--medium-size), var(--accent-font), var(--accent-color))
+    padding: 15px 35px
+    background-color: transparent
+    border-radius: 5px
+    cursor: pointer
+    transition all .3s linear
+
+    &:is(&_hover:hover, &_focus:focus) {
+      background-color: var(--accent-color)
+      color: var(--text-color-wt)
     }
   }
 
@@ -598,7 +653,41 @@
   display: flex
   align-items: center
   gap: 0 10px
-  width: max-content
+  width: 100%
+
+  &_column {
+    flex-direction: column
+    gap: 20px 0
+  }
+
+  &__item {
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 0 30px
+    width: 100%
+
+    &_column {
+      align-items: flex-start
+      flex-direction: column
+    }
+  }
+
+  &__status {
+    font-style(normal, var(--subtitle), var(--accent-font), var(--text-color-black))
+
+    &_accent-color {
+      color: var(--accent-color)
+    }
+  }
+
+  &__period {
+    font-style(normal, var(--subtitle), var(--accent-font), var(--text-color-black))
+  }
+
+  &__time {
+    font-style(normal, var(--medium-size), var(--accent-font), var(--accent-color))
+  }
 
   &__input {
     padding: var(--padding-input)
@@ -621,6 +710,14 @@
   &__subtitle {
     display: block
     font-style(normal, var(--small-size), var(--accent-font), var(--decorative-color))
+  }
+
+  &__type {
+    font-style(normal, 1.5rem, var(--accent-font), var(--text-color-black))
+
+    &_accent-color {
+      color: var(--accent-color)
+    }
   }
 }
 
@@ -689,15 +786,31 @@
     position: relative
     width: 200px
     height: 200px
-    background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
 
-    &:after {
-      content: "Approved"
-      position: absolute
-      bottom 0
-      left: 50%
-      transform: translate(-50%, 150%)
-      font-style(normal, var(--subtitle), var(--accent-font), var(--accent-color))
+    &_approved {
+      background: no-repeat center / 100% url("../../static/icons/comment-check.svg")
+
+      &:after {
+        content: "Approved"
+        position: absolute
+        bottom 0
+        left: 50%
+        transform: translate(-50%, 150%)
+        font-style(normal, var(--subtitle), var(--accent-font), var(--accent-color))
+      }
+    }
+
+    &_cross {
+      background: no-repeat center / 100% url("../../static/icons/cross-circle.svg")
+
+      &:after {
+        content: "Refused"
+        position: absolute
+        bottom 0
+        left: 50%
+        transform: translate(-50%, 150%)
+        font-style(normal, var(--subtitle), var(--accent-font), var(--invalid-color))
+      }
     }
   }
 }
