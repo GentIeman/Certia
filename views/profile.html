@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Web resource for Certia Bank">
+    <meta name="keywords" content="profile, certia, Bank, Profile, Certia">
+    <meta name="author" content="Ilya Shepelev">
+    <meta name="copyright" content="Ilya Shepelev">
+    <meta name="publisher" content="Ilya Shepelev">
+    <meta name="robots" content="all">
+    <title>Profile</title>
+    <link rel="stylesheet" href="../assets/stylus/profile.css">
+    <link rel="stylesheet" href="../assets/stylus/base.css">
+    <link rel="stylesheet" href="../assets/stylus/global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/transfer.js" defer></script>
+    <script src="../static/scripts/info.js" defer></script>
+</head>
+<body>
+<header class="header">
+    <nav class="header__nav">
+        <a href="#" class="header__logo" title="Logo"></a>
+        <ul class="header__list">
+            <li class="header__item header__item_search header__item_hover header__item_focus">
+                <button class="header__btn btn search-icon" title="Search"></button>
+            </li>
+            <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
+                <button class="header__btn btn menu-burger-icon" title="Menu"></button>
+                <div class="dropdown__content">
+                    <ul class="dropdown__list">
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <span class="dropdown__icon home-icon"></span>
+                            <a href="#" class="dropdown__link">Home</a>
+                        </li>
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <span class="dropdown__icon money-icon"></span>
+                            <a href="#" class="dropdown__link">Credits</a>
+                        </li>
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <span class="dropdown__icon pyramid-icon"></span>
+                            <a href="#" class="dropdown__link">Deposits</a>
+                        </li>
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <span class="dropdown__icon bank-icon"></span>
+                            <a href="#" class="dropdown__link">About us</a>
+                        </li>
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
+                            <span class="dropdown__icon user-icon"></span>
+                            <a href="#" class="dropdown__link">Profile</a>
+                        </li>
+                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <span class="dropdown__icon log-out-icon"></span>
+                            <a href="#" class="dropdown__link">Log out</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="search-backdrop">
+    <div class="search-container">
+        <form class="search search_hover search_focus">
+            <label>
+                <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
+            </label>
+            <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
+                    title="Search"></button>
+        </form>
+        <div class="results">
+            <ul class="results__list">
+                <li class="results__item results__item_hover results__item_focus">
+                    <a href="#" class="results__suggestion">Credits</a>
+                </li>
+                <li class="results__item results__item_hover results__item_focus">
+                    <a href="#" class="results__suggestion">Deposits</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="profile">
+    <header class="profile__header">
+        <h1 class="profile__headline headings">Profile</h1>
+    </header>
+    <div class="user-card">
+        <div class="user-card__avatar">
+            <img src="../static/icons/user-wt.svg" alt="Avatar" width="80" height="80">
+        </div>
+        <ul class="user-card__list">
+            <li class="user-card__item">
+                <p class="user-card__title user-card__title_bold">Ilya Shepelev</p>
+                <span class="user-card__subtitle">username</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title">ilya@gmail.com</p>
+                <span class="user-card__subtitle">email</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title">8 965 123 45 67</p>
+                <span class="user-card__subtitle">phone</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title">NY, wall street, 9</p>
+                <span class="user-card__subtitle">address</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title">40817810466060345</p>
+                <span class="user-card__subtitle">account number</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title user-card__title_red">1000$</p>
+                <span class="user-card__subtitle">debt</span>
+            </li>
+        </ul>
+    </div>
+    <section class="cards">
+        <header class="cards__header">
+            <h2 class="cards__headline">Cards</h2>
+        </header>
+        <ul class="cards__list">
+            <li class="cards__item">
+                <div class="card">
+                    <div class="card__icon"></div>
+                    <p class="card__type">Visa gold<span class="card__number">* 1234</span></p>
+                    <p class="card__balance">5000$</p>
+                </div>
+            </li>
+            <li class="cards__item">
+                <div class="card">
+                    <div class="card__icon"></div>
+                    <p class="card__type">MasterCard<span class="card__number">* 5678</span></p>
+                    <p class="card__balance">-100$</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <section class="operation">
+        <header class="operation__header">
+            <h2 class="operation__headline">Operation</h2>
+        </header>
+        <ul class="operation__list">
+            <li class="operation__item">
+                <button class="operation__btn operation__btn-transfer operation__btn_hover operation__btn_focus">
+                    Transfer to a person
+                </button>
+            </li>
+            <li class="operation__item">
+                <button class="operation__btn operation__btn-loan operation__btn_hover operation__btn_focus">Loan status</button>
+            </li>
+            <li class="operation__item">
+                <button class="operation__btn operation__btn-deposit operation__btn_hover operation__btn_focus">Deposit status</button>
+            </li>
+        </ul>
+    </section>
+    <section class="activity">
+        <header class="activity__header">
+            <h2 class="activity__headline">Activity</h2>
+        </header>
+        <table class="activity__table">
+            <thead class="activity__table-head">
+            <tr class="activity__table-row">
+                <th class="activity__table-subtitle">account number</th>
+                <th class="activity__table-subtitle">operation</th>
+                <th class="activity__table-subtitle">user</th>
+            </tr>
+            </thead>
+            <tbody class="activity__table-body">
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            <tr class="activity__table-row activity__table-row_hover">
+                <td class="activity__table-data">* 1234</td>
+                <td class="activity__table-data">-100$</td>
+                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="feedback">
+        <h2 class="feedback__content">You liked the level of our work, or you have any suggestions?
+            Then you can leave your feedback by filling out a special form</h2>
+        <a href="#" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
+    </section>
+</section>
+<dialog class="modal transfer">
+    <div class="transfer__container">
+        <header class="transfer__header">
+            <h3 class="transfer__headline">Select the debit facility</h3>
+        </header>
+        <form class="transfer__form">
+            <label class="transfer__label">
+                <input type="text" list="card" class="transfer__input transfer__input_hover transfer__input_focus"
+                       placeholder="Where to write off money from" required>
+                <datalist id="card">
+                    <option value="* 1234">3000$</option>
+                    <option value="* 5678">5000$</option>
+                </datalist>
+            </label>
+            <label class="transfer__label">
+                <input type="number"
+                       class="transfer__input transfer__input_hover transfer__input_focus transfer__input_card"
+                       placeholder="Recipient's card number" required>
+            </label>
+            <label class="transfer__label">
+                <input type="number" min="50"
+                       class="transfer__input transfer__input_hover transfer__input_focus transfer__input_amount"
+                       placeholder="Amount" required>
+            </label>
+            <button type="submit" class="transfer__btn transfer__btn_hover transfer__btn_focus">Transfer</button>
+        </form>
+    </div>
+</dialog>
+<dialog class="modal successful-transfer modal_background">
+    <div class="modal__container">
+        <span class="modal__icon check"></span>
+        <p class="modal__content">Successful transfer</p>
+    </div>
+</dialog>
+<dialog class="modal modal_padding-50 loan-info">
+    <div class="modal__image modal__image_approved"></div>
+    <div class="modal__container modal__container_column">
+        <header class="modal__header">
+            <h3 class="modal__headline">Loan info</h3>
+        </header>
+        <ul class="modal__loan-data loan-data loan-data_column">
+            <li class="loan-data__item">
+                <label class="loan-data__label">
+                    <input type="text" class="loan-data__input" disabled value="4000$">
+                </label>
+                <span class="loan-data__under">under</span>
+                <p class="loan-data__percent">5,6%
+                    <span class="loan-data__subtitle">percent</span>
+                </p>
+            </li>
+            <li class="loan-data__item loan-data__item_column">
+                <h3 class="loan-data__period">Period</h3>
+                <p class="loan-data__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            </li>
+            <li class="loan-data__item">
+                <p class="loan-data__status">Status: <span class="loan-data__status_accent-color">Paid</span></p>
+            </li>
+        </ul>
+        <button class="modal__repay modal__repay_hover modal__repay_focus">I want to repay the loan</button>
+    </div>
+</dialog>
+<dialog class="modal modal-successful-loan modal_padding-30 modal_background">
+    <div class="modal__container">
+        <span class="modal__icon check"></span>
+        <p class="modal__content">The loan was successfully closed</p>
+    </div>
+</dialog>
+<dialog class="modal modal_padding-50 deposit-info">
+    <div class="modal__image modal__image_approved"></div>
+    <div class="modal__container modal__container_column">
+        <header class="modal__header">
+            <h3 class="modal__headline">Deposit info</h3>
+        </header>
+        <ul class="modal__loan-data deposit-data deposit-data_column">
+            <li class="deposit-data__item">
+                <label class="deposit-data__label">
+                    <input type="text" class="loan-data__input" disabled value="4000$">
+                </label>
+            </li>
+            <li class="deposit-data__item loan-data__item_column">
+                <h3 class="deposit-data__period">Period</h3>
+                <p class="deposit-data__time">31/05/2022 - 31/05/2023 (365 years)</p>
+            </li>
+            <li class="deposit-data__item">
+                <p class="deposit-data__type">Type: <span class="deposit-data__type_accent-color">Saving</span></p>
+            </li>
+        </ul>
+    </div>
+</dialog>
+<footer class="footer">
+    <div class="footer__menu">
+        <div class="footer__logo"></div>
+        <ul class="footer__list">
+            <li class="footer__item">
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+            </li>
+            <li class="footer__item">
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+            </li>
+            <li class="footer__item">
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+            </li>
+            <li class="footer__item">
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
+            </li>
+            <li class="footer__item">
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+            </li>
+        </ul>
+    </div>
+    <div class="footer__about-us">
+        <h2 class="footer__headline">About us</h2>
+        <p class="footer__description">
+            Our bank follows the trends, follows the development of technology and does everything possible to make you
+            feel good with us.
+        </p>
+        <ul class="footer__social-media">
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus instagram"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus twitter"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus linkedin"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus facebook"></li>
+        </ul>
+    </div>
+    <div class="footer__contacts">
+        <h2 class="footer__headline">Contacts</h2>
+        <ul class="footer__contacts-list">
+            <li class="footer__contacts-item">
+                <span class="footer__icon phone"></span>
+                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">8 903 123 45 67</a>
+            </li>
+            <li class="footer__contacts-item">
+                <span class="footer__icon email"></span>
+                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">certia@gmail.com</a>
+            </li>
+        </ul>
+    </div>
+</footer>
+</body>
+</html>
