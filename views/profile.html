@@ -19,6 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <script type="module" src="../static/scripts/closeModal.js"></script>
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/transfer.js" defer></script>
     <script src="../static/scripts/info.js" defer></script>
@@ -212,10 +213,10 @@
         <a href="./feedbacks.html" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
     </section>
 </section>
-<dialog class="transfer-modal transfer">
+<dialog class="modal transfer-modal" open>
     <div class="transfer-modal__container">
         <header class="transfer-modal__header">
-            <h3 class="transfer-modal__headline">Select the debit facility</h3>
+            <h3 class="transfer-modal__headline">transfer to another account</h3>
         </header>
         <form class="transfer-modal__form">
             <label class="transfer-modal__label">

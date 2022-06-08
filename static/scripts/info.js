@@ -13,12 +13,6 @@ repay.addEventListener("click", () => {
     loanModal.close()
 })
 
-const closeModal = (modal) => {
-    modal.addEventListener("click", (event) => {
-        if (event.target == event.currentTarget) modal.close()
-    })
-}
-
 loanModal.addEventListener("click", () => closeModal(loanModal))
 successfulModal.addEventListener("click", () => closeModal(successfulModal))
 depositModal.addEventListener("click", () => closeModal(depositModal))
