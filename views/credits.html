@@ -21,17 +21,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/goToBottom.js" defer></script>
+    <script src="../static/scripts/theme.js" defer></script>
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
         <a href="./home.html" class="header__logo" title="Logo"></a>
         <ul class="header__list">
+            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
+                <label class="header__label">
+                    <input type="checkbox" class="header__checkbox">
+                    <span class="header__theme-icon"></span>
+                </label>
+            </li>
             <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search-icon" title="Search"></button>
+                <button class="header__btn btn search" title="Search"></button>
             </li>
             <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger-icon" title="Menu"></button>
+                <button class="header__btn btn menu-burger" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">

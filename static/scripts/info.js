@@ -8,11 +8,19 @@ const depositModal = document.querySelector(".deposit-info")
 loanBtn.addEventListener("click", () => loanModal.showModal())
 depositBtn.addEventListener("click", () => depositModal.showModal())
 
+function closeModal(modal){
+    modal.addEventListener("click", (event) => {
+        if (event.target === event.currentTarget) modal.close()
+    })
+    return modal
+}
+
+
 repay.addEventListener("click", () => {
     successfulModal.showModal()
     loanModal.close()
 })
 
-loanModal.addEventListener("click", () => closeModal(loanModal))
-successfulModal.addEventListener("click", () => closeModal(successfulModal))
-depositModal.addEventListener("click", () => closeModal(depositModal))
+loanModal.addEventListener("click", closeModal(loanModal))
+successfulModal.addEventListener("click", closeModal(successfulModal))
+depositModal.addEventListener("click", closeModal(depositModal))
