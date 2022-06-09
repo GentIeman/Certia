@@ -25,12 +25,15 @@
 
   &__list {
     display: flex
-    gap: 0 45px
+    gap: 0 20px
     width: max-content
     height: auto
   }
 
   &__item {
+    display: flex
+    justify-content: center
+    align-items: center
     width: 44px
     height: 44px
     padding: 10px
@@ -47,9 +50,46 @@
     }
   }
 
+  &__label {
+    display: flex
+    justify-content: center
+    align-items: center
+    position: relative
+    width: 100%
+    height: 100%
+  }
+
+  &__checkbox {
+    position: absolute
+    width: 100%
+    height: 100%
+    opacity: 0
+    cursor: pointer
+
+    &:checked ~ .header__theme-icon {
+      background: url("../../static/icons/light.svg")
+    }
+  }
+
+  &__theme-icon {
+    display: block
+    width: 24px
+    height: 24px
+    background: no-repeat center/100% url("../../static/icons/moon.svg")
+  }
+
+
   &__btn {
     width: 24px
     height: 24px
+
+    &.search {
+      background: var(--search)
+    }
+
+    &.menu-burger {
+      background: var(--menu-burger)
+    }
   }
 
   .dropdown {
@@ -162,7 +202,7 @@
       position: relative
       width: inherit
       height: 60px
-      background-color: var(--background-wt)
+      background-color: transparent
       border-radius: 10px
       transition: box-shadow .3s linear
       overflow: hidden
@@ -436,9 +476,14 @@
   border-radius: var(--border-radius)
   min-width: 700px
   min-height: 200px
+  background-color: var(--background-wt)
   border: none
   z-index: 3
   overflow: hidden
+
+  &::backdrop {
+    background: rgba(0,0,0,.4)
+  }
 }
 
 .user-data {
