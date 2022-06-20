@@ -1,5 +1,9 @@
 # File extensions
 *.css
+*.ini
 
 # Directories
 .idea
+
+# Files
+rb.php
