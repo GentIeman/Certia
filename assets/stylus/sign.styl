@@ -152,3 +152,14 @@ body {
     }
   }
 }
+
+.home-link {
+  position: absolute
+  top: 70px
+  left: 70px
+  font-style(normal, var(--small-size), var(--roboto), var(--accent-color))
+
+  &:is(&_hover:hover, &_focus:focus) {
+    text-decoration: underline
+  }
+}
