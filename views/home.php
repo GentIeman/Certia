@@ -256,10 +256,14 @@
             feel good with us.
         </p>
         <ul class="footer__social-media">
-            <li tabindex="0" class="footer__social-network footer__social-network_hover footer__social-network_focus instagram"></li>
-            <li tabindex="0" class="footer__social-network footer__social-network_hover footer__social-network_focus twitter"></li>
-            <li tabindex="0" class="footer__social-network footer__social-network_hover footer__social-network_focus linkedin"></li>
-            <li tabindex="0" class="footer__social-network footer__social-network_hover footer__social-network_focus facebook"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus instagram"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus twitter"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus linkedin"></li>
+            <li tabindex="0"
+                class="footer__social-network footer__social-network_hover footer__social-network_focus facebook"></li>
         </ul>
     </div>
     <div class="footer__contacts">
