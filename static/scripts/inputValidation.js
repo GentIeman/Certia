@@ -8,7 +8,7 @@ const addressField = document.querySelector(".address")
 const onlyWords = (...fields) => [...fields].map(field => field.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z\s]/gi, "")))
 onlyWords(fullNameField, genderField)
 
-addressField.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z,.0-9]/gi, ""))
+addressField.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z\s,.0-9]/gi, ""))
 emailField.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z0-9@.]/gi, ""))
 
 const prohibitEntrySpace = (...fields) => [...fields].map(field => field.addEventListener("input", (event) => event.target.value = event.target.value.replaceAll(" ", "")))
