@@ -36,7 +36,7 @@
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="text" class="sign__input address" placeholder="Sretensk, st. Veshnih Vody, 3"
-                       name="address" pattern="^+" required>
+                       name="address" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="tel" class="sign__input phone" placeholder="+7 (000) 000-00-00" name="phone" maxlength="18"
