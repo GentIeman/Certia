@@ -1,3 +1,6 @@
+<?php
+include("../modules/current_session.php");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,7 +28,7 @@
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="./home.html" class="header__logo" title="Logo"></a>
+        <a href="./home.php" class="header__logo" title="Logo"></a>
         <ul class="header__list">
             <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
                 <label class="header__label">
@@ -42,11 +45,11 @@
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.html" class="dropdown__link">Home</a>
+                            <a href="./home.php" class="dropdown__link">Home</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.html" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                             <span class="dropdown__icon pyramid-icon"></span>
@@ -54,16 +57,25 @@
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.html" class="dropdown__link">About us</a>
+                            <a href="./aboutus.php" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="./profile.html" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -72,21 +84,15 @@
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <form class="search search_hover search_focus">
+        <div class="search search_hover search_focus">
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
             <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
-        </form>
+        </div>
         <div class="results">
             <ul class="results__list">
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Credits</a>
-                </li>
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Deposits</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -110,7 +116,7 @@
                         <span class="deposits__card-description-subtitle">Perpetual</span>
                     </p>
                 </div>
-                <a href="./deposits-processing.html" class="deposits__card-link">Learn more</a>
+                <a href="./deposits-processing.php" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image layout-fluid-icon"></div>
         </li>
@@ -175,19 +181,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.html" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.html" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
