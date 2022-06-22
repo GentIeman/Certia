@@ -86,21 +86,15 @@ $user = R::load("clients", $_SESSION["user"]->id);
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <form class="search search_hover search_focus">
+        <div class="search search_hover search_focus">
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
             <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
-        </form>
+        </div>
         <div class="results">
             <ul class="results__list">
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Credits</a>
-                </li>
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Deposits</a>
-                </li>
             </ul>
         </div>
     </div>
