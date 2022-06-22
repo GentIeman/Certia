@@ -1,3 +1,7 @@
+<?php
+include("../modules/current_session.php");
+$user = R::load("clients", $_SESSION["user"]->id);
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -26,7 +30,7 @@
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="./home.html" class="header__logo" title="Logo"></a>
+        <a href="./home.php" class="header__logo" title="Logo"></a>
         <ul class="header__list">
             <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
                 <label class="header__label">
@@ -43,28 +47,37 @@
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.html" class="dropdown__link">Home</a>
+                            <a href="./home.php" class="dropdown__link">Home</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.html" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.html" class="dropdown__link">Deposits</a>
+                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.html" class="dropdown__link">About us</a>
+                            <a href="./aboutus.php" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="./profile.html" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -95,29 +108,31 @@
 <section class="feedbacks">
     <header class="feedbacks__header">
         <h1 class="feedbacks__headline headings">Feedbacks</h1>
-        <a href="./profile.html" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
+        <a href="./profile.php" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
             <span class="feedbacks__back-icon"></span>Back</a>
     </header>
-    <form class="feedbacks__form form-submit">
+    <form class="feedbacks__form form-submit" method="post"
+          action="./index.php?section=feedback&user_id=<?php echo $user["id"] ?>">
         <header class="feedbacks__form-header">
             <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
         </header>
         <div class="feedbacks__form-input-wrap">
             <label class="feedbacks__form-label username">Your name
-                <input type="text" value="Ilya Shepelev"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" required>
+                <input type="text" name="username" value="<?php echo $user["fullname"] ?>"
+                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
             <label class="feedbacks__form-label mail">Mail
-                <input type="email" value="ilya@gmail.com"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" required>
+                <input type="email" name="email" value="<?php echo $user["email"] ?>"
+                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
             <label class="feedbacks__form-label phone">Phone
-                <input type="tel" value="8 903 123 45 67"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" required>
+                <input type="tel" name="phone" value="<?php echo $user["phone"] ?>"
+                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
         </div>
         <label class="feedbacks__form-label message">Message
             <textarea placeholder="Your message"
+                      name="content"
                       class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
                       required></textarea>
         </label>
@@ -137,19 +152,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.html" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.html" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
