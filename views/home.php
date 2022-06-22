@@ -1,3 +1,7 @@
+<?php
+include("../modules/current_session.php");
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,24 +51,33 @@
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.html" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.html" class="dropdown__link">Deposits</a>
+                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.html" class="dropdown__link">About us</a>
+                            <a href="./aboutus.php" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="./profile.html" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -236,16 +249,16 @@
                 <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.html" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>

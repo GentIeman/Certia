@@ -1,3 +1,7 @@
+<?php
+include("../modules/current_session.php");
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,7 +29,7 @@
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="#" class="header__logo" title="Logo"></a>
+        <a href="./home.php" class="header__logo" title="Logo"></a>
         <ul class="header__list">
             <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
                 <label class="header__label">
@@ -42,28 +46,37 @@
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.html" class="dropdown__link">Home</a>
+                            <a href="./home.php" class="dropdown__link">Home</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.html" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.html" class="dropdown__link">Deposits</a>
+                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                             <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.html" class="dropdown__link">About us</a>
+                            <a href="#" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="./profile.html" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -119,7 +132,7 @@
             </li>
             <li class="filials__item">
                 <h2 class="filials__street">Park Place</h2>
-                <p class="filials__address">101 Church St, New York, NY 10007,  USA</p>
+                <p class="filials__address">101 Church St, New York, NY 10007, USA</p>
                 <p class="filials__time">Time: 9AM-21PM </p>
             </li>
             <li class="filials__item">
@@ -129,7 +142,9 @@
             </li>
         </ul>
         <div class="filials__map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.627529545747!2d-74.01025439106593!3d40.70733003807744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1710b6a0a1%3A0x277c2e31942cde8f!2sSamuel%20Eber%20Law%20Office%3A%20Eber%20Samuel!5e0!3m2!1sen!2sus!4v1654583451256!5m2!1sen!2sus" width="800" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.627529545747!2d-74.01025439106593!3d40.70733003807744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1710b6a0a1%3A0x277c2e31942cde8f!2sSamuel%20Eber%20Law%20Office%3A%20Eber%20Samuel!5e0!3m2!1sen!2sus!4v1654583451256!5m2!1sen!2sus"
+                    width="800" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 </section>
@@ -138,19 +153,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.html" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.html" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.html" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
                 <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.html" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
