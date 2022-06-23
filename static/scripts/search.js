@@ -73,6 +73,15 @@ searchIcon.addEventListener("click", () => {
     searchField.focus()
 })
 
+searchBtn.addEventListener("click", () => {
+    for (let result of results) {
+        if (result.pageName.toLowerCase().includes(searchField.value.toLowerCase())) {
+            createResultList(result)
+            resultBlock.classList.add("results_show")
+        }
+    }
+})
+
 const setAttributes = (el, attrs) => {
     for (let key in attrs) {
         el.setAttribute(key, attrs[key]);
@@ -94,12 +103,5 @@ searchBackDrop.addEventListener("click", (event) => {
     if (event.target == event.currentTarget) {
         searchBackDrop.classList.remove("search-backdrop_show")
         resultBlock.classList.remove("results_show")
-    }
-})
-
-searchBtn.addEventListener("click", () => {
-    resultBlock.classList.add("results_show")
-    for (let result of results) {
-        if (result.pageName.toLowerCase().includes(searchField.value.toLowerCase())) createResultList(result)
     }
 })

@@ -1,6 +1,7 @@
 # File extensions
 *.css
 *.ini
+*.jpeg
 
 # Directories
 .idea
