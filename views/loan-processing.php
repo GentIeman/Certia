@@ -1,5 +1,6 @@
 <?php
 include("../modules/current_session.php");
+$user = $_SESSION["user"];
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,12 +119,6 @@ include("../modules/current_session.php");
             <li class="user-data__item">
                 <p class="user-data__content">2000 $</p>
                 <span class="user-data__subtitle">* 5678</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Loans: none</p>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Debts: none</p>
             </li>
         </ul>
     </div>

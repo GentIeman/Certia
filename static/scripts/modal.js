@@ -2,8 +2,7 @@ const btn = document.querySelector(".open-modal")
 const modal = document.querySelector(".modal")
 const form = document.querySelector(".form-submit")
 
-form.addEventListener("submit", (event) => {
-    event.preventDefault()
+form.addEventListener("submit", () => {
     modal.showModal()
 }, true)
 
