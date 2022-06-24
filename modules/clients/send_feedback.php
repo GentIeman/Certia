@@ -7,4 +7,4 @@ $feedback->phone = $_POST["phone"];
 $feedback->content = trim($_POST["content"]);
 $client->ownFeedbacksList[] = $feedback;
 R::storeAll([$client, $feedback]);
-header("Location:feedbacks.php");
+echo "ok";
