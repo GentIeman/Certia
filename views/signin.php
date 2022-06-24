@@ -21,6 +21,7 @@
     <script src="../static/scripts/showPassword.js" defer></script>
     <script src="../static/scripts/phoneNumberValidation.js" defer></script>
     <script src="../static/scripts/tooltip.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <a href="./home.php" class="home-link home-link_hover home-link_focus">Back to home</a>
@@ -41,7 +42,10 @@
                 <span class="sign__show-password"></span>
             </label>
         </div>
-        <button type="submit" class="sign__btn sign__btn_hover sign__btn_focus">Sign in</button>
+        <button type="button"
+                onclick="trySendData('sign__form', 'http://ceria/views/index.php?section=login', 'http://ceria/views/profile.php')"
+                class="sign__btn sign__btn_hover sign__btn_focus">Sign in
+        </button>
     </form>
     <footer class="sign__footer">
         <p class="sign__footer-content">
@@ -49,15 +53,10 @@
         </p>
     </footer>
 </section>
-<div class="tooltip-wrap <?php if (isset($_GET["passwordError"]) === true || isset($_GET["authError"]) === true): ?>tooltip-wrap_show<?php endif; ?>">
+<div class="tooltip-wrap">
     <div class="tooltip">
         <div class="tooltip__content">
-            <?php if (isset($_GET["passwordError"]) === true): ?>
-                <p class="tooltip__text">Invalid password</p>
-            <?php endif; ?>
-            <?php if (isset($_GET["authError"]) === true): ?>
-                <p class="tooltip__text">User not found</p>
-            <?php endif; ?>
+            <p class="tooltip__text"></p>
         </div>
     </div>
 </div>
