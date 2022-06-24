@@ -2,9 +2,10 @@
 $avatar = $_FILES["avatar"];
 
 if ($avatar["type"] === "image/jpeg") {
+    echo "ok";
     loadAvatar($avatar, $_SESSION["user"]);
 } else {
-    header("Location:profile.php?errorAvatarUpdate");
+    exit("File is not jpg");
 }
 
 function loadAvatar($file)
@@ -25,5 +26,4 @@ function setAvatar($file)
     $client = R::load("clients", $_GET["user_id"]);
     $client->avatar = $file;
     R::store($client);
-    header("Location:profile.php");
 }

@@ -38,7 +38,7 @@
             </label>
             <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="password" name="password" class="sign__input sign__input_password" placeholder="Password"
-                       required>
+                       autocomplete="off" required>
                 <span class="sign__show-password"></span>
             </label>
         </div>
