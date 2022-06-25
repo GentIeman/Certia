@@ -1,5 +1,6 @@
 <?php
 include("../modules/current_session.php");
+if (!$_SESSION["user"]) header("Location:signin.php");
 $user = $_SESSION["user"];
 ?>
 <!doctype html>
@@ -24,8 +25,9 @@ $user = $_SESSION["user"];
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/modal.js" defer></script>
+    <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
+    <script src="../static/scripts/inputValidation.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -148,7 +150,7 @@ $user = $_SESSION["user"];
                 <label class="form-registration__label">
                     <input type="text" list="cards"
                            class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus"
-                           required>
+                           maxlength="16" oninput="onlyNumber(this)" required>
                 </label>
                 <datalist id="cards">
                     <option value="* 1234">3000$</option>
@@ -164,7 +166,8 @@ $user = $_SESSION["user"];
             <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
                 and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal">
+        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
+                onclick="showModal('modal')">
             Checkout
         </button>
     </form>

@@ -19,9 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/showPassword.js" defer></script>
-    <script src="../static/scripts/phoneNumberValidation.js" defer></script>
-    <script src="../static/scripts/tooltip.js" defer></script>
     <script src="../static/scripts/errorChecker.js" defer></script>
+    <script src="../static/scripts/inputValidation.js" defer></script>
 </head>
 <body>
 <a href="./home.php" class="home-link home-link_hover home-link_focus">Back to home</a>
@@ -30,20 +29,20 @@
         <div class="sign__image"></div>
         <h1 class="sign__headline">Sign in</h1>
     </header>
-    <form class="sign__form" method="post" action="./index.php?section=login">
+    <form class="sign__form" method="post" action="#">
         <div class="sign__input-container">
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="tel" name="phone" class="sign__input phone" placeholder="Telephone" maxlength="18"
-                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" required>
+                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" oninput="phoneValidation(this)"
+                       required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="password" name="password" class="sign__input sign__input_password" placeholder="Password"
-                       autocomplete="off" required>
-                <span class="sign__show-password"></span>
+                <input type="password" name="password" class="sign__input password" placeholder="Password"
+                       autocomplete="off" oninput="passwordValidation(this)" required>
+                <span class="sign__show-password" onclick="showPassword(this, 'password')"></span>
             </label>
         </div>
-        <button type="button"
-                onclick="trySendData('sign__form', 'http://ceria/views/index.php?section=login', 'http://ceria/views/profile.php')"
+        <button type="submit" onclick="trySendData('sign__form', 'login', 'home.php')"
                 class="sign__btn sign__btn_hover sign__btn_focus">Sign in
         </button>
     </form>

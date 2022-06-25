@@ -1,5 +1,6 @@
 <?php
 include("../modules/current_session.php");
+if (!$_SESSION["user"]) header("Location:signin.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +24,7 @@ include("../modules/current_session.php");
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/modal.js" defer></script>
+    <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
 </head>
 <body>
@@ -119,15 +120,9 @@ include("../modules/current_session.php");
                 <p class="user-data__content">2000 $</p>
                 <span class="user-data__subtitle">* 5678</span>
             </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Loans: none</p>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Debts: none</p>
-            </li>
         </ul>
     </div>
-    <form class="form-registration form-submit">
+    <form class="form-registration form-submit" method="post" action="#">
         <header class="form-registration__header">
             <h2 class="form-registration__headline">Deposit form</h2>
         </header>
@@ -141,8 +136,9 @@ include("../modules/current_session.php");
                 </div>
             </li>
             <li class="form-registration__item">
-                <p class="form-registration__deposit-type">Type: <span
-                            class="form-registration__deposit-type_accent-color">saving</span></p>
+                <p class="form-registration__deposit-type">Type:
+                    <span class="form-registration__deposit-type_accent-color">saving</span>
+                </p>
             </li>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Period</h3>
@@ -151,9 +147,9 @@ include("../modules/current_session.php");
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Select card</h3>
                 <label class="form-registration__label">
-                    <input type="text" list="cards"
+                    <input type="text" list="cards" name="card"
                            class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus"
-                           required>
+                           maxlength="16" oninput="onlyNumber(this)" required>
                 </label>
                 <datalist id="cards">
                     <option value="* 1234">3000$</option>
@@ -163,13 +159,15 @@ include("../modules/current_session.php");
         </ul>
         <div class="agreement">
             <label class="agreement__checkbox-wrap agreement__checkbox-wrap_hover agreement__checkbox-wrap_focus">
-                <input type="checkbox" class="agreement__checkbox" required>
+                <input type="checkbox" class="agreement__checkbox" name="check" required>
                 <span class="agreement__checkbox-icon"></span>
             </label>
             <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
                 and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal">
+        <button type="submit"
+                class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
+                onclick="showModal('reference-modal')">
             Checkout
         </button>
     </form>
