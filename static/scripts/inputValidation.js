@@ -1,24 +1,32 @@
-const fullNameField = document.querySelector(".fullname")
-const genderField = document.querySelector(".gender")
-const emailField = document.querySelector(".email")
-const passwordField = document.querySelector(".password")
-const addressField = document.querySelector(".address")
+const onlyWords = field => field.value = field.value.replace(/[^A-Za-z\s]/gi, "")
+const emailValidation = field => field.value = field.value.replace(/[^A-Za-z0-9@.]/gi, "")
+const phoneValidation = field => field.value = field.value.replace(/[^0-9-()+\s]/g, "")
+const passwordValidation = field => field.value = field.value.replaceAll(/[^A-Za-z()+-{}0-9]/gi, "")
+const inputMaxlength = (field, maxlength) => field.value = (field.value.length > maxlength) ? field.value.slice(0, maxlength) : field.value
+const onlyNumber = field => field.value = field.value.replace(/\D/g, "")
+const trimLeft = field => field.value = field.value.trimLeft()
 
+const fullNameValidation = field => {
+    onlyWords(field)
+    trimLeft(field)
+}
 
-const onlyWords = (...fields) => [...fields].map(field => field.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z\s]/gi, "")))
-onlyWords(fullNameField, genderField)
+const addressValidation = field => {
+    field.value = field.value.replace(/[^A-Za-z\s,.0-9]/gi, "")
+    trimLeft(field)
+}
 
-addressField.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z\s,.0-9]/gi, ""))
-emailField.addEventListener("input", (event) => event.target.value = event.target.value.replace(/[^A-Za-z0-9@.]/gi, ""))
+const recipientValidation = (field, length = null) => {
+    inputMaxlength(field, length)
+    onlyNumber(field)
+}
 
-const prohibitEntrySpace = (...fields) => [...fields].map(field => field.addEventListener("input", (event) => event.target.value = event.target.value.replaceAll(" ", "")))
-prohibitEntrySpace(emailField, passwordField, genderField)
-
-genderField.addEventListener("input", (event) => {
-    event.target.value = event.target.value.charAt(0).toLowerCase() + event.target.value.slice(1);
-    if (event.target.value === "man" || event.target.value === "woman") {
+const genderValidation = () => {
+    const genderField = document.querySelector(`.gender`)
+    genderField.value = genderField.value.toLowerCase()
+    if (genderField.value === "man" || genderField.value === "woman") {
         genderField.setCustomValidity("")
     } else {
         genderField.setCustomValidity("Enter gender: Man or Woman")
     }
-})
+}

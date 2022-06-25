@@ -105,7 +105,7 @@ include("../modules/current_session.php");
                 <span class="hero__title">I want to get a loan, but I don't know how</span>
                 <span class="hero__subtitle">We will help</span>
             </h1>
-            <button class="hero__btn btn btn_background">Go to products</button>
+            <button class="hero__btn btn btn_background" onclick="goToBottom()">Go to products</button>
         </div>
         <div class="hero__image"></div>
     </div>

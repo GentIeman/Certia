@@ -1,7 +1,6 @@
-const goToBottomBtn = document.querySelector(".hero__btn")
-goToBottomBtn.addEventListener("click", () => {
+const goToBottom = () => {
     window.scrollTo({
         top: 700,
         behavior: "smooth"
     })
-})
+}

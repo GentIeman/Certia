@@ -88,7 +88,7 @@ const setAttributes = (el, attrs) => {
     }
 }
 
-const createResultList = (result) => {
+const createResultList = result => {
     let item = document.createElement("li")
     item.setAttribute("class", "results__item")
     setAttributes(item, {"class": "results__item results__item_hover results__item_focus"});

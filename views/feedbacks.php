@@ -24,7 +24,6 @@ $user = R::load("clients", $_SESSION["user"]->id);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/modal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
     <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
@@ -107,7 +106,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
             <span class="feedbacks__back-icon"></span>Back</a>
     </header>
     <form class="feedbacks__form form-submit" method="post"
-          action="./index.php?section=feedback&user_id=<?php echo $user["id"] ?>">
+          action="#">
         <header class="feedbacks__form-header">
             <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
         </header>
@@ -131,8 +130,8 @@ $user = R::load("clients", $_SESSION["user"]->id);
                       class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
                       required></textarea>
         </label>
-        <button type="button"
-                onclick="trySendData('feedbacks__form', 'http://ceria/views/index.php?section=feedback&user_id=<?php echo $user["id"] ?>', 'http://ceria/views/feedbacks.php')"
+        <button type="submit"
+                onclick="trySendData('feedbacks__form', 'feedback&user_id=<?php echo $user["id"] ?>', 'feedbacks.php', null, 'success-modal')"
                 class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-tooltip">Send Message
         </button>
     </form>
@@ -141,7 +140,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
 <dialog class="success-modal modal">
     <div class="success-modal__container">
         <span class="success-modal__icon check"></span>
-        <p class="success-modal__content">Review sent</p>
+        <p class="success-modal__content">Feedback send</p>
     </div>
 </dialog>
 <footer class="footer">

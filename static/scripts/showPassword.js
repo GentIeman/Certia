@@ -1,12 +1,10 @@
-const showPasswordBtn = document.querySelector(".sign__show-password")
-const password = document.querySelector(".sign__input_password")
-
-showPasswordBtn.addEventListener("click", () => {
-    if (password.type === "password") {
-        password.setAttribute("type", "text")
-        showPasswordBtn.classList.add("show")
+const showPassword = (toggle, field) => {
+    let passwordField = document.querySelector(`.${field}`)
+    if (passwordField.type === "password") {
+        passwordField.setAttribute("type", "text")
+        toggle.classList.add("show")
     } else {
-        password.setAttribute("type", "password")
-        showPasswordBtn.classList.remove("show")
+        passwordField.setAttribute("type", "password")
+        toggle.classList.remove("show")
     }
-})
+}

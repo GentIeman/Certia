@@ -20,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/showPassword.js" defer></script>
     <script src="../static/scripts/inputValidation.js" defer></script>
-    <script src="../static/scripts/phoneNumberValidation.js" defer></script>
     <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
@@ -30,41 +29,44 @@
         <div class="sign__image"></div>
         <h1 class="sign__headline">Sign up</h1>
     </header>
-    <form class="sign__form" method="post" action="./index.php?section=registration">
+    <form class="sign__form" method="post" action="#">
         <div class="sign__input-container">
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input fullname" name="fullname" placeholder="Josh Washington " required>
+                <input type="text" class="sign__input fullname" name="fullname" placeholder="Josh Washington"
+                       oninput="fullNameValidation(this)" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="text" class="sign__input address" placeholder="Sretensk, st. Veshnih Vody, 3"
-                       name="address" required>
+                       name="address" oninput="addressValidation(this)" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="tel" class="sign__input phone" placeholder="+7 (000) 000-00-00" name="phone" maxlength="18"
-                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" required>
+                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" oninput="phoneValidation(this)"
+                       required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="email" class="sign__input email" placeholder="josh@gmail.com" name="email" required>
+                <input type="email" class="sign__input email" placeholder="josh@gmail.com" name="email"
+                       oninput="emailValidation(this)" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="date" class="sign__input" name="birthday" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="text" name="gender" list="gender" class="sign__input gender" maxlength="5"
-                       placeholder="Gender" required>
+                       placeholder="Gender" oninput="genderValidation()" required>
                 <datalist id="gender">
                     <option value="man">Man</option>
                     <option value="woman">Woman</option>
                 </datalist>
             </label>
             <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="password" class="sign__input sign__input_password password" name="password"
-                       placeholder="Password" autocomplete="off" required>
-                <span class="sign__show-password"></span>
+                <input type="password" class="sign__input password" name="password"
+                       placeholder="Password" autocomplete="off" oninput="passwordValidation(this)" required>
+                <span class=" sign__show-password" onclick="showPassword(this, 'password')"></span>
             </label>
         </div>
-        <button type="button"
-                onclick="trySendData('sign__form', 'http://ceria/views/index.php?section=registration', 'http://ceria/views/home.php')"
+        <button type="submit"
+                onclick="trySendData('sign__form', 'registration', 'home.php')"
                 class="sign__btn sign__btn_hover sign__btn_focus">Sign up
         </button>
     </form>

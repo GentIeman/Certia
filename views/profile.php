@@ -1,6 +1,8 @@
 <?php
 include("../modules/clients/client_info.php");
 if (!$_SESSION["user"]) header("Location:signin.php");
+$pathToAvatar = "icons/user-wt.svg";
+if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->avatar;
 ?>
 <!doctype html>
 <html lang="en">
@@ -24,12 +26,11 @@ if (!$_SESSION["user"]) header("Location:signin.php");
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/transfer.js" defer></script>
-    <script src="../static/scripts/info.js" defer></script>
+    <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
-    <script src="../static/scripts/tooltip.js" defer></script>
-    <script src="../static/scripts/updateAvatar.js" defer></script>
+    <script src="../static/scripts/changeFileName.js" defer></script>
     <script src="../static/scripts/errorChecker.js" defer></script>
+    <script src="../static/scripts/inputValidation.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -103,11 +104,9 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         <h1 class="profile__headline headings">Profile</h1>
     </header>
     <div class="user-card">
-        <div class="user-card__avatar-wrap">
-            <img src="../static/<?php if ($user["avatar"] !== ""): ?>avatars/<?php echo $user["avatar"] ?><?php else: ?>icons/user-wt.svg<?php endif; ?>"
-                 alt="Avatar"
-                 class="user-card__avatar"
-                 width="100" height="100">
+        <div class="user-card__avatar-wrap" onclick="showModal('update-avatar')">
+            <img src="../static/<?php echo $pathToAvatar ?>" alt="Avatar" class="user-card__avatar" width="100"
+                 height="100">
         </div>
         <ul class="user-card__list">
             <li class="user-card__item">
@@ -172,20 +171,23 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </header>
         <ul class="operation__list">
             <li class="operation__item">
-                <button class="operation__btn operation__btn-transfer operation__btn_hover operation__btn_focus">
+                <button class="operation__btn operation__btn-transfer operation__btn_hover operation__btn_focus"
+                        onclick="showModal('transfer-modal')">
                     Transfer to a person
                 </button>
             </li>
             <?php if ($credits > 0): ?>
                 <li class="operation__item">
-                    <button class="operation__btn operation__btn-loan operation__btn_hover operation__btn_focus">
+                    <button class="operation__btn operation__btn-loan operation__btn_hover operation__btn_focus"
+                            onclick="showModal('loan-info')">
                         Loan status
                     </button>
                 </li>
             <?php endif;
             if ($deposits > 0): ?>
                 <li class="operation__item">
-                    <button class="operation__btn operation__btn-deposit operation__btn_hover operation__btn_focus">
+                    <button class="operation__btn operation__btn-deposit operation__btn_hover operation__btn_focus"
+                            onclick="showModal('deposit-info')">
                         Deposit status
                     </button>
                 </li>
@@ -223,17 +225,18 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         <a href="./feedbacks.php" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
     </section>
 </section>
-<dialog class="modal transfer-modal">
+<dialog class="modal transfer-modal" onclick="closeModal(this)">
     <div class="transfer-modal__container">
         <header class="transfer-modal__header">
             <h3 class="transfer-modal__headline">transfer to another account</h3>
         </header>
         <form class="transfer-modal__form" method="post"
-              action="./index.php?section=transfer-money&user_id=<?php echo $user["id"] ?>">
+              action="#">
             <label class="transfer-modal__label">
                 <input type="text" list="card" name="card"
                        class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_card"
                        placeholder="Transfer from" pattern="[0-9]{4} *[0-9]{4} *[0-9]{4} *[0-9]{4}"
+                       oninput="onlyNumber(this)"
                        maxlength="16" required>
                 <datalist id="card">
                     <?php foreach ($client_cards as $card): ?>
@@ -246,16 +249,16 @@ if (!$_SESSION["user"]) header("Location:signin.php");
             <label class="transfer-modal__label">
                 <input type="number" name="recipient" min="16"
                        class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_recipient"
-                       placeholder="Recipient's card number" required>
+                       placeholder="Recipient's card number" oninput="recipientValidation(this, 16)" required>
             </label>
             <label class="transfer-modal__label">
                 <input type="number" min="50" max="10000" name="amount"
                        class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_amount"
-                       placeholder="Amount" required>
+                       placeholder="Amount" oninput="onlyNumber(this)" required>
             </label>
-            <button type="button"
-                    onclick="trySendData('transfer-modal__form', 'http://ceria/modules/clients/transfer_money.php', 'http://ceria/views/profile.php')"
-                    class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip">
+            <button type="submit"
+                    onclick="trySendData('transfer-modal__form', 'transfer-money&user_id=<?php echo $user["id"] ?>', 'profile.php', 'transfer-modal', 'successful-transfer')"
+                    class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip ">
                 Transfer
             </button>
         </form>
@@ -267,7 +270,7 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         <p class="success-modal__content">Successful transfer</p>
     </div>
 </dialog>
-<dialog class="modal info-modal loan-info">
+<dialog class="modal info-modal loan-info" onclick="closeModal(this)">
     <div class="info-modal__image"></div>
     <div class="info-modal__container">
         <header class="info-modal__header">
@@ -299,7 +302,7 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </table>
     </div>
 </dialog>
-<dialog class="modal info-modal deposit-info">
+<dialog class="modal info-modal deposit-info" onclick="closeModal(this)">
     <div class="info-modal__container">
         <header class="info-modal__header">
             <h3 class="info-modal__headline">Deposits info</h3>
@@ -328,17 +331,17 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </table>
     </div>
 </dialog>
-<dialog class="modal update-avatar">
+<dialog class="modal update-avatar" onclick="closeModal(this)">
     <div class="update-avatar__container">
         <form class="update-avatar__form" method="post"
-              action="./index.php?section=update-avatar&user_id=<?php echo $user["id"] ?>"
+              action="#"
               enctype="multipart/form-data">
             <div class="update-avatar__content update-avatar__content_hover update-avatar__content_focus">
                 <p class="update-avatar__subtitle">Choose file (.jpg)</p>
                 <input type="file" name="avatar" class="update-avatar__input" accept=".jpg" required>
             </div>
-            <button type="button"
-                    onclick="trySendData('update-avatar__form', 'http://ceria/views/index.php?section=update-avatar&user_id=<?php echo $user["id"] ?>', 'http://ceria/views/profile.php', 'update-avatar')"
+            <button type="submit"
+                    onclick="trySendData('update-avatar__form', 'update-avatar&user_id=<?php echo $user["id"] ?>', 'profile.php', 'update-avatar')"
                     class="update-avatar__btn update-avatar__btn_hover update-avatar__btn_focus">
                 Update
             </button>
