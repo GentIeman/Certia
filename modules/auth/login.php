@@ -3,10 +3,10 @@ $client = R::findOne("clients", "phone = ?", array($_POST["phone"]));
 if ($client) {
     if (password_verify($_POST["password"], $client->pswd)) {
         $_SESSION["user"] = $client;
-        header("Location:profile.php");
+        echo "ok";
     } else {
-        header("Location:signin.php?passwordError");
+        exit("Invalid password");
     }
 } else {
-    header("Location:signin.php?authError");
+    exit("User not found");
 }

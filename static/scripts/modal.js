@@ -1,8 +1,8 @@
-const btn = document.querySelector(".open-modal")
+const showTooltipBtn = document.querySelector(".open-tooltip")
 const modal = document.querySelector(".modal")
 const form = document.querySelector(".form-submit")
 
-form.addEventListener("submit", () => {
+showTooltipBtn.addEventListener("click", () => {
     modal.showModal()
 }, true)
 

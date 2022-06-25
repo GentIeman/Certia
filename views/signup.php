@@ -21,6 +21,7 @@
     <script src="../static/scripts/showPassword.js" defer></script>
     <script src="../static/scripts/inputValidation.js" defer></script>
     <script src="../static/scripts/phoneNumberValidation.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <a href="./home.php" class="home-link home-link_hover home-link_focus">Back to home</a>
@@ -58,11 +59,14 @@
             </label>
             <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="password" class="sign__input sign__input_password password" name="password"
-                       placeholder="Password" required>
+                       placeholder="Password" autocomplete="off" required>
                 <span class="sign__show-password"></span>
             </label>
         </div>
-        <button type="submit" class="sign__btn sign__btn_hover sign__btn_focus">Sign up</button>
+        <button type="button"
+                onclick="trySendData('sign__form', 'http://ceria/views/index.php?section=registration', 'http://ceria/views/home.php')"
+                class="sign__btn sign__btn_hover sign__btn_focus">Sign up
+        </button>
     </form>
     <footer class="sign__footer">
         <p class="sign__footer-content">

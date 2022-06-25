@@ -8,7 +8,19 @@ $client->birthday = $_POST["birthday"];
 $client->gender = $_POST["gender"];
 $client->pswd = trim(password_hash($_POST["password"], PASSWORD_DEFAULT));
 $client->role = "user";
+$_SESSION["user"] = $client;
 
-// создание аккаунта в момент регистрации
-R::store($client);
-header('Location:home.php');
+$bankaccount = R::dispense("bankaccounts");
+$bankaccount->amount_account = 5000;
+$bankaccount->opening_date = date("Y-m-d");
+$bankaccount->status = "open";
+$client->ownBankaccountsList[] = $bankaccount;
+
+$last_card = R::findLast("cards");
+$card = R::dispense("cards");
+$card->name = "Visa";
+$card->number = $last_card["number"] + 1;
+$bankaccount->ownCardsList[] = $card;
+echo "ok";
+
+R::storeAll([$client, $bankaccount, $card]);

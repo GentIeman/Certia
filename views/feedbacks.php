@@ -26,6 +26,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/modal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -130,7 +131,9 @@ $user = R::load("clients", $_SESSION["user"]->id);
                       class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
                       required></textarea>
         </label>
-        <button type="submit" class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-modal">Send Message
+        <button type="button"
+                onclick="trySendData('feedbacks__form', 'http://ceria/views/index.php?section=feedback&user_id=<?php echo $user["id"] ?>', 'http://ceria/views/feedbacks.php')"
+                class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-tooltip">Send Message
         </button>
     </form>
     <div class="feedbacks__circle"></div>
