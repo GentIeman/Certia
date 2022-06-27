@@ -1,7 +1,11 @@
 <?php
 include("../modules/current_session.php");
-if (!$_SESSION["user"]) header("Location:signin.php");
+$plans = R::findAll("plans");
+$accounts = R::getAll("SELECT * FROM clientsbankaccounts");
+$clients = R::findAll("clients");
+$feedbacks = R::findAll("feedbacks")
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,8 +19,8 @@ if (!$_SESSION["user"]) header("Location:signin.php");
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
-    <title>Deposit processing</title>
-    <link rel="stylesheet" href="../assets/stylus/processing.css">
+    <title>Dashboards</title>
+    <link rel="stylesheet" href="../assets/stylus/admin.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
@@ -24,7 +28,6 @@ if (!$_SESSION["user"]) header("Location:signin.php");
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
 </head>
 <body>
@@ -73,9 +76,9 @@ if (!$_SESSION["user"]) header("Location:signin.php");
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                                 <span class="dropdown__icon admin-icon"></span>
-                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                                <a href="#" class="dropdown__link">Admin</a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
@@ -96,7 +99,7 @@ if (!$_SESSION["user"]) header("Location:signin.php");
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
-            <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
+            <button class="search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
         </div>
         <div class="results">
@@ -105,114 +108,106 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </div>
     </div>
 </div>
-<section class="processing">
-    <header class="processing__header">
-        <h1 class="processing__headline headings">Deposit processing</h1>
+<section class="admin">
+    <header class="admin__header">
+        <h1 class="admin__headline headings">Admin Dashboard</h1>
     </header>
-    <div class="user-data">
-        <header class="user-data__header">
-            <h2 class="user-data__headline">User info</h2>
-        </header>
-        <ul class="user-data__list">
-            <li class="user-data__item">
-                <p class="user-data__content">Ilya Shepelev</p>
-                <span class="user-data__subtitle">Username</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">3000$</p>
-                <span class="user-data__subtitle">* 1234</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">2000 $</p>
-                <span class="user-data__subtitle">* 5678</span>
-            </li>
-        </ul>
-    </div>
-    <form class="form-registration form-submit" method="post" action="#">
-        <header class="form-registration__header">
-            <h2 class="form-registration__headline">Deposit form</h2>
-        </header>
-        <ul class="form-registration__list">
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Deposit details</h3>
-                <div class="deposit-data">
-                    <label class="deposit-data__label">
-                        <input type="text" class="deposit-data__input" disabled value="4000$">
-                    </label>
-                </div>
-            </li>
-            <li class="form-registration__item">
-                <p class="form-registration__deposit-type">Type:
-                    <span class="form-registration__deposit-type_accent-color">saving</span>
-                </p>
-            </li>
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Period</h3>
-                <p class="form-registration__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Select card</h3>
-                <label class="form-registration__label">
-                    <input type="text" list="cards" name="card"
-                           class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus"
-                           maxlength="16" oninput="onlyNumber(this)" required>
-                </label>
-                <datalist id="cards">
-                    <option value="* 1234">3000$</option>
-                    <option value="* 5678">5000$</option>
-                </datalist>
-            </li>
-        </ul>
-        <div class="agreement">
-            <label class="agreement__checkbox-wrap agreement__checkbox-wrap_hover agreement__checkbox-wrap_focus">
-                <input type="checkbox" class="agreement__checkbox" name="check" required>
-                <span class="agreement__checkbox-icon"></span>
-            </label>
-            <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
-                and <span class="agreement__content_accent-color">requirements</span></p>
+    <div class="plans admin__section">
+        <h2 class="admin__subtitle">Plans</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">name</li>
+                <li class="admin__table-subtitle">description</li>
+                <li class="admin__table-subtitle">percent</li>
+                <li class="admin__table-subtitle">amount</li>
+                <li class="admin__table-subtitle">term</li>
+                <li class="admin__table-subtitle">type</li>
+            </ul>
+            <?php foreach ($plans as $plan): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $plan["name"] ?></li>
+                    <li class="admin__table-data"><?php echo ($plan["description"] === NULL) ? "-" : $plan["description"] ?></li>
+                    <li class="admin__table-data"><?php echo ($plan["percent"] === NULL) ? "-" : $plan["percent"] . " %" ?></li>
+                    <li class="admin__table-data"><?php echo $plan["amount"] ?>$</li>
+                    <li class="admin__table-data"><?php echo $plan["term"] ?> days</li>
+                    <li class="admin__table-data"><?php echo $plan["type"] ?></li>
+                </ul>
+            <?php endforeach; ?>
         </div>
-        <button type="submit"
-                class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
-                onclick="showModal('reference-modal')">
-            Checkout
-        </button>
-    </form>
-</section>
-<dialog class="modal reference-modal">
-    <div class="reference-modal__container modal__container_grid">
-        <header class="reference-modal__header">
-            <h3 class="reference-modal__headline">Deposit reference</h3>
-        </header>
-        <ul class="reference-modal__list">
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Deposit details</h3>
-            </li>
-            <li class="reference-modal__item">
-                <div class="deposit-data">
-                    <label class="deposit-data__label">
-                        <input type="text" class="deposit-data__input" disabled value="4000$">
-                    </label>
-                </div>
-            </li>
-            <li class="reference-modal__item">
-                <p class="reference-modal__subtitle">Type: <span
-                            class="reference-modal__subtitle_accent-color">saving</span>
-                </p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Period</h3>
-                <p class="reference-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Selected card</h3>
-                <label class="reference-modal__label">
-                    <input type="text" class="deposit-data__input" value="* 1234" disabled>
-                </label>
-            </li>
-        </ul>
-        <div class="reference-modal__image check"></div>
     </div>
-</dialog>
+    <div class="accounts admin__section">
+        <h2 class="admin__subtitle">Accounts</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">fullname</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">amount</li>
+                <li class="admin__table-subtitle">type</li>
+                <li class="admin__table-subtitle">percent</li>
+                <li class="admin__table-subtitle">opening date</li>
+                <li class="admin__table-subtitle">closing date</li>
+                <li class="admin__table-subtitle">status</li>
+
+            </ul>
+            <?php foreach ($accounts as $account): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $account["Fullname"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["Phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["AmountAccount"] ?>$</li>
+                    <li class="admin__table-data"><?php echo $account["AccountType"] ?></li>
+                    <li class="admin__table-data"><?php echo ($account["Percent"] === NULL) ? "-" : $account["Percent"] . " %" ?></li>
+                    <li class="admin__table-data"><?php echo $account["OpeningDate"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["ClosingDate"] ?> days</li>
+                    <li class="admin__table-data"><?php echo $account["Status"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="clients admin__section">
+        <h2 class="admin__subtitle">Clients</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">fullname</li>
+                <li class="admin__table-subtitle">address</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">email</li>
+                <li class="admin__table-subtitle">birthday</li>
+                <li class="admin__table-subtitle">gender</li>
+                <li class="admin__table-subtitle">role</li>
+            </ul>
+            <?php foreach ($clients as $client): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $client["fullname"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["address"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["email"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["birthday"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["gender"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["role"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="feedbacks admin__section">
+        <h2 class="admin__subtitle">Feedbacks</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">username</li>
+                <li class="admin__table-subtitle">email</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">content</li>
+            </ul>
+            <?php foreach ($feedbacks as $feedback): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $feedback["username"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["email"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["content"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+
+</section>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
@@ -264,6 +259,7 @@ if (!$_SESSION["user"]) header("Location:signin.php");
             </li>
         </ul>
     </div>
+    <p class="footer__slogan">Certia - convenient everywhere and in everything</p>
 </footer>
 </body>
 </html>
