@@ -201,26 +201,30 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         <header class="activity__header">
             <h2 class="activity__headline">Activity</h2>
         </header>
-        <table class="activity__table">
-            <thead class="activity__table-head">
-            <tr class="activity__table-row">
-                <th class="activity__table-subtitle">card number</th>
-                <th class="activity__table-subtitle">card name</th>
-                <th class="activity__table-subtitle">operation</th>
-                <th class="activity__table-subtitle">user</th>
-                <th class="activity__table-subtitle">timestamp</th>
-            </tr>
-            </thead>
-            <tbody class="activity__table-body">
-            <tr class="activity__table-row activity__table-row_hover">
-                <td class="activity__table-data">* 1234</td>
-                <td class="activity__table-data">Visa</td>
-                <td class="activity__table-data">-100$</td>
-                <td class="activity__table-data activity__table-data_accent-color">Josh</td>
-                <td class="activity__table-data">2022-06-22</td>
-            </tr>
-            </tbody>
-        </table>
+        <?php if (!$movements): ?>
+            <p class="activity__plug">Not activity</p>
+        <?php else: ?>
+            <div class="activity__table">
+                <ul class="activity__table-row">
+                    <li class="activity__table-subtitle">from</li>
+                    <li class="activity__table-subtitle">to</li>
+                    <li class="activity__table-subtitle">amount</li>
+                    <li class="activity__table-subtitle">timestamp</li>
+                </ul>
+                <?php foreach ($movements as $move): ?>
+                    <ul class="activity__table-row activity__table-row_hover">
+                        <li class="activity__table-data"><?php echo $move["from"] ?></li>
+                        <li class="activity__table-data"><?php echo $move["to"] ?></li>
+                        <li class="activity__table-data">
+                            <?php echo $move["direction"] . $move["amount"] ?>$
+                        </li>
+                        <li class="activity__table-data">
+                            <?php echo $move["timestamp"] ?>
+                        </li>
+                    </ul>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
     </section>
     <section class="feedback">
         <h2 class="feedback__content">You liked the level of our work, or you have any suggestions?
@@ -337,8 +341,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
 <dialog class="modal update-avatar" onclick="closeModal(this)">
     <div class="update-avatar__container">
         <form class="update-avatar__form" method="post"
-              action="#"
-              enctype="multipart/form-data">
+              action="#" enctype="multipart/form-data">
             <div class="update-avatar__content update-avatar__content_hover update-avatar__content_focus">
                 <p class="update-avatar__subtitle">Choose file (.jpg)</p>
                 <input type="file" name="avatar" class="update-avatar__input" accept=".jpg" required>

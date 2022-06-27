@@ -48,7 +48,8 @@
     gap: 10px 0
     margin-top: 50px
     width: 100%
-    height: auto
+    max-height: 400px
+    overflow-y: auto
   }
 
   &__title {
@@ -89,7 +90,8 @@
     display: grid
     gap: 30px 0
     width: 100%
-    height: auto
+    max-height: 388px
+    overflow-y: auto
   }
 }
 
@@ -167,10 +169,12 @@
   margin-top: 72px
   width: 100%
   height: auto
+  max-height: 516px
   padding: 48px 98px
   background-color: var(--background-wt)
   border: solid 2px var(--accent-color)
   border-radius: var(--border-radius)
+  overflow-y: auto
 
   &__header {
     margin-bottom: 20px
@@ -182,13 +186,9 @@
     border-collapse: collapse
   }
 
-  &__table-head {
-    border-bottom: 10px solid transparent
-  }
-
   &__table-row {
-    text-align: left
-    border-bottom: 10px solid transparent
+    display: grid
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
     transition: background-color .3s linear
 
     &_hover:hover {
@@ -207,10 +207,10 @@
   &__table-data {
     padding: 10px 0
     font-style(normal, var(--small-size), var(--accent-font), var(--accent-color))
+  }
 
-    &_accent-color {
-      color: var(--accent-color)
-    }
+  &__plug {
+    font-style(normal, var(--medium-size), var(--roboto), var(--text-color-light-gr))
   }
 }
 
