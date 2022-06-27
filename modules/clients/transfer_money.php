@@ -15,18 +15,18 @@ function getAccountByCard($number)
 
 function transferMoney($fromAccount, $toAccount, $amount)
 {
+    if ($fromAccount == $toAccount) exit ('transfer to the same card');
+
     $movement = R::dispense('movemoney');
     $movement->amount = $amount;
     $from = R::load('bankaccounts', $fromAccount);
-    if ($from->amount_account < $amount) {
-        exit ('Balance too low');
-    }
+    if ($from->amount_account < $amount) exit ('Balance too low');
     $from->amount_account -= $amount;
 
-    $movement->from = $from->id;
+    $movement->from_whom = $from->id;
     $to = R::load('bankaccounts', $toAccount);
     $to->amount_account += $amount;
-    $movement->to = $to->id;
+    $movement->to_whom = $to->id;
     R::storeAll([$to, $from, $movement]);
 }
 

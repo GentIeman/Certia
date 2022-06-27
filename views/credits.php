@@ -127,7 +127,7 @@ include("../modules/current_session.php");
                 <h2 class="products__card-headline">Cash loan</h2>
                 <p class="products__card-description">Don't delay shopping - fill out an application
                     and get a loan for your needs</p>
-                <a href="./loan-processing.php?credit_id=1" class="products__card-link">Learn more</a>
+                <a href="./loan-processing.php?plan_id=1" class="products__card-link">Learn more</a>
             </div>
             <div class="products__card-image money-icon"></div>
         </li>

@@ -131,15 +131,6 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                 <p class="user-card__title"><?php echo $user["address"] ?></p>
                 <span class="user-card__subtitle">address</span>
             </li>
-            <?php foreach ($user->ownBankaccountsList as $account):
-                $summ = $summ + $account->amount_account;
-                $account->amount_account > 0 ? $deposits++ : $credits++;
-                ?>
-                <li class="user-card__item">
-                    <p class="user-card__title"><?php echo $account["id"] ?></p>
-                    <span class="user-card__subtitle">account number</span>
-                </li>
-            <?php endforeach; ?>
             <li class="user-card__item">
                 <?php if ($summ < 0): ?>
                     <p class="user-card__title user-card__title_red"> <?php echo $summ ?></p>
@@ -149,6 +140,12 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                     <span class="user-card__subtitle">balance</span>
                 <?php endif; ?>
             </li>
+            <?php foreach ($user->ownBankaccountsList as $account): ?>
+                <li class="user-card__item">
+                    <p class="user-card__title"><?php echo $account["id"] ?></p>
+                    <span class="user-card__subtitle">account number</span>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
     <section class="cards">

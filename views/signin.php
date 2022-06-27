@@ -42,7 +42,7 @@
                 <span class="sign__show-password" onclick="showPassword(this, 'password')"></span>
             </label>
         </div>
-        <button type="submit" onclick="trySendData('sign__form', 'login', 'home.php')"
+        <button type="submit" onclick="trySendData('sign__form', 'login', 'profile.php')"
                 class="sign__btn sign__btn_hover sign__btn_focus">Sign in
         </button>
     </form>

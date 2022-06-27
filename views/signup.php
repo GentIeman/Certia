@@ -66,7 +66,7 @@
             </label>
         </div>
         <button type="submit"
-                onclick="trySendData('sign__form', 'registration', 'home.php')"
+                onclick="trySendData('sign__form', 'registration', 'profile.php')"
                 class="sign__btn sign__btn_hover sign__btn_focus">Sign up
         </button>
     </form>

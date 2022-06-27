@@ -118,8 +118,8 @@ include("../modules/current_session.php");
                     <p class="deposits__card-description-title">from 10$
                         <span class="deposits__card-description-subtitle">Min. amount</span>
                     </p>
-                    <p class="deposits__card-description-title">∞
-                        <span class="deposits__card-description-subtitle">Perpetual</span>
+                    <p class="deposits__card-description-title">270 days
+                        <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
                 <a href="./deposits-processing.php" class="deposits__card-link">Learn more</a>
@@ -154,7 +154,7 @@ include("../modules/current_session.php");
                     <p class="deposits__card-description-title">from 2000$
                         <span class="deposits__card-description-subtitle">Min. amount</span>
                     </p>
-                    <p class="deposits__card-description-title">1 year
+                    <p class="deposits__card-description-title">365 days
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
