@@ -9,13 +9,19 @@ const trySendData = (selectorForm, phpModule, locationTo, hiddenModal, successMo
         })
         if (res.ok) {
             let message = await res.text()
-            if (message == "ok") {
-                window.location.href = locationTo
-                closeParentModal(hiddenModal)
-                openSuccessModal(successModal)
-            } else {
-                closeParentModal(hiddenModal)
-                openTooltip(message)
+            switch (message) {
+                case "ok":
+                    window.location.href = locationTo
+                    closeParentModal(hiddenModal)
+                    openSuccessModal(successModal)
+                    break;
+                case "admin":
+                    window.location.href = "http://ceria/views/admin.php"
+                    break;
+                default:
+                    closeParentModal(hiddenModal)
+                    openTooltip(message)
+                    break;
             }
         }
     })
