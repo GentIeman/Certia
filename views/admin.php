@@ -1,9 +1,13 @@
 <?php
-include("../modules/current_session.php");
-$plans = R::findAll("plans");
-$accounts = R::getAll("SELECT * FROM clientsbankaccounts");
-$clients = R::findAll("clients");
-$feedbacks = R::findAll("feedbacks")
+require_once("../modules/current_session.php");
+if (!$client || $client["role"] !== "admin") {
+    header("Location:signin.php");
+} else {
+    $plans = R::findAll("plans");
+    $accounts = R::getAll("SELECT * FROM clientsbankaccounts");
+    $clients = R::findAll("clients");
+    $feedbacks = R::findAll("feedbacks");
+}
 ?>
 
 <!doctype html>

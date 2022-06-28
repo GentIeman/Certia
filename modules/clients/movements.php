@@ -3,16 +3,16 @@ $summ = 0;
 $credits = 0;
 $deposits = 0;
 $movemoney = [];
-foreach ($user->ownBankaccountsList as $account) {
+foreach ($client->ownBankaccountsList as $account) {
     $movemoney[] = R::findAll("movemoney", "from_whom = " . $account["id"] . " OR to_whom = " . $account["id"]);
 }
 
-foreach ($user->ownBankaccountsList as $account) {
+foreach ($client->ownBankaccountsList as $account) {
     $summ = $summ + $account->amount_account;
     $account->amount_account > 0 ? $deposits++ : $credits++;
 }
 
-$ownIds = array_column($user->ownBankaccountsList, "id");
+$ownIds = array_column($client->ownBankaccountsList, "id");
 function getOperationType($source, $ids)
 {
     return (array_search($source, $ids)) ? "-" : "+";

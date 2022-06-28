@@ -1,6 +1,6 @@
 <?php
-include("../modules/current_session.php");
-$user = R::load("clients", $_SESSION["user"]->id);
+require_once("../modules/current_session.php");
+if (!$client) header("Location:signin.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -118,15 +118,15 @@ $user = R::load("clients", $_SESSION["user"]->id);
         </header>
         <div class="feedbacks__form-input-wrap">
             <label class="feedbacks__form-label username">Your name
-                <input type="text" name="username" value="<?php echo $user["fullname"] ?>"
+                <input type="text" name="username" value="<?php echo $client["fullname"] ?>"
                        class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
             <label class="feedbacks__form-label mail">Mail
-                <input type="email" name="email" value="<?php echo $user["email"] ?>"
+                <input type="email" name="email" value="<?php echo $client["email"] ?>"
                        class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
             <label class="feedbacks__form-label phone">Phone
-                <input type="tel" name="phone" value="<?php echo $user["phone"] ?>"
+                <input type="tel" name="phone" value="<?php echo $client["phone"] ?>"
                        class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
             </label>
         </div>
@@ -137,7 +137,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
                       required></textarea>
         </label>
         <button type="submit"
-                onclick="trySendData('feedbacks__form', 'feedback&user_id=<?php echo $user["id"] ?>', 'feedbacks.php', null, 'success-modal')"
+                onclick="trySendData('feedbacks__form', 'feedback&user_id=<?php echo $client["id"] ?>', 'feedbacks.php', null, 'success-modal')"
                 class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-tooltip">Send Message
         </button>
     </form>
