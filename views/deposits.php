@@ -122,7 +122,7 @@ include("../modules/current_session.php");
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="./deposits-processing.php" class="deposits__card-link">Learn more</a>
+                <a href="./deposits-processing.php?plan_id=5" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image layout-fluid-icon"></div>
         </li>

@@ -143,7 +143,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
                     <label class="loan-data__label">
                         <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
+                    <span class="loan-data__under">for</span>
                     <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
@@ -166,7 +166,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
         </div>
         <button type="submit"
                 class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
-                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'loan-processing.php', null, 'reference-modal')">
+                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'loan-processing.php?plan_id=<?php echo $plan["id"] ?>', null, 'reference-modal')">
             Checkout
         </button>
     </form>
@@ -183,7 +183,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
                     <label class="loan-data__label">
                         <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
+                    <span class="loan-data__under">for</span>
                     <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
@@ -195,12 +195,6 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
                     <?php echo $current_date ?> - <?php echo $end_date ?>
                     (<?php echo $plan->term ?>days)
                 </p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Generated card</h3>
-                <label class="reference-modal__label">
-                    <input type="text" class="deposit-data__input" value="* 1234" disabled>
-                </label>
             </li>
         </ul>
         <div class="reference-modal__image check"></div>

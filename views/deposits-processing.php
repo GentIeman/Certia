@@ -1,6 +1,9 @@
 <?php
-include("../modules/current_session.php");
+include("../modules/clients/client_info.php");
 if (!$_SESSION["user"]) header("Location:signin.php");
+$plan = R::load("plans", $_GET["plan_id"]);
+$current_date = date("m/d/Y");
+$end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->term . "D")), "m/d/Y");
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,6 +29,8 @@ if (!$_SESSION["user"]) header("Location:signin.php");
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
+    <script src="../static/scripts/inputValidation.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -115,20 +120,19 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </header>
         <ul class="user-data__list">
             <li class="user-data__item">
-                <p class="user-data__content">Ilya Shepelev</p>
+                <p class="user-data__content"><?php echo $user["fullname"] ?></p>
                 <span class="user-data__subtitle">Username</span>
             </li>
-            <li class="user-data__item">
-                <p class="user-data__content">3000$</p>
-                <span class="user-data__subtitle">* 1234</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">2000 $</p>
-                <span class="user-data__subtitle">* 5678</span>
-            </li>
+            <?php foreach ($user->ownBankaccountsList as $account): ?>
+                <li class="user-data__item">
+                    <p class="user-data__content"><?php echo $account["id"] ?></p>
+                    <span class="user-data__subtitle">account number</span>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
-    <form class="form-registration form-submit" method="post" action="#">
+    <form class="form-registration" method="post"
+          action="index.php?section=new-account&plan_id=<?php echo $plan["id"] ?>">
         <header class="form-registration__header">
             <h2 class="form-registration__headline">Deposit form</h2>
         </header>
@@ -137,18 +141,20 @@ if (!$_SESSION["user"]) header("Location:signin.php");
                 <h3 class="form-registration__subtitle">Deposit details</h3>
                 <div class="deposit-data">
                     <label class="deposit-data__label">
-                        <input type="text" class="deposit-data__input" disabled value="4000$">
+                        <input type="text" class="deposit-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
                 </div>
             </li>
             <li class="form-registration__item">
                 <p class="form-registration__deposit-type">Type:
-                    <span class="form-registration__deposit-type_accent-color">saving</span>
+                    <span class="form-registration__deposit-type_accent-color"><?php echo $plan["type"] ?></span>
                 </p>
             </li>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Period</h3>
-                <p class="form-registration__time">31/05/2022 - 31/05/2023 (365 years)</p>
+                <p class="form-registration__time">
+                    <?php echo $current_date ?> - <?php echo $end_date ?>(<?php echo $plan->term ?>days)
+                </p>
             </li>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Select card</h3>
@@ -158,8 +164,13 @@ if (!$_SESSION["user"]) header("Location:signin.php");
                            maxlength="16" oninput="onlyNumber(this)" required>
                 </label>
                 <datalist id="cards">
-                    <option value="* 1234">3000$</option>
-                    <option value="* 5678">5000$</option>
+                    <?php foreach ($client_cards as $card): ?>
+                        <?php if ($card["AmountAccount"] > $plan->amount): ?>
+                            <option value="<?php echo $card["CardNumber"] ?>">
+                                <?php echo $card["AmountAccount"] ?>$
+                            </option>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
                 </datalist>
             </li>
         </ul>
@@ -173,7 +184,7 @@ if (!$_SESSION["user"]) header("Location:signin.php");
         </div>
         <button type="submit"
                 class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
-                onclick="showModal('reference-modal')">
+                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'deposits-processing.php?plan_id=<?php echo $plan["id"] ?>', null, 'reference-modal')">
             Checkout
         </button>
     </form>
@@ -196,18 +207,13 @@ if (!$_SESSION["user"]) header("Location:signin.php");
             </li>
             <li class="reference-modal__item">
                 <p class="reference-modal__subtitle">Type: <span
-                            class="reference-modal__subtitle_accent-color">saving</span>
+                            class="reference-modal__subtitle_accent-color"><?php echo $plan["type"] ?></span>
                 </p>
             </li>
             <li class="reference-modal__item">
                 <h3 class="reference-modal__subtitle">Period</h3>
-                <p class="reference-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Selected card</h3>
-                <label class="reference-modal__label">
-                    <input type="text" class="deposit-data__input" value="* 1234" disabled>
-                </label>
+                <p class="reference-modal__time"><?php echo $current_date ?> - <?php echo $end_date ?>
+                    (<?php echo $plan->term ?>days)</p>
             </li>
         </ul>
         <div class="reference-modal__image check"></div>

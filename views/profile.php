@@ -134,6 +134,8 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
             <li class="user-card__item">
                 <?php if ($summ < 0): ?>
                     <p class="user-card__title user-card__title_red"> <?php echo $summ ?></p>
+
+
                     <span class="user-card__subtitle">debt</span>
                 <?php else : ?>
                     <p class="user-card__title user-card__title"> <?php echo $summ ?></p>
@@ -216,11 +218,13 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                         <li class="activity__table-data"><?php echo $move["from"] ?></li>
                         <li class="activity__table-data"><?php echo $move["to"] ?></li>
                         <li class="activity__table-data">
-                            <?php echo $move["direction"] . $move["amount"] ?>$
+                            <?php echo $move["direction"] . $move["amount"] ?>
+                            $
                         </li>
                         <li class="activity__table-data">
                             <?php echo $move["timestamp"] ?>
                         </li>
+
                     </ul>
                 <?php endforeach; ?>
             </div>
