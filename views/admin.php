@@ -1,7 +1,11 @@
 <?php
 include("../modules/current_session.php");
-$user = R::load("clients", $_SESSION["user"]->id);
+$plans = R::findAll("plans");
+$accounts = R::getAll("SELECT * FROM clientsbankaccounts");
+$clients = R::findAll("clients");
+$feedbacks = R::findAll("feedbacks")
 ?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,8 +19,8 @@ $user = R::load("clients", $_SESSION["user"]->id);
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
-    <title>Feedbacks</title>
-    <link rel="stylesheet" href="../assets/stylus/feedbacks.css">
+    <title>Dashboards</title>
+    <link rel="stylesheet" href="../assets/stylus/admin.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
@@ -25,7 +29,6 @@ $user = R::load("clients", $_SESSION["user"]->id);
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
-    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -73,9 +76,9 @@ $user = R::load("clients", $_SESSION["user"]->id);
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                                 <span class="dropdown__icon admin-icon"></span>
-                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                                <a href="#" class="dropdown__link">Admin</a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
@@ -96,7 +99,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
-            <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
+            <button class="search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
         </div>
         <div class="results">
@@ -105,50 +108,106 @@ $user = R::load("clients", $_SESSION["user"]->id);
         </div>
     </div>
 </div>
-<section class="feedbacks">
-    <header class="feedbacks__header">
-        <h1 class="feedbacks__headline headings">Feedbacks</h1>
-        <a href="./profile.php" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
-            <span class="feedbacks__back-icon"></span>Back</a>
+<section class="admin">
+    <header class="admin__header">
+        <h1 class="admin__headline headings">Admin Dashboard</h1>
     </header>
-    <form class="feedbacks__form form-submit" method="post"
-          action="#">
-        <header class="feedbacks__form-header">
-            <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
-        </header>
-        <div class="feedbacks__form-input-wrap">
-            <label class="feedbacks__form-label username">Your name
-                <input type="text" name="username" value="<?php echo $user["fullname"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
-            <label class="feedbacks__form-label mail">Mail
-                <input type="email" name="email" value="<?php echo $user["email"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
-            <label class="feedbacks__form-label phone">Phone
-                <input type="tel" name="phone" value="<?php echo $user["phone"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
+    <div class="plans admin__section">
+        <h2 class="admin__subtitle">Plans</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">name</li>
+                <li class="admin__table-subtitle">description</li>
+                <li class="admin__table-subtitle">percent</li>
+                <li class="admin__table-subtitle">amount</li>
+                <li class="admin__table-subtitle">term</li>
+                <li class="admin__table-subtitle">type</li>
+            </ul>
+            <?php foreach ($plans as $plan): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $plan["name"] ?></li>
+                    <li class="admin__table-data"><?php echo ($plan["description"] === NULL) ? "-" : $plan["description"] ?></li>
+                    <li class="admin__table-data"><?php echo ($plan["percent"] === NULL) ? "-" : $plan["percent"] . " %" ?></li>
+                    <li class="admin__table-data"><?php echo $plan["amount"] ?>$</li>
+                    <li class="admin__table-data"><?php echo $plan["term"] ?> days</li>
+                    <li class="admin__table-data"><?php echo $plan["type"] ?></li>
+                </ul>
+            <?php endforeach; ?>
         </div>
-        <label class="feedbacks__form-label message">Message
-            <textarea placeholder="Your message"
-                      name="content"
-                      class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
-                      required></textarea>
-        </label>
-        <button type="submit"
-                onclick="trySendData('feedbacks__form', 'feedback&user_id=<?php echo $user["id"] ?>', 'feedbacks.php', null, 'success-modal')"
-                class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-tooltip">Send Message
-        </button>
-    </form>
-    <div class="feedbacks__circle"></div>
-</section>
-<dialog class="success-modal modal">
-    <div class="success-modal__container">
-        <span class="success-modal__icon check"></span>
-        <p class="success-modal__content">Feedback send</p>
     </div>
-</dialog>
+    <div class="accounts admin__section">
+        <h2 class="admin__subtitle">Accounts</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">fullname</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">amount</li>
+                <li class="admin__table-subtitle">type</li>
+                <li class="admin__table-subtitle">percent</li>
+                <li class="admin__table-subtitle">opening date</li>
+                <li class="admin__table-subtitle">closing date</li>
+                <li class="admin__table-subtitle">status</li>
+
+            </ul>
+            <?php foreach ($accounts as $account): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $account["Fullname"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["Phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["AmountAccount"] ?>$</li>
+                    <li class="admin__table-data"><?php echo $account["AccountType"] ?></li>
+                    <li class="admin__table-data"><?php echo ($account["Percent"] === NULL) ? "-" : $account["Percent"] . " %" ?></li>
+                    <li class="admin__table-data"><?php echo $account["OpeningDate"] ?></li>
+                    <li class="admin__table-data"><?php echo $account["ClosingDate"] ?> days</li>
+                    <li class="admin__table-data"><?php echo $account["Status"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="clients admin__section">
+        <h2 class="admin__subtitle">Clients</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">fullname</li>
+                <li class="admin__table-subtitle">address</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">email</li>
+                <li class="admin__table-subtitle">birthday</li>
+                <li class="admin__table-subtitle">gender</li>
+                <li class="admin__table-subtitle">role</li>
+            </ul>
+            <?php foreach ($clients as $client): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $client["fullname"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["address"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["email"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["birthday"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["gender"] ?></li>
+                    <li class="admin__table-data"><?php echo $client["role"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="feedbacks admin__section">
+        <h2 class="admin__subtitle">Feedbacks</h2>
+        <div class="admin__table">
+            <ul class="admin__table-row">
+                <li class="admin__table-subtitle">username</li>
+                <li class="admin__table-subtitle">email</li>
+                <li class="admin__table-subtitle">phone</li>
+                <li class="admin__table-subtitle">content</li>
+            </ul>
+            <?php foreach ($feedbacks as $feedback): ?>
+                <ul class="admin__table-row admin__table-row_hover">
+                    <li class="admin__table-data"><?php echo $feedback["username"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["email"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["phone"] ?></li>
+                    <li class="admin__table-data"><?php echo $feedback["content"] ?></li>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+
+</section>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
@@ -200,6 +259,7 @@ $user = R::load("clients", $_SESSION["user"]->id);
             </li>
         </ul>
     </div>
+    <p class="footer__slogan">Certia - convenient everywhere and in everything</p>
 </footer>
 </body>
 </html>

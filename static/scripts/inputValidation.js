@@ -30,3 +30,9 @@ const genderValidation = () => {
         genderField.setCustomValidity("Enter gender: Man or Woman")
     }
 }
+
+const birthdayValidation = field => {
+    if (new Date(field.value).getFullYear() > new Date().getFullYear() - 18) {
+        field.setCustomValidity("Most be over 18")
+    }
+}

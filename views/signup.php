@@ -49,7 +49,7 @@
                        oninput="emailValidation(this)" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="date" class="sign__input" name="birthday" required>
+                <input type="date" class="sign__input" name="birthday" oninput="birthdayValidation(this)" required>
             </label>
             <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
                 <input type="text" name="gender" list="gender" class="sign__input gender" maxlength="5"
@@ -66,7 +66,7 @@
             </label>
         </div>
         <button type="submit"
-                onclick="trySendData('sign__form', 'registration', 'home.php')"
+                onclick="trySendData('sign__form', 'registration', 'profile.php')"
                 class="sign__btn sign__btn_hover sign__btn_focus">Sign up
         </button>
     </form>

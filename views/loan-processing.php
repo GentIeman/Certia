@@ -1,7 +1,9 @@
 <?php
-include("../modules/current_session.php");
+include("../modules/clients/client_info.php");
 if (!$_SESSION["user"]) header("Location:signin.php");
-$user = $_SESSION["user"];
+$plan = R::load("plans", $_GET["plan_id"]);
+$current_date = date("m/d/Y");
+$end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->term . "D")), "m/d/Y");
 ?>
 <!doctype html>
 <html lang="en">
@@ -28,6 +30,7 @@ $user = $_SESSION["user"];
     <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
     <script src="../static/scripts/inputValidation.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -74,6 +77,12 @@ $user = $_SESSION["user"];
                                 <a href="./signin.php" class="dropdown__link">Sign in</a>
                             </li>
                         <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon admin-icon"></span>
+                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
                             <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                                 <span class="dropdown__icon log-out-icon"></span>
@@ -111,20 +120,19 @@ $user = $_SESSION["user"];
         </header>
         <ul class="user-data__list">
             <li class="user-data__item">
-                <p class="user-data__content">Ilya Shepelev</p>
+                <p class="user-data__content"><?php echo $user["fullname"] ?></p>
                 <span class="user-data__subtitle">Username</span>
             </li>
-            <li class="user-data__item">
-                <p class="user-data__content">3000$</p>
-                <span class="user-data__subtitle">* 1234</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">2000 $</p>
-                <span class="user-data__subtitle">* 5678</span>
-            </li>
+            <?php foreach ($user->ownBankaccountsList as $account): ?>
+                <li class="user-data__item">
+                    <p class="user-data__content"><?php echo $account["id"] ?></p>
+                    <span class="user-data__subtitle">account number</span>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
-    <form class="form-registration form-submit">
+    <form class="form-registration" method="post"
+          action="index.php?section=new-account&plan_id=<?php echo $plan["id"] ?>">
         <header class="form-registration__header">
             <h2 class="form-registration__headline">Credit form</h2>
         </header>
@@ -133,29 +141,19 @@ $user = $_SESSION["user"];
                 <h3 class="form-registration__subtitle">Loan details</h3>
                 <div class="loan-data">
                     <label class="loan-data__label">
-                        <input type="text" class="loan-data__input" disabled value="4000$">
+                        <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
-                    <p class="loan-data__percent">5,6%
+                    <span class="loan-data__under">for</span>
+                    <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
                 </div>
             </li>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Period</h3>
-                <p class="form-registration__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Select card</h3>
-                <label class="form-registration__label">
-                    <input type="text" list="cards"
-                           class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus"
-                           maxlength="16" oninput="onlyNumber(this)" required>
-                </label>
-                <datalist id="cards">
-                    <option value="* 1234">3000$</option>
-                    <option value="* 5678">5000$</option>
-                </datalist>
+                <p class="form-registration__time">
+                    <?php echo $current_date ?> - <?php echo $end_date ?>(<?php echo $plan->term ?>days)
+                </p>
             </li>
         </ul>
         <div class="agreement">
@@ -166,13 +164,14 @@ $user = $_SESSION["user"];
             <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
                 and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
-                onclick="showModal('modal')">
+        <button type="submit"
+                class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
+                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'loan-processing.php?plan_id=<?php echo $plan["id"] ?>', null, 'reference-modal')">
             Checkout
         </button>
     </form>
 </section>
-<dialog class="modal reference-modal">
+<dialog class="modal reference-modal" onclick="closeModal(this)">
     <div class="reference-modal__container modal__container_grid">
         <header class="reference-modal__header">
             <h3 class="reference-modal__headline">Loan reference</h3>
@@ -182,23 +181,20 @@ $user = $_SESSION["user"];
                 <h3 class="reference-modal__subtitle">Loan details</h3>
                 <div class="loan-data">
                     <label class="loan-data__label">
-                        <input type="text" class="loan-data__input" disabled value="4000$">
+                        <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
-                    <p class="loan-data__percent">5,6%
+                    <span class="loan-data__under">for</span>
+                    <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
                 </div>
             </li>
             <li class="reference-modal__item">
                 <h3 class="reference-modal__subtitle">Period</h3>
-                <p class="reference-modal__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Selected card</h3>
-                <label class="reference-modal__label">
-                    <input type="text" class="deposit-data__input" value="* 1234" disabled>
-                </label>
+                <p class="reference-modal__time">
+                    <?php echo $current_date ?> - <?php echo $end_date ?>
+                    (<?php echo $plan->term ?>days)
+                </p>
             </li>
         </ul>
         <div class="reference-modal__image check"></div>

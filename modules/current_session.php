@@ -5,4 +5,4 @@ require_once("../modules/database/ConnectDataBase.php");
 $connectDB = new ConnectDataBase("dbconfig");
 $connectDB->Connect();
 $connectDB->startSession();
-$user = $_SESSION["user"];
+if (isset($_SESSION["user"])) $user = $_SESSION["user"];

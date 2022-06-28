@@ -70,6 +70,12 @@ include("../modules/current_session.php");
                                 <a href="./signin.php" class="dropdown__link">Sign in</a>
                             </li>
                         <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon admin-icon"></span>
+                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
                             <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                                 <span class="dropdown__icon log-out-icon"></span>
@@ -112,11 +118,11 @@ include("../modules/current_session.php");
                     <p class="deposits__card-description-title">from 10$
                         <span class="deposits__card-description-subtitle">Min. amount</span>
                     </p>
-                    <p class="deposits__card-description-title">∞
-                        <span class="deposits__card-description-subtitle">Perpetual</span>
+                    <p class="deposits__card-description-title">270 days
+                        <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="./deposits-processing.php" class="deposits__card-link">Learn more</a>
+                <a href="./deposits-processing.php?plan_id=5" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image layout-fluid-icon"></div>
         </li>
@@ -148,7 +154,7 @@ include("../modules/current_session.php");
                     <p class="deposits__card-description-title">from 2000$
                         <span class="deposits__card-description-subtitle">Min. amount</span>
                     </p>
-                    <p class="deposits__card-description-title">1 year
+                    <p class="deposits__card-description-title">365 days
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>

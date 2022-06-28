@@ -1,7 +1,8 @@
 <?php
+
 class ConnectDataBase
 {
-    private $host, $port, $db_name, $db_user,$db_pswd, $db_enc;
+    private $host, $port, $db_name, $db_user, $db_pswd, $db_enc;
 
     public function __construct($name)
     {
@@ -14,7 +15,8 @@ class ConnectDataBase
         $this->db_enc = $conf["db_enc"];
     }
 
-    private function Connection(){
+    private function Connection()
+    {
         return R::setup("mysql:host=$this->host;port=$this->port;dbname=$this->db_name;charset=$this->db_enc", $this->db_user, $this->db_pswd);
     }
 
@@ -23,13 +25,20 @@ class ConnectDataBase
         return $this->Connection();
     }
 
-    public function isConnecting() {
+    public function isConnecting()
+    {
         if (!R::testConnection()) {
-            exit("Нет подключения к базе данных");
+            exit("DB is not connected!");
         }
     }
 
-    public function startSession() {
+    public function startSession()
+    {
         return session_start();
+    }
+
+    public function timeLifeSession($time)
+    {
+        return setcookie(session_name(), session_id(), time() + $time);
     }
 }

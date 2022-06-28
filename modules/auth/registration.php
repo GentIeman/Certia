@@ -13,7 +13,7 @@ $_SESSION["user"] = $client;
 $bankaccount = R::dispense("bankaccounts");
 $bankaccount->amount_account = 5000;
 $bankaccount->opening_date = date("Y-m-d");
-$bankaccount->status = "open";
+$bankaccount->status = "Open";
 $client->ownBankaccountsList[] = $bankaccount;
 
 $last_card = R::findLast("cards");
@@ -21,6 +21,13 @@ $card = R::dispense("cards");
 $card->name = "Visa";
 $card->number = $last_card["number"] + 1;
 $bankaccount->ownCardsList[] = $card;
-echo "ok";
 
 R::storeAll([$client, $bankaccount, $card]);
+$movemoneyrecord = R::dispense("movemoney");
+$movemoneyrecord->operation = "open";
+$movemoneyrecord->from_whom = NULL;
+$movemoneyrecord->to_whom = $bankaccount->id;
+$movemoneyrecord->amount = 0;
+R::store($movemoneyrecord);
+
+echo "ok";

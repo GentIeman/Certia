@@ -72,6 +72,12 @@ include("../modules/current_session.php");
                                 <a href="./signin.php" class="dropdown__link">Sign in</a>
                             </li>
                         <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon admin-icon"></span>
+                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            </li>
+                        <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
                             <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                                 <span class="dropdown__icon log-out-icon"></span>
