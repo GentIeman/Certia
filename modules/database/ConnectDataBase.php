@@ -36,4 +36,9 @@ class ConnectDataBase
     {
         return session_start();
     }
+
+    public function timeLifeSession($time)
+    {
+        return setcookie(session_name(), session_id(), time() + $time);
+    }
 }
