@@ -1,5 +1,5 @@
 <?php
-include("../modules/current_session.php");
+require_once("../modules/current_session.php");
 ?>
 
 <!doctype html>

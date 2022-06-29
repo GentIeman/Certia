@@ -1,8 +1,10 @@
 <?php
-include("../modules/clients/client_info.php");
-if (!$_SESSION["user"]) header("Location:signin.php");
-$pathToAvatar = "icons/user-wt.svg";
-if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->avatar;
+require_once("../modules/current_session.php");
+if (!$client) header("Location:signin.php");
+require_once("../modules/clients/check_avatar.php");
+require_once("../modules/clients/client_info.php");
+require_once("../modules/clients/check_debting.php");
+require_once("../modules/clients/movements.php");
 ?>
 <!doctype html>
 <html lang="en">
@@ -116,19 +118,19 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         </div>
         <ul class="user-card__list">
             <li class="user-card__item">
-                <p class="user-card__title user-card__title_bold"><?php echo $user["fullname"] ?></p>
+                <p class="user-card__title user-card__title_bold"><?php echo $client["fullname"] ?></p>
                 <span class="user-card__subtitle">username</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $user["email"] ?></p>
+                <p class="user-card__title"><?php echo $client["email"] ?></p>
                 <span class="user-card__subtitle">email</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $user["phone"] ?></p>
+                <p class="user-card__title"><?php echo $client["phone"] ?></p>
                 <span class="user-card__subtitle">phone</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $user["address"] ?></p>
+                <p class="user-card__title"><?php echo $client["address"] ?></p>
                 <span class="user-card__subtitle">address</span>
             </li>
             <li class="user-card__item">
@@ -142,7 +144,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                     <span class="user-card__subtitle">balance</span>
                 <?php endif; ?>
             </li>
-            <?php foreach ($user->ownBankaccountsList as $account): ?>
+            <?php foreach ($client->ownBankaccountsList as $account): ?>
                 <li class="user-card__item">
                     <p class="user-card__title"><?php echo $account["id"] ?></p>
                     <span class="user-card__subtitle">account number</span>
@@ -236,7 +238,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         <a href="./feedbacks.php" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
     </section>
 </section>
-<dialog class="modal transfer-modal" onclick="closeModal(this)">
+<dialog class="modal transfer-modal">
     <div class="transfer-modal__container">
         <header class="transfer-modal__header">
             <h3 class="transfer-modal__headline">transfer to another account</h3>
@@ -268,7 +270,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                        placeholder="Amount" oninput="onlyNumber(this)" required>
             </label>
             <button type="submit"
-                    onclick="trySendData('transfer-modal__form', 'transfer-money&user_id=<?php echo $user["id"] ?>', 'profile.php', 'transfer-modal', 'successful-transfer')"
+                    onclick="trySendData('transfer-modal__form', 'transfer-money&user_id=<?php echo $client["id"] ?>', 'profile.php', 'transfer-modal', 'successful-transfer')"
                     class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip ">
                 Transfer
             </button>
@@ -281,7 +283,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         <p class="success-modal__content">Successful transfer</p>
     </div>
 </dialog>
-<dialog class="modal info-modal loan-info" onclick="closeModal(this)">
+<dialog class="modal info-modal loan-info">
     <div class="info-modal__image"></div>
     <div class="info-modal__container">
         <header class="info-modal__header">
@@ -313,7 +315,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         </table>
     </div>
 </dialog>
-<dialog class="modal info-modal deposit-info" onclick="closeModal(this)">
+<dialog class="modal info-modal deposit-info">
     <div class="info-modal__container">
         <header class="info-modal__header">
             <h3 class="info-modal__headline">Deposits info</h3>
@@ -342,7 +344,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
         </table>
     </div>
 </dialog>
-<dialog class="modal update-avatar" onclick="closeModal(this)">
+<dialog class="modal update-avatar">
     <div class="update-avatar__container">
         <form class="update-avatar__form" method="post"
               action="#" enctype="multipart/form-data">
@@ -351,7 +353,7 @@ if ($_SESSION['user']->avatar) $pathToAvatar = "avatars/" . $_SESSION["user"]->a
                 <input type="file" name="avatar" class="update-avatar__input" accept=".jpg" required>
             </div>
             <button type="submit"
-                    onclick="trySendData('update-avatar__form', 'update-avatar&user_id=<?php echo $user["id"] ?>', 'profile.php', 'update-avatar')"
+                    onclick="trySendData('update-avatar__form', 'update-avatar&user_id=<?php echo $client["id"] ?>', 'profile.php', 'update-avatar')"
                     class="update-avatar__btn update-avatar__btn_hover update-avatar__btn_focus">
                 Update
             </button>

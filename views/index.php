@@ -12,7 +12,7 @@ $task = new IndividualTasks("dbconfig");
 if (isset($_GET["section"])) {
     switch ($_GET["section"]) {
         case "individual-tasks":
-            $task->gettingClientsInfo("debtors-more-month");
+            $task->gettingClientsInfo("account", 1);
             break;
         case "registration":
             require_once("../modules/auth/registration.php");

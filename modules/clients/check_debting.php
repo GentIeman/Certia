@@ -1,6 +1,6 @@
 <?php
 $accounts_for_check = [];
-foreach ($user->ownBankaccountsList as $account) {
+foreach ($client->ownBankaccountsList as $account) {
     if ($account->status === "Closed" && $account->plans->type === "Credit" && $account->amount_account < 0) {
         $accounts_for_check[] = $account;
     }

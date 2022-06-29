@@ -1,5 +1,7 @@
 <?php
-class IndividualTasks extends ConnectDataBase {
+
+class IndividualTasks extends ConnectDataBase
+{
     public function __construct($name)
     {
         parent::__construct($name);
@@ -12,12 +14,11 @@ class IndividualTasks extends ConnectDataBase {
         switch ($event) {
             // Получение клиентов банка по возрастному признаку
             case "birthday":
-                $current_year = date("Y");
-                $clients = R::findALl("clients", "YEAR(birthday) = $current_year - $param");
+                $clients = R::findALl("clients", "birthday = '$param'");
                 break;
             // Получение клиентов банка по группе фамилия
             case "surname":
-                $clients = R::findAll("clients", "fullname LIKE ? ", [ "%$param%" ]);
+                $clients = R::findAll("clients", "fullname LIKE ? ", ["%$param%"]);
                 break;
             // Получение клиентов банка по половому признаку
             case "gender":
@@ -25,7 +26,7 @@ class IndividualTasks extends ConnectDataBase {
                 break;
             // Получение всех клиентов с наименьшей и наибольшей суммой задолжности по кредиту
             case "debts":
-                $clients = R::getAll("SELECT * FROM clientsbankaccounts WHERE AmountAccount < 0 AND AccountType = 'Credit' ORDER BY AmountAccount $param");
+                $clients = R::getAll("SELECT * FROM clientsbankaccounts WHERE AmountAccount < 0 AND AccountType = 'Credit' ORDER BY AmountAccount $param limit 1");
                 break;
             // Получение полной информации о клиенте с заданым номер счета
             case "account":
@@ -33,7 +34,7 @@ class IndividualTasks extends ConnectDataBase {
                 break;
             // получение клиента с наибольшей (наименьшей) суммой кредита
             case "credits":
-                $clients = R::getAll("SELECT ClientId, Fullname, AccountId, AmountAccount, AccountType FROM clientsbankaccounts WHERE AccountType = 'Credit' AND AmountAccount > 0 ORDER BY AmountAccount $param limit 1");
+                $clients = R::getAll("SELECT ClientId, Fullname, AccountId, AmountAccount, AccountType FROM clientsbankaccounts WHERE AccountType = 'Credit' AND AmountAccount < 0 ORDER BY AmountAccount $param limit 1");
                 break;
             // проверка наличия банковского счета по номеру телефона
             case "phone":
@@ -42,9 +43,9 @@ class IndividualTasks extends ConnectDataBase {
             // Получение общего числа задолжников, с задолжностью больше месяца
             case "debtors-more-month":
                 $current_month = date('m');
-                $payments = R::getAll("SELECT * FROM accountloanpayments WHERE AmountAccount < 0 AND MONTH(DateDebiting) < $current_month");
+                $payments = R::getAll("SELECT * FROM accountloanpayments");
                 foreach ($payments as $payment) {
-                    $clients = R::load("clients", $payment["ClientId"]);
+                    $clients = R::getAll("SELECT * FROM accountloanpayments WHERE AmountAccount < 0 AND MONTH(DateDebiting) < $current_month AND ClientId = " . $payment["ClientId"]);
                 }
                 break;
             // Получение всех клиентов
@@ -56,14 +57,16 @@ class IndividualTasks extends ConnectDataBase {
     }
 
     // Получение открытых кредитов за определенный период
-    public function gettingCreditsForPeriod($from, $to) {
+    public function gettingCreditsForPeriod($from, $to)
+    {
         $credits = R::getAll("SELECT ClientId, Fullname, AccountId, AmountAccount, OpeningDate, ClosingDate, Status FROM clientsbankaccounts WHERE AccountType = 'Credit' AND Status = 'open' AND OpeningDate BETWEEN '$from' AND '$to'");
         return (count($credits) > 0) ? print_r(json_encode($credits)) : print_r("Not found");
     }
 
     // Получение открытых кредитных счетов, общей суммы кредитных средств, выданных пользователям
-    public function gettingCredits() {
-        $credits = R::getAll("SELECT SUM(AmountAccount) AS SumAmountAccount, AccountType, Status FROM clientsbankaccounts WHERE AccountType = 'Credit' AND Status = 'open'");
+    public function gettingCredits()
+    {
+        $credits = R::getAll("SELECT SUM(AmountAccount) AS SumAmountAccount, AccountType FROM clientsbankaccounts WHERE AccountType = 'Credit'");
         return (count($credits) > 0) ? print_r(json_encode($credits)) : print_r("Not found");
     }
 

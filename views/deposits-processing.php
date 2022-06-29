@@ -1,6 +1,7 @@
 <?php
+require_once("../modules/current_session.php");
+if (!$client) header("Location:signin.php");
 include("../modules/clients/client_info.php");
-if (!$_SESSION["user"]) header("Location:signin.php");
 $plan = R::load("plans", $_GET["plan_id"]);
 $current_date = date("m/d/Y");
 $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->term . "D")), "m/d/Y");
@@ -27,7 +28,6 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/openModal.js" defer></script>
     <script src="../static/scripts/theme.js" defer></script>
     <script src="../static/scripts/inputValidation.js" defer></script>
     <script src="../static/scripts/errorChecker.js" defer></script>
@@ -120,10 +120,10 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
         </header>
         <ul class="user-data__list">
             <li class="user-data__item">
-                <p class="user-data__content"><?php echo $user["fullname"] ?></p>
+                <p class="user-data__content"><?php echo $client["fullname"] ?></p>
                 <span class="user-data__subtitle">Username</span>
             </li>
-            <?php foreach ($user->ownBankaccountsList as $account): ?>
+            <?php foreach ($client->ownBankaccountsList as $account): ?>
                 <li class="user-data__item">
                     <p class="user-data__content"><?php echo $account["id"] ?></p>
                     <span class="user-data__subtitle">account number</span>
