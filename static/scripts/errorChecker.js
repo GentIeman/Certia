@@ -3,7 +3,7 @@ const trySendData = (selectorForm, phpModule, locationTo, hiddenModal, successMo
     form.addEventListener("submit", async (event) => {
         event.preventDefault()
         const formData = new FormData(form)
-        const res = await fetch('https://ceria/views/index.php?section=' + phpModule, {
+        const res = await fetch('http://certia/views/index.php?section=' + phpModule, {
             method: "post",
             body: formData
         })
@@ -16,7 +16,7 @@ const trySendData = (selectorForm, phpModule, locationTo, hiddenModal, successMo
                     openSuccessModal(successModal)
                     break;
                 case "admin":
-                    window.location.href = "https://ceria/views/admin.php"
+                    window.location.href = "http://certia/views/admin.php"
                     break;
                 default:
                     closeParentModal(hiddenModal)
