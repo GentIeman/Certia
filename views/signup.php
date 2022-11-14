@@ -11,69 +11,90 @@
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
     <title>Sign up</title>
-    <link rel="stylesheet" href="../assets/stylus/sign.css">
-    <link rel="stylesheet" href="../assets/stylus/base.css">
-    <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
-    <script src="../static/scripts/showPassword.js" defer></script>
-    <script src="../static/scripts/inputValidation.js" defer></script>
-    <script src="../static/scripts/errorChecker.js" defer></script>
+    <link rel="stylesheet" href="../assets/sass/global.css">
+    <link rel="stylesheet" href="../assets/sass/styles/auth.css">
+    <script src="../static/scripts/change-step.js" defer></script>
+    <script src="../static/scripts/toggle-password.js" defer></script>
+    <script src="../libs/inputmask.js" defer></script>
+    <script src="../static/scripts/field-validation.js" defer></script>
 </head>
-<body>
-<a href="./home.php" class="home-link home-link_hover home-link_focus">Back to home</a>
-<section class="sign">
-    <header class="sign__header">
-        <div class="sign__image"></div>
-        <h1 class="sign__headline">Sign up</h1>
-    </header>
-    <form class="sign__form" method="post" action="#">
-        <div class="sign__input-container">
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input fullname" name="fullname" placeholder="Josh Washington"
-                       oninput="fullNameValidation(this)" required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" class="sign__input address" placeholder="Sretensk, st. Veshnih Vody, 3"
-                       name="address" oninput="addressValidation(this)" required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="tel" class="sign__input phone" placeholder="+7 (000) 000-00-00" name="phone" maxlength="18"
-                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" oninput="phoneValidation(this)"
-                       required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="email" class="sign__input email" placeholder="josh@gmail.com" name="email"
-                       oninput="emailValidation(this)" required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="date" class="sign__input" name="birthday" oninput="birthdayValidation(this)" required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="text" name="gender" list="gender" class="sign__input gender" maxlength="5"
-                       placeholder="Gender" oninput="genderValidation()" required>
-                <datalist id="gender">
-                    <option value="man">Man</option>
-                    <option value="woman">Woman</option>
-                </datalist>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="password" class="sign__input password" name="password"
-                       placeholder="Password" autocomplete="off" oninput="passwordValidation(this)" required>
-                <span class=" sign__show-password" onclick="showPassword(this, 'password')"></span>
-            </label>
-        </div>
-        <button type="submit"
-                onclick="trySendData('sign__form', 'registration', 'profile.php')"
-                class="sign__btn sign__btn_hover sign__btn_focus">Sign up
-        </button>
-    </form>
-    <footer class="sign__footer">
-        <p class="sign__footer-content">
-            Have already been with us? <a href="./signin.php" class="sign__link sign__link_hover sign__link_focus">Sign
-                in</a>
+<body class="page">
+<a href="./index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
+<section class="auth">
+    <div class="auth__container">
+        <header class="auth__header">
+            <h1 class="auth__headline">Sign up</h1>
+        </header>
+        <form class="auth__form form" method="post" action="./index.php?page=auth&action=registration">
+            <fieldset class="form__section form__section_active">
+                <legend class="form__legend">Personal data</legend>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="first-name" placeholder="First name" oninput="personalDataValidation(this, 'firstName')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="last-name" placeholder="Last name" oninput="personalDataValidation(this, 'lastName')" required>
+                </label>
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="patronymic" placeholder="Patronymic" oninput="personalDataValidation(this, 'patronymic')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="passport" placeholder="Passport" oninput="personalDataValidation(this, 'passport')" required>
+                </label>
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
+                    <input type="email" class="form__input" name="email" placeholder="Email address" oninput="personalDataValidation(this, 'email')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="date" class="form__input" name="birthday" placeholder="Birthday" oninput="personalDataValidation(this, 'birthDate')" required dataformatas="">
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="gender" list="gender" oninput="personalDataValidation(this, 'gender')" placeholder="Gender" required>
+                    <datalist id="gender">
+                        <option value="man"></option>
+                        <option value="woman"></option>
+                    </datalist>
+                </label>
+                <label for="" class="form__label form__label_full-width form__label_password form__label_focus form__label_hover form__label_password">
+                    <input type="password" class="form__input form__input-password" name="password" placeholder="Password" oninput="personalDataValidation(this, 'password')" required autocomplete>
+                    <span class="form__password-toggle" onclick="togglePassword(this, 'form__input-password')"></span>
+                </label>
+                <button type="button" class="form__btn btn form__btn-next-step form__btn_disabled form__btn_hover form__btn_focus" onclick="changeStep(1)" disabled>Continue</button>
+            </fieldset>
+            <fieldset class="form__section">
+                <legend class="form__legend">Location data</legend>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="city" placeholder="City" oninput="locationDataValidation(this, 'city')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="street" placeholder="Street" oninput="locationDataValidation(this, 'street')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="house" placeholder="House" oninput="locationDataValidation(this, 'house')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="building" placeholder="Building" oninput="locationDataValidation(this, 'building')">
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="flat" placeholder="Flat" oninput="locationDataValidation(this, 'flat')" required>
+                </label>
+                <label for="" class="form__label form__label_focus form__label_hover">
+                    <input type="text" class="form__input" name="zip-code" placeholder="Zip code" oninput="locationDataValidation(this, 'zipCode')" required>
+                </label>
+                <button type="button" class="form__btn btn form__btn_hover form__btn_focus" onclick="changeStep(-1)">Step 1</button>
+                <button type="submit" class="form__btn btn form__btn_submit form__btn_disabled form__btn_hover form__btn_focus" disabled>Sign up</button>
+            </fieldset>
+        </form>
+    </div>
+    <footer class="auth__footer">
+        <p class="auth__footer-text">
+            Have already been with us?
+            <a href="./index.php?page=login" class="auth__link auth__link_hover auth__link_focus">Sign in</a>
         </p>
     </footer>
 </section>
