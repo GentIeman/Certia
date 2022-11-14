@@ -11,44 +11,40 @@
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
     <title>Sign in</title>
-    <link rel="stylesheet" href="../assets/stylus/sign.css">
-    <link rel="stylesheet" href="../assets/stylus/base.css">
-    <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
-    <script src="../static/scripts/showPassword.js" defer></script>
-    <script src="../static/scripts/errorChecker.js" defer></script>
-    <script src="../static/scripts/inputValidation.js" defer></script>
+    <link rel="stylesheet" href="../assets/sass/global.css">
+    <link rel="stylesheet" href="../assets/sass/styles/auth.css">
+    <script src="../static/scripts/toggle-password.js" defer></script>
+    <script src="../libs/inputmask.js" defer></script>
+    <script src="../static/scripts/field-validation.js" defer></script>
 </head>
-<body>
-<a href="./home.php" class="home-link home-link_hover home-link_focus">Back to home</a>
-<section class="sign">
-    <header class="sign__header">
-        <div class="sign__image"></div>
-        <h1 class="sign__headline">Sign in</h1>
-    </header>
-    <form class="sign__form" method="post" action="#">
-        <div class="sign__input-container">
-            <label class="sign__input-wrap sign__input-wrap_underline sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="tel" name="phone" class="sign__input phone" placeholder="Telephone" maxlength="18"
-                       pattern="(^8|7|\+7)((\d{10})|(\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}))" oninput="phoneValidation(this)"
-                       required>
-            </label>
-            <label class="sign__input-wrap sign__input-wrap_password sign__input-wrap_hover sign__input-wrap_focus">
-                <input type="password" name="password" class="sign__input password" placeholder="Password"
-                       autocomplete="off" oninput="passwordValidation(this)" required>
-                <span class="sign__show-password" onclick="showPassword(this, 'password')"></span>
-            </label>
-        </div>
-        <button type="submit" onclick="trySendData('sign__form', 'login', 'profile.php')"
-                class="sign__btn sign__btn_hover sign__btn_focus">Sign in
-        </button>
-    </form>
-    <footer class="sign__footer">
-        <p class="sign__footer-content">
-            First time with us? <a href="./signup.php" class="sign__link sign__link_hover sign__link_focus">Sign up</a>
+<body class="page">
+<a href="./index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
+<section class="auth">
+    <div class="auth__container">
+        <header class="auth__header">
+            <h1 class="auth__headline">Sign in</h1>
+        </header>
+        <form class="auth__form form" method="post" action="./index.php?page=auth&action=login">
+            <fieldset class="form__section form__section_active">
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
+                    <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
+                </label>
+                <label for="" class="form__label form__label_full-width form__label_password form__label_focus form__label_hover form__label_password">
+                    <input type="password" class="form__input form__input-password" name="password" placeholder="Password" oninput="personalDataValidation(this, 'password')" required autocomplete>
+                    <span class="form__password-toggle" onclick="togglePassword(this, 'form__input-password')"></span>
+                </label>
+                <button type="submit" class="form__btn btn form__btn-next-step form__btn_hover form__btn_focus">Sign in</button>
+            </fieldset>
+        </form>
+    </div>
+    <footer class="auth__footer">
+        <p class="auth__footer-text">
+            First time with us?
+            <a href="./index.php?page=registration" class="auth__link auth__link_hover auth__link_focus">Sign up</a>
         </p>
     </footer>
 </section>
