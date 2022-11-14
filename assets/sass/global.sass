@@ -1,0 +1,103 @@
+@import "tools"
+
+:where(*)
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  text-decoration: none
+
+::-webkit-scrollbar-track
+  background-color: $decorative-color
+  border-radius: 20px
+
+
+::-webkit-scrollbar
+  width: 5px
+
+::-webkit-scrollbar-thumb
+  background-color: $accent-color
+  border-radius: 20px
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration
+  display: none
+
+html, body
+  height: 100%
+
+.btn
+  border: none
+  outline: none
+
+.form
+  position: relative
+
+  &__section
+    display: none
+    grid-template-columns: repeat(2, 1fr)
+    align-items: flex-start
+    width: 100%
+    gap: 10px
+    border: none
+    padding: 4px
+
+    &_active
+      display: grid
+
+  &__legend
+    width: 100%
+    @include font-style(bold, $medium-size, $accent-font, $accent-color)
+    margin-bottom: 10px
+
+  &__label
+    display: grid
+    grid-template-columns: auto
+    place-items: center
+    width: 100%
+    overflow: hidden
+    box-shadow: 0 0 0 1px $dark-green
+    border-radius: $input-border-radius
+    transition: box-shadow .3s linear
+
+    &_password
+      grid-template-columns: auto 50px
+      background-color: $decorative-color
+
+    &:is(&_hover:hover, &_focus:focus-within)
+      box-shadow: 0 0 0 3px $dark-green
+
+    &_full-width
+      grid-column: 1 / span 2
+
+  &__input
+    border: none
+    outline: none
+    width: inherit
+    padding: $input-padding
+    font-family: $roboto
+
+  &__password-toggle
+    width: 22px
+    height: 22px
+    cursor: pointer
+    background: no-repeat center / 100% url("../../static/icons/eye-crossed.svg")
+
+    &_active
+      background-image: url("../../static/icons/eye.svg")
+
+  &__btn
+    grid-column: 1 / span 2
+    padding: 10px 0
+    @include font-style(bold, $medium-size, $roboto, $white)
+    cursor: pointer
+    border-radius: $button-border-radius
+    transition: background-color .3s ease
+    background-color: $accent-color
+
+    &_disabled
+      background-color: $decorative-color
+
+    &:not(&_disabled):is(&_hover:hover, &_focus:focus)
+      background-color: $accent-color

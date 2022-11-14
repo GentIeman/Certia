@@ -1,3 +1,7 @@
+<?php
+require_once("../modules/current_session.php");
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,47 +19,70 @@
     <link rel="stylesheet" href="../assets/stylus/aboutus.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
+    <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/theme.js" defer></script>
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="#" class="header__logo" title="Logo"></a>
+        <a href="./home.php" class="header__logo" title="Logo"></a>
         <ul class="header__list">
+            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
+                <label class="header__label">
+                    <input type="checkbox" class="header__checkbox">
+                    <span class="header__theme-icon"></span>
+                </label>
+            </li>
             <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search-icon" title="Search"></button>
+                <button class="header__btn btn search" title="Search"></button>
             </li>
             <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger-icon" title="Menu"></button>
+                <button class="header__btn btn menu-burger" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon home-icon"></span>
-                            <a href="#" class="dropdown__link">Home</a>
+                            <a href="./home.php" class="dropdown__link">Home</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="#" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="#" class="dropdown__link">Deposits</a>
+                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
                             <span class="dropdown__icon bank-icon"></span>
                             <a href="#" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="#" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon admin-icon"></span>
+                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -64,21 +91,15 @@
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <form class="search search_hover search_focus">
+        <div class="search search_hover search_focus">
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
             <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
-        </form>
+        </div>
         <div class="results">
             <ul class="results__list">
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Credits</a>
-                </li>
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Deposits</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -111,7 +132,7 @@
             </li>
             <li class="filials__item">
                 <h2 class="filials__street">Park Place</h2>
-                <p class="filials__address">101 Church St, New York, NY 10007,  USA</p>
+                <p class="filials__address">101 Church St, New York, NY 10007, USA</p>
                 <p class="filials__time">Time: 9AM-21PM </p>
             </li>
             <li class="filials__item">
@@ -121,7 +142,9 @@
             </li>
         </ul>
         <div class="filials__map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.627529545747!2d-74.01025439106593!3d40.70733003807744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1710b6a0a1%3A0x277c2e31942cde8f!2sSamuel%20Eber%20Law%20Office%3A%20Eber%20Samuel!5e0!3m2!1sen!2sus!4v1654583451256!5m2!1sen!2sus" width="800" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d673.627529545747!2d-74.01025439106593!3d40.70733003807744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1710b6a0a1%3A0x277c2e31942cde8f!2sSamuel%20Eber%20Law%20Office%3A%20Eber%20Samuel!5e0!3m2!1sen!2sus!4v1654583451256!5m2!1sen!2sus"
+                    width="800" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </section>
 </section>
@@ -130,19 +153,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
                 <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>

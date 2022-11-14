@@ -1,3 +1,11 @@
+<?php
+require_once("../modules/current_session.php");
+if (!$client) header("Location:signin.php");
+include("../modules/clients/client_info.php");
+$plan = R::load("plans", $_GET["plan_id"]);
+$current_date = date("m/d/Y");
+$end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->term . "D")), "m/d/Y");
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,48 +23,72 @@
     <link rel="stylesheet" href="../assets/stylus/processing.css">
     <link rel="stylesheet" href="../assets/stylus/base.css">
     <link rel="stylesheet" href="../assets/stylus/global.css">
+    <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/modal.js" defer></script>
+    <script src="../static/scripts/theme.js" defer></script>
+    <script src="../static/scripts/inputValidation.js" defer></script>
+    <script src="../static/scripts/errorChecker.js" defer></script>
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="#" class="header__logo" title="Logo"></a>
+        <a href="./home.php" class="header__logo" title="Logo"></a>
         <ul class="header__list">
+            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
+                <label class="header__label">
+                    <input type="checkbox" class="header__checkbox">
+                    <span class="header__theme-icon"></span>
+                </label>
+            </li>
             <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search-icon" title="Search"></button>
+                <button class="header__btn btn search" title="Search"></button>
             </li>
             <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger-icon" title="Menu"></button>
+                <button class="header__btn btn menu-burger" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon home-icon"></span>
-                            <a href="#" class="dropdown__link">Home</a>
+                            <a href="./home.php" class="dropdown__link">Home</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon money-icon"></span>
-                            <a href="#" class="dropdown__link">Credits</a>
+                            <a href="./credits.php" class="dropdown__link">Credits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="#" class="dropdown__link">Deposits</a>
+                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
                         </li>
                         <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
                             <span class="dropdown__icon bank-icon"></span>
-                            <a href="#" class="dropdown__link">About us</a>
+                            <a href="./aboutus.php" class="dropdown__link">About us</a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon user-icon"></span>
-                            <a href="#" class="dropdown__link">Profile</a>
-                        </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon log-out-icon"></span>
-                            <a href="#" class="dropdown__link">Log out</a>
-                        </li>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon user-icon"></span>
+                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon admin-icon"></span>
+                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if (isset($_SESSION["user"]) === true): ?>
+                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
+                                <span class="dropdown__icon log-out-icon"></span>
+                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
             </li>
@@ -65,28 +97,22 @@
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <form class="search search_hover search_focus">
+        <div class="search search_hover search_focus">
             <label>
                 <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
             </label>
             <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
                     title="Search"></button>
-        </form>
+        </div>
         <div class="results">
             <ul class="results__list">
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Credits</a>
-                </li>
-                <li class="results__item results__item_hover results__item_focus">
-                    <a href="#" class="results__suggestion">Deposits</a>
-                </li>
             </ul>
         </div>
     </div>
 </div>
-<section class="loan-processing">
-    <header class="loan-processing__header">
-        <h1 class="loan-processing__headline headings">Loan processing</h1>
+<section class="processing">
+    <header class="processing__header">
+        <h1 class="processing__headline headings">Loan processing</h1>
     </header>
     <div class="user-data">
         <header class="user-data__header">
@@ -94,26 +120,19 @@
         </header>
         <ul class="user-data__list">
             <li class="user-data__item">
-                <p class="user-data__content">Ilya Shepelev</p>
+                <p class="user-data__content"><?php echo $client["fullname"] ?></p>
                 <span class="user-data__subtitle">Username</span>
             </li>
-            <li class="user-data__item">
-                <p class="user-data__content">3000$</p>
-                <span class="user-data__subtitle">* 1234</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">2000 $</p>
-                <span class="user-data__subtitle">* 5678</span>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Loans: none</p>
-            </li>
-            <li class="user-data__item">
-                <p class="user-data__content">Debts: none</p>
-            </li>
+            <?php foreach ($client->ownBankaccountsList as $account): ?>
+                <li class="user-data__item">
+                    <p class="user-data__content"><?php echo $account["id"] ?></p>
+                    <span class="user-data__subtitle">account number</span>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
-    <form class="form-registration form-submit">
+    <form class="form-registration" method="post"
+          action="index.php?section=new-account&plan_id=<?php echo $plan["id"] ?>">
         <header class="form-registration__header">
             <h2 class="form-registration__headline">Credit form</h2>
         </header>
@@ -122,66 +141,63 @@
                 <h3 class="form-registration__subtitle">Loan details</h3>
                 <div class="loan-data">
                     <label class="loan-data__label">
-                        <input type="text" class="loan-data__input" disabled value="4000$">
+                        <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
-                    <p class="loan-data__percent">5,6%
+                    <span class="loan-data__under">for</span>
+                    <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
                 </div>
             </li>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Period</h3>
-                <p class="form-registration__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Select card</h3>
-                <label class="form-registration__label">
-                    <input type="text" list="cards" class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus" required>
-                </label>
-                <datalist id="cards">
-                    <option value="* 1234">3000$</option>
-                    <option value="* 5678">5000$</option>
-                </datalist>
+                <p class="form-registration__time">
+                    <?php echo $current_date ?> - <?php echo $end_date ?>(<?php echo $plan->term ?>days)
+                </p>
             </li>
         </ul>
         <div class="agreement">
             <label class="agreement__checkbox-wrap agreement__checkbox-wrap_hover agreement__checkbox-wrap_focus">
                 <input type="checkbox" class="agreement__checkbox" required>
-                <span class="agreement__checkbox-icon" ></span>
+                <span class="agreement__checkbox-icon"></span>
             </label>
-            <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span> and <span class="agreement__content_accent-color">requirements</span></p>
+            <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
+                and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-        <button class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal">Checkout</button>
+        <button type="submit"
+                class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
+                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'loan-processing.php?plan_id=<?php echo $plan["id"] ?>', null, 'reference-modal')">
+            Checkout
+        </button>
     </form>
 </section>
-<dialog class="modal checkout">
-    <div class="checkout__container">
-        <ul class="checkout__list">
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Loan details</h3>
+<dialog class="modal reference-modal">
+    <div class="reference-modal__container modal__container_grid">
+        <header class="reference-modal__header">
+            <h3 class="reference-modal__headline">Loan reference</h3>
+        </header>
+        <ul class="reference-modal__list">
+            <li class="reference-modal__item">
+                <h3 class="reference-modal__subtitle">Loan details</h3>
                 <div class="loan-data">
                     <label class="loan-data__label">
-                        <input type="text" class="loan-data__input" disabled value="4000$">
+                        <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
                     </label>
-                    <span class="loan-data__under">under</span>
-                    <p class="loan-data__percent">5,6%
+                    <span class="loan-data__under">for</span>
+                    <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
                         <span class="loan-data__subtitle">percent</span>
                     </p>
                 </div>
             </li>
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Period</h3>
-                <p class="checkout__time">31/05/2022 - 31/05/2023 (365 years)</p>
-            </li>
-            <li class="checkout__item">
-                <h3 class="checkout__subtitle">Selected card</h3>
-                <label class="checkout__label">
-                    <input type="text" class="checkout__select-card" value="* 1234" disabled>
-                </label>
+            <li class="reference-modal__item">
+                <h3 class="reference-modal__subtitle">Period</h3>
+                <p class="reference-modal__time">
+                    <?php echo $current_date ?> - <?php echo $end_date ?>
+                    (<?php echo $plan->term ?>days)
+                </p>
             </li>
         </ul>
-        <div class="checkout__image checkout__image_cross"></div>
+        <div class="reference-modal__image check"></div>
     </div>
 </dialog>
 <footer class="footer">
@@ -189,19 +205,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
