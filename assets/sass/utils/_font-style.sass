@@ -1,0 +1,9 @@
+@import "_px-to-rem"
+@mixin font-style($weight, $size, $custom-font, $color)
+  font-weight: $weight
+  font-size: px-to-rem($size)
+  color: $color
+  @if $custom-font != null
+    font-family: $custom-font
+  @else
+    font-family: sans-serif
