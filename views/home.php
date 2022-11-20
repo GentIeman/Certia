@@ -41,41 +41,41 @@
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=loans" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon money-icon"></span>
                                 Loans
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=deposits" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon pyramid-icon"></span>
                                 Deposits
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=company" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon bank-icon"></span>
                                 About us
                             </a>
                         </li>
                         <?php if (isset($_SESSION["user"]) === true): ?>
                             <li class="dropdown__item">
-                                <a href="./profile.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=profile" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon user-icon"></span>
                                     Profile
                                 </a>
                             </li>
                         <?php else: ?>
                             <li class="dropdown__item">
-                                <a href="login.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=login" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon user-icon"></span>
                                     Sign in
                                 </a>
                             </li>
                         <?php endif; ?>
-                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->roles_id == 1): ?>
                             <li class="dropdown__item">
-                                <a href="./admin.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=admin-panel" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon admin-icon"></span>
                                     Admin
                                 </a>
@@ -251,16 +251,16 @@
                 <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
+                <a href="../index.php?page=loans" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="../index.php?page=deposits" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="company.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="../index.php?page=company" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="../index.php?page=profile" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>

@@ -30,7 +30,7 @@
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="#" class="header__logo" title="Logo"></a>
+        <a href="../index.php?page=home" class="header__logo" title="Logo"></a>
         <ul class="header__list">
             <li class="header__item">
                 <button class="header__btn header__btn_hover header__btn_focus header__btn_search btn" title="Search"></button>
@@ -40,39 +40,39 @@
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
                         <li class="dropdown__item">
-                            <a href="#" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=home" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon home-icon"></span>
                                 Home
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=loans" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon money-icon"></span>
                                 Loans
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                            <a href="../index.php?page=deposits" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon pyramid-icon"></span>
                                 Deposits
                             </a>
                         </li>
                         <li class="dropdown__item">
-                            <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover dropdown__link_active">
+                            <a href="../index.php?page=company" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon bank-icon"></span>
                                 About us
                             </a>
                         </li>
                         <?php if (isset($_SESSION["user"]) === true): ?>
                             <li class="dropdown__item">
-                                <a href="./profile.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=profile" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon user-icon"></span>
                                     Profile
                                 </a>
                             </li>
                         <?php else: ?>
                             <li class="dropdown__item">
-                                <a href="login.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=login" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon user-icon"></span>
                                     Sign in
                                 </a>
@@ -80,7 +80,7 @@
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
                             <li class="dropdown__item">
-                                <a href="./admin.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="#" class="dropdown__link dropdown__link_focus dropdown__link_hover dropdown__link_active">
                                     <span class="dropdown__icon admin-icon"></span>
                                     Admin
                                 </a>
@@ -196,19 +196,19 @@
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="../index.php?page=home" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
+                <a href="../index.php?page=loans" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
-                <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
+                <a href="../index.php?page=deposits" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="company.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="../index.php?page=company" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="../index.php?page=profile" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
