@@ -23,13 +23,13 @@
     <script src="../static/scripts/field-validation.js" defer></script>
 </head>
 <body class="page">
-<a href="./index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
+<a href="../index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
 <section class="auth">
     <div class="auth__container">
         <header class="auth__header">
             <h1 class="auth__headline">Sign up</h1>
         </header>
-        <form class="auth__form form" method="post" action="./index.php?page=auth&action=registration">
+        <form class="auth__form form" method="post" action="../index.php?page=registration&action=registration">
             <fieldset class="form__section form__section_active">
                 <legend class="form__legend">Personal data</legend>
                 <label for="" class="form__label form__label_focus form__label_hover">
@@ -94,7 +94,7 @@
     <footer class="auth__footer">
         <p class="auth__footer-text">
             Have already been with us?
-            <a href="./index.php?page=login" class="auth__link auth__link_hover auth__link_focus">Sign in</a>
+            <a href="../index.php?page=login" class="auth__link auth__link_hover auth__link_focus">Sign in</a>
         </p>
     </footer>
 </section>
