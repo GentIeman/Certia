@@ -1,5 +1,7 @@
 const inputMaxlength = (field, maxlength) => field.value = (field.value.length > maxlength) ? field.value.slice(0, maxlength) : field.value
 const onlyNumber = field => field.value = field.value.replace(/\D/g, "").trimStart()
+const gettingParentNode = item => item.parentNode
+
 const personalDataValidation = (field, title) => {
     switch (title) {
         case "firstName":
