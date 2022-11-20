@@ -40,19 +40,19 @@
                                 Home
                             </a>
                         </li>
-                        <li class="dropdown__item ">
+                        <li class="dropdown__item">
                             <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon money-icon"></span>
                                 Credits
                             </a>
                         </li>
-                        <li class="dropdown__item ">
+                        <li class="dropdown__item">
                             <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon pyramid-icon"></span>
                                 Deposits
                             </a>
                         </li>
-                        <li class="dropdown__item ">
+                        <li class="dropdown__item">
                             <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon bank-icon"></span>
                                 About us
