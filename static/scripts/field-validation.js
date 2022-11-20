@@ -1,3 +1,7 @@
+const inputMaxlength = (field, maxlength) => field.value = (field.value.length > maxlength) ? field.value.slice(0, maxlength) : field.value
+const onlyNumber = field => field.value = field.value.replace(/\D/g, "").trimStart()
+const gettingParentNode = item => item.parentNode
+
 const personalDataValidation = (field, title) => {
     switch (title) {
         case "firstName":
@@ -5,22 +9,23 @@ const personalDataValidation = (field, title) => {
         case "patronymic":
             return field.value = field.value.replace(/[^A-Za-z\s]/gi, "").trimStart()
         case "phone":
-            let phonemask = new Inputmask("+7 (999) 999 99 99")
-            phonemask.mask(field)
+            Inputmask("+7 (999) 999 99 99", {"placeholder": ""}).mask(field)
+            customValidity(field, "phone")
             break
         case "passport":
-            let passportMask = new Inputmask("9999 999999")
-            passportMask.mask(field)
+            Inputmask("9999 999999", {"placeholder": ""}).mask(field)
+            customValidity(field, "passport")
             break
         case "email":
             return field.value = field.value.replace(/[^A-Za-z0-9@.]/gi, "").trimStart()
         case "birthDate":
-            birthdayValidation(field)
+            customValidity(field, "birthDate")
             break
         case "gender":
-            genderValidation(field)
+            customValidity(field, "gender")
             break
         case "password":
+            customValidity(field, "password")
             return field.value = field.value.replaceAll(/[^A-Za-z()+-{}0-9]/gi, "").trimStart()
     }
 }
@@ -33,33 +38,77 @@ const locationDataValidation = (field, title) => {
             break
         case "house":
         case "flat":
-            let flatmask = new Inputmask("999")
-            flatmask.mask(field)
+            inputMaxlength(field, 3)
+            onlyNumber(field)
             break
         case "zipCode":
-            let zipmask = new Inputmask("999999")
-            zipmask.mask(field)
+            inputMaxlength(field, 6)
+            onlyNumber(field)
+            customValidity(field, "zipCode")
             break
         case "building":
-            let buildingmask = new Inputmask("99")
-            buildingmask.mask(field)
+            inputMaxlength(field, 2)
+            onlyNumber(field)
             break
     }
 }
 
-const genderValidation = field => {
-    field.value = field.value.toLowerCase()
-    if (field.value === "man" || field.value === "woman") {
-        field.setCustomValidity("")
-    } else {
-        field.setCustomValidity("Enter gender: Man or Woman")
-    }
-}
-
-const birthdayValidation = field => {
-    if (new Date(field.value).getFullYear() > new Date().getFullYear() - 18) {
-        field.setCustomValidity("Most be over 18")
-    } else {
-        field.setCustomValidity("")
+const customValidity = (field, title) => {
+    let parent = gettingParentNode(field)
+    switch (title) {
+        case "gender":
+            if (field.value === "man" || field.value === "woman") {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            } else {
+                field.setCustomValidity("Enter gender: Man or Woman")
+                let parent = gettingParentNode(field)
+                parent.classList.add("form__label_invalid")
+            }
+            break
+        case "zipCode":
+            if (field.value.length < 6) {
+                field.setCustomValidity("Enter 6 digits")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "birthDate":
+            if (new Date(field.value).getFullYear() > new Date().getFullYear() - 18) {
+                field.setCustomValidity("Most be over 18")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "password":
+            if (field.value.length < 8) {
+                field.setCustomValidity("Password must be at least 8 characters long")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "phone":
+            if (field.value.length < 18) {
+                field.setCustomValidity("Not valid phone number")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "passport":
+            if (field.value.length < 11) {
+                field.setCustomValidity("Not valid passport number")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
     }
 }

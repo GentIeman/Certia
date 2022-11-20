@@ -61,11 +61,14 @@ html, body
     border-radius: $input-border-radius
     transition: box-shadow .3s linear
 
+    &_invalid
+      box-shadow: 0 0 0 2px $invalid-color
+
     &_password
       grid-template-columns: auto 50px
       background-color: $decorative-color
 
-    &:is(&_hover:hover, &_focus:focus-within)
+    &:not(&_invalid):is(&_hover:hover, &_focus:focus-within)
       box-shadow: 0 0 0 3px $dark-green
 
     &_full-width
@@ -79,10 +82,11 @@ html, body
     font-family: $roboto
 
   &__password-toggle
-    width: 22px
-    height: 22px
+    display: block
+    width: 50px
+    height: 100%
     cursor: pointer
-    background: no-repeat center / 100% url("../../static/icons/eye-crossed.svg")
+    background: no-repeat center / 50% url("../../static/icons/eye-crossed.svg") $decorative-color
 
     &_active
       background-image: url("../../static/icons/eye.svg")

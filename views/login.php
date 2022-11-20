@@ -22,21 +22,27 @@
     <script src="../static/scripts/field-validation.js" defer></script>
 </head>
 <body class="page">
-<a href="./index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
+<a href="../index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
 <section class="auth">
     <div class="auth__container">
         <header class="auth__header">
             <h1 class="auth__headline">Sign in</h1>
         </header>
-        <form class="auth__form form" method="post" action="./index.php?page=auth&action=login">
+        <form class="auth__form form" method="post" action="../index.php?page=login&action=auth">
             <fieldset class="form__section form__section_active">
                 <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
                 </label>
-                <label for="" class="form__label form__label_full-width form__label_password form__label_focus form__label_hover form__label_password">
+                <?php if(isset($_GET["phone-not-found"])): ?>
+                    <p class="auth__error">Phone not found</p>
+                <?php endif; ?>
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover form__label_password">
                     <input type="password" class="form__input form__input-password" name="password" placeholder="Password" oninput="personalDataValidation(this, 'password')" required autocomplete>
                     <span class="form__password-toggle" onclick="togglePassword(this, 'form__input-password')"></span>
                 </label>
+                <?php if(isset($_GET["wrong-password"])): ?>
+                    <p class="auth__error">Invalid password</p>
+                <?php endif; ?>
                 <button type="submit" class="form__btn btn form__btn-next-step form__btn_hover form__btn_focus">Sign in</button>
             </fieldset>
         </form>
@@ -44,16 +50,9 @@
     <footer class="auth__footer">
         <p class="auth__footer-text">
             First time with us?
-            <a href="./index.php?page=registration" class="auth__link auth__link_hover auth__link_focus">Sign up</a>
+            <a href="../index.php?page=registration" class="auth__link auth__link_hover auth__link_focus">Sign up</a>
         </p>
     </footer>
 </section>
-<div class="tooltip-wrap">
-    <div class="tooltip">
-        <div class="tooltip__content">
-            <p class="tooltip__text"></p>
-        </div>
-    </div>
-</div>
 </body>
 </html>
