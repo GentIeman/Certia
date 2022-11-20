@@ -1,0 +1,111 @@
+@import "../tools"
+
+.feedbacks 
+  display: grid
+  grid-template-rows: repeat(2, min-content)
+  place-items: center
+  position: relative
+  padding-bottom: 150px
+  width: 100%
+  height: auto
+  overflow: hidden
+
+  &__header 
+    margin-top: 70px
+    padding: 0 70px
+    width: 100%
+    height: auto
+
+  &__link 
+    display: flex
+    align-items: center
+    position: relative
+    width: max-content
+    @include font-style(normal, $subtitle, $accent-font, $accent-color)
+
+    &:before 
+      content: ""
+      position: absolute
+      bottom: 0
+      left: 0
+      width: 0
+      height: 1.5px
+      background-color: $accent-color
+      transition: width .4s linear
+
+    &:is(&_hover:hover, &_focus:focus):before 
+      width: 100%
+
+  &__back-icon 
+    display: block
+    width: 30px
+    height: 30px
+    margin-right: 17px
+    background: no-repeat center / 100% url("../../../static/icons/arrow-small-left-gr.svg")
+
+  &__form 
+    display: flex
+    flex-direction: column
+    gap: 30px 0
+    padding: 40px
+    width: 800px
+    height: auto
+    background-color: $white
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, .25))
+    border-radius: $border-radius
+
+  &__form-headline 
+    @include font-style(normal, $medium-size, $accent-font, $black)
+
+  &__form-label
+    display: flex
+    flex-direction: column
+    @include font-style(normal, $small-size, $accent-font, $black)
+
+  &__input
+    margin-top: 10px
+    padding: 15px
+    border-radius: $input-border-radius
+    background-color: $background-field
+    border: none
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+    transition: box-shadow .2s linear
+
+    &:is(&_hover:hover, &_focus:focus) 
+      box-shadow: 0 0 0 2px $accent-color
+
+  &__textarea
+    margin-top: 10px
+    padding: 15px
+    height: 300px
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+    border-radius: $input-border-radius
+    background-color: $background-field
+    border: none
+    resize: none
+    transition: box-shadow .2s linear
+
+    &:is(&_hover:hover, &_focus:focus) 
+      box-shadow: 0 0 0 2px $accent-color
+
+  &__btn
+    align-self: center
+    padding: 15px 30px
+    background-color: $decorative-color
+    border-radius: 5px
+    color: $white
+    transition: background-color .3s linear
+
+    &:is(&_hover:hover, &_focus:focus) 
+      background-color: $accent-color
+
+  &__circle 
+    position: absolute
+    top: 50%
+    left: 100%
+    transform: translate(-50%, -50%)
+    width: 1500px
+    height: 1800px
+    border-radius: 50%
+    background-color: $decorative-color
+    z-index: -1

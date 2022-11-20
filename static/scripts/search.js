@@ -1,4 +1,4 @@
-const searchIcon = document.querySelector(".header__item_search")
+const openBtn = document.querySelector(".header__btn_search")
 const searchBackDrop = document.querySelector(".search-backdrop")
 const resultBlock = document.querySelector(".results")
 const searchField = document.querySelector(".search__input")
@@ -68,7 +68,7 @@ const results = [
     },
 ]
 
-searchIcon.addEventListener("click", () => {
+openBtn.addEventListener("click", () => {
     searchBackDrop.classList.add("search-backdrop_show")
     searchField.focus()
 })

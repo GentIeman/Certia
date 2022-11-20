@@ -1,7 +1,3 @@
-<?php
-require_once("../modules/current_session.php");
-if (!$client) header("Location:signin.php");
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,72 +12,80 @@ if (!$client) header("Location:signin.php");
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
     <title>Feedbacks</title>
-    <link rel="stylesheet" href="../assets/stylus/feedbacks.css">
-    <link rel="stylesheet" href="../assets/stylus/base.css">
-    <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/sass/styles/feedbacks.css">
+    <link rel="stylesheet" href="../assets/sass/global.css">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/theme.js" defer></script>
-    <script src="../static/scripts/errorChecker.js" defer></script>
+    <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="./home.php" class="header__logo" title="Logo"></a>
+        <a href="#" class="header__logo" title="Logo"></a>
         <ul class="header__list">
-            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
-                <label class="header__label">
-                    <input type="checkbox" class="header__checkbox">
-                    <span class="header__theme-icon"></span>
-                </label>
+            <li class="header__item">
+                <button class="header__btn header__btn_hover header__btn_focus header__btn_search btn" title="Search"></button>
             </li>
-            <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search" title="Search"></button>
-            </li>
-            <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger" title="Menu"></button>
+            <li class="header__item dropdown">
+                <button class="header__btn header__dropdown-btn header__btn_hover header__btn_focus header__btn_burger btn" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.php" class="dropdown__link">Home</a>
+                        <li class="dropdown__item">
+                            <a href="#" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon home-icon"></span>
+                                Home
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.php" class="dropdown__link">Credits</a>
+                        <li class="dropdown__item">
+                            <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon money-icon"></span>
+                                Loans
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
+                        <li class="dropdown__item">
+                            <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon pyramid-icon"></span>
+                                Deposits
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.php" class="dropdown__link">About us</a>
+                        <li class="dropdown__item">
+                            <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon bank-icon"></span>
+                                About us
+                            </a>
                         </li>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon user-icon"></span>
-                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            <li class="dropdown__item">
+                                <a href="./profile.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Profile
+                                </a>
                             </li>
                         <?php else: ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon user-icon"></span>
-                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            <li class="dropdown__item">
+                                <a href="login.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Sign in
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon admin-icon"></span>
-                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            <li class="dropdown__item">
+                                <a href="./admin.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon admin-icon"></span>
+                                    Admin
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon log-out-icon"></span>
-                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            <li class="dropdown__item">
+                                <a href="../index.php?page=logout" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon log-out-icon"></span>
+                                    Log out
+                                </a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -92,13 +96,10 @@ if (!$client) header("Location:signin.php");
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <div class="search search_hover search_focus">
-            <label>
-                <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
-            </label>
-            <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
-                    title="Search"></button>
-        </div>
+        <label class="search search_hover search_focus">
+            <input type="search" class="search__input input search__input_placeholder-color" placeholder="Search">
+            <button class="search__btn search__btn_hover search__btn_focus btn" title="Search"></button>
+        </label>
         <div class="results">
             <ul class="results__list">
             </ul>
@@ -111,59 +112,41 @@ if (!$client) header("Location:signin.php");
         <a href="./profile.php" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
             <span class="feedbacks__back-icon"></span>Back</a>
     </header>
-    <form class="feedbacks__form form-submit" method="post"
-          action="#">
+    <form class="feedbacks__form" method="post" action="#">
         <header class="feedbacks__form-header">
             <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
         </header>
-        <div class="feedbacks__form-input-wrap">
-            <label class="feedbacks__form-label username">Your name
-                <input type="text" name="username" value="<?php echo $client["fullname"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
-            <label class="feedbacks__form-label mail">Mail
-                <input type="email" name="email" value="<?php echo $client["email"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
-            <label class="feedbacks__form-label phone">Phone
-                <input type="tel" name="phone" value="<?php echo $client["phone"] ?>"
-                       class="feedbacks__input feedbacks__input_hover feedbacks__input_focus" readonly>
-            </label>
-        </div>
-        <label class="feedbacks__form-label message">Message
+        <label class="feedbacks__form-label">Your name
+            <input type="text" name="username" value="<?php echo $client["fullname"] ?>"
+                   class="feedbacks__input input" readonly disabled>
+        </label>
+        <label class="feedbacks__form-label">Message
             <textarea placeholder="Your message"
                       name="content"
                       class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
                       required></textarea>
         </label>
         <button type="submit"
-                onclick="trySendData('feedbacks__form', 'feedback&user_id=<?php echo $client["id"] ?>', 'feedbacks.php', null, 'success-modal')"
-                class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus open-tooltip">Send Message
+                class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus btn">Send Message
         </button>
     </form>
     <div class="feedbacks__circle"></div>
 </section>
-<dialog class="success-modal modal">
-    <div class="success-modal__container">
-        <span class="success-modal__icon check"></span>
-        <p class="success-modal__content">Feedback send</p>
-    </div>
-</dialog>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
                 <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="company.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
                 <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
@@ -191,15 +174,20 @@ if (!$client) header("Location:signin.php");
         <h2 class="footer__headline">Contacts</h2>
         <ul class="footer__contacts-list">
             <li class="footer__contacts-item">
-                <span class="footer__icon phone"></span>
-                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">8 903 123 45 67</a>
+                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon phone"></span>
+                    8 903 123 45 67
+                </a>
             </li>
             <li class="footer__contacts-item">
-                <span class="footer__icon email"></span>
-                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">certia@gmail.com</a>
+                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon email"></span>
+                    certia@gmail.com
+                </a>
             </li>
         </ul>
     </div>
+    <p class="footer__slogan">Certia - convenient everywhere and in everything</p>
 </footer>
 </body>
 </html>

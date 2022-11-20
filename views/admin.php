@@ -1,15 +1,9 @@
 <?php
-require_once("../modules/current_session.php");
-if (!$client || $client["role"] !== "admin") {
-    header("Location:signin.php");
-} else {
     $plans = R::findAll("plans");
     $accounts = R::getAll("SELECT * FROM clientsbankaccounts");
     $clients = R::findAll("clients");
     $feedbacks = R::findAll("feedbacks");
-}
 ?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -24,71 +18,80 @@ if (!$client || $client["role"] !== "admin") {
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
     <title>Dashboards</title>
-    <link rel="stylesheet" href="../assets/stylus/admin.css">
-    <link rel="stylesheet" href="../assets/stylus/base.css">
-    <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/sass/styles/admin-panel.css">
+    <link rel="stylesheet" href="../assets/sass/global.css">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/theme.js" defer></script>
+    <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="./home.php" class="header__logo" title="Logo"></a>
+        <a href="#" class="header__logo" title="Logo"></a>
         <ul class="header__list">
-            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
-                <label class="header__label">
-                    <input type="checkbox" class="header__checkbox">
-                    <span class="header__theme-icon"></span>
-                </label>
+            <li class="header__item">
+                <button class="header__btn header__btn_hover header__btn_focus header__btn_search btn" title="Search"></button>
             </li>
-            <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search" title="Search"></button>
-            </li>
-            <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger" title="Menu"></button>
+            <li class="header__item dropdown">
+                <button class="header__btn header__dropdown-btn header__btn_hover header__btn_focus header__btn_burger btn" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.php" class="dropdown__link">Home</a>
+                        <li class="dropdown__item">
+                            <a href="#" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon home-icon"></span>
+                                Home
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.php" class="dropdown__link">Credits</a>
+                        <li class="dropdown__item">
+                            <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon money-icon"></span>
+                                Loans
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
+                        <li class="dropdown__item">
+                            <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon pyramid-icon"></span>
+                                Deposits
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.php" class="dropdown__link">About us</a>
+                        <li class="dropdown__item">
+                            <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover dropdown__link_active">
+                                <span class="dropdown__icon bank-icon"></span>
+                                About us
+                            </a>
                         </li>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon user-icon"></span>
-                                <a href="./profile.php" class="dropdown__link">Profile</a>
+                            <li class="dropdown__item">
+                                <a href="./profile.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Profile
+                                </a>
                             </li>
                         <?php else: ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon user-icon"></span>
-                                <a href="./signin.php" class="dropdown__link">Sign in</a>
+                            <li class="dropdown__item">
+                                <a href="login.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Sign in
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
-                                <span class="dropdown__icon admin-icon"></span>
-                                <a href="#" class="dropdown__link">Admin</a>
+                            <li class="dropdown__item">
+                                <a href="./admin.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon admin-icon"></span>
+                                    Admin
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon log-out-icon"></span>
-                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            <li class="dropdown__item">
+                                <a href="../index.php?page=logout" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon log-out-icon"></span>
+                                    Log out
+                                </a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -99,13 +102,10 @@ if (!$client || $client["role"] !== "admin") {
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <div class="search search_hover search_focus">
-            <label>
-                <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
-            </label>
-            <button class="search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
-                    title="Search"></button>
-        </div>
+        <label class="search search_hover search_focus">
+            <input type="search" class="search__input input search__input_placeholder-color" placeholder="Search">
+            <button class="search__btn search__btn_hover search__btn_focus btn" title="Search"></button>
+        </label>
         <div class="results">
             <ul class="results__list">
             </ul>
@@ -116,117 +116,96 @@ if (!$client || $client["role"] !== "admin") {
     <header class="admin__header">
         <h1 class="admin__headline headings">Admin Dashboard</h1>
     </header>
-    <div class="plans admin__section">
-        <h2 class="admin__subtitle">Plans</h2>
-        <div class="admin__table">
-            <ul class="admin__table-row">
-                <li class="admin__table-subtitle">name</li>
-                <li class="admin__table-subtitle">description</li>
-                <li class="admin__table-subtitle">percent</li>
-                <li class="admin__table-subtitle">amount</li>
-                <li class="admin__table-subtitle">term</li>
-                <li class="admin__table-subtitle">type</li>
-            </ul>
+    <div class="admin__section">
+        <table class="admin__table table">
+            <caption class="table__caption">Plans</caption>
+            <thead class="table__thead">
+                <tr class="table__row">
+                    <th class="table__cell-head">name</th>
+                    <th class="table__cell-head">description</th>
+                    <th class="table__cell-head">percent</th>
+                    <th class="table__cell-head">amount</th>
+                    <th class="table__cell-head">term</th>
+                    <th class="table__cell-head">type</th>
+                </tr>
+            </thead>
+            <tbody class="table__tbody">
             <?php foreach ($plans as $plan): ?>
-                <ul class="admin__table-row admin__table-row_hover">
-                    <li class="admin__table-data"><?php echo $plan["name"] ?></li>
-                    <li class="admin__table-data"><?php echo ($plan["description"] === NULL) ? "-" : $plan["description"] ?></li>
-                    <li class="admin__table-data"><?php echo ($plan["percent"] === NULL) ? "-" : $plan["percent"] . " %" ?></li>
-                    <li class="admin__table-data"><?php echo $plan["amount"] ?>$</li>
-                    <li class="admin__table-data"><?php echo $plan["term"] ?> days</li>
-                    <li class="admin__table-data"><?php echo $plan["type"] ?></li>
-                </ul>
+                <tr class="table__row table__row_hover">
+                    <td class="table__cell"><?php echo $plan["name"] ?></td>
+                    <td class="table__cell"><?php echo ($plan["description"] === NULL) ? "-" : $plan["description"] ?></td>
+                    <td class="table__cell"><?php echo ($plan["percent"] === NULL) ? "-" : $plan["percent"] . " %" ?></td>
+                    <td class="table__cell"><?php echo $plan["amount"] ?></td>
+                    <td class="table__cell"><?php echo $plan["term"] ?></td>
+                    <td class="table__cell"><?php echo $plan["type"] ?></td>
+                </tr>
             <?php endforeach; ?>
-        </div>
+            </tbody>
+        </table>
     </div>
-    <div class="accounts admin__section">
-        <h2 class="admin__subtitle">Accounts</h2>
-        <div class="admin__table">
-            <ul class="admin__table-row">
-                <li class="admin__table-subtitle">fullname</li>
-                <li class="admin__table-subtitle">phone</li>
-                <li class="admin__table-subtitle">amount</li>
-                <li class="admin__table-subtitle">type</li>
-                <li class="admin__table-subtitle">percent</li>
-                <li class="admin__table-subtitle">opening date</li>
-                <li class="admin__table-subtitle">closing date</li>
-                <li class="admin__table-subtitle">status</li>
-
-            </ul>
-            <?php foreach ($accounts as $account): ?>
-                <ul class="admin__table-row admin__table-row_hover">
-                    <li class="admin__table-data"><?php echo $account["Fullname"] ?></li>
-                    <li class="admin__table-data"><?php echo $account["Phone"] ?></li>
-                    <li class="admin__table-data"><?php echo $account["AmountAccount"] ?>$</li>
-                    <li class="admin__table-data"><?php echo $account["AccountType"] ?></li>
-                    <li class="admin__table-data"><?php echo ($account["Percent"] === NULL) ? "-" : $account["Percent"] . " %" ?></li>
-                    <li class="admin__table-data"><?php echo $account["OpeningDate"] ?></li>
-                    <li class="admin__table-data"><?php echo $account["ClosingDate"] ?> days</li>
-                    <li class="admin__table-data"><?php echo $account["Status"] ?></li>
-                </ul>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <div class="clients admin__section">
-        <h2 class="admin__subtitle">Clients</h2>
-        <div class="admin__table">
-            <ul class="admin__table-row">
-                <li class="admin__table-subtitle">fullname</li>
-                <li class="admin__table-subtitle">address</li>
-                <li class="admin__table-subtitle">phone</li>
-                <li class="admin__table-subtitle">email</li>
-                <li class="admin__table-subtitle">birthday</li>
-                <li class="admin__table-subtitle">gender</li>
-                <li class="admin__table-subtitle">role</li>
-            </ul>
+    <div class="admin__section">
+        <table class="admin__table table">
+            <caption class="table__caption">Clients</caption>
+            <thead class="table__thead">
+            <tr class="table__row">
+                <th class="table__cell-head">fullname</th>
+                <th class="table__cell-head">address</th>
+                <th class="table__cell-head">phone</th>
+                <th class="table__cell-head">email</th>
+                <th class="table__cell-head">birthday</th>
+                <th class="table__cell-head">gender</th>
+                <th class="table__cell-head">role</th>
+            </tr>
+            </thead>
+            <tbody class="table__tbody">
             <?php foreach ($clients as $client): ?>
-                <ul class="admin__table-row admin__table-row_hover">
-                    <li class="admin__table-data"><?php echo $client["fullname"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["address"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["phone"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["email"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["birthday"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["gender"] ?></li>
-                    <li class="admin__table-data"><?php echo $client["role"] ?></li>
-                </ul>
+                <tr class="table__row table__row_hover">
+                    <td class="table__cell"><?php echo $client["fullname"] ?></td>
+                    <td class="table__cell"><?php echo $client["address"] ?></td>
+                    <td class="table__cell"><?php echo $client["phone"] ?></td>
+                    <td class="table__cell"><?php echo $client["email"] ?></td>
+                    <td class="table__cell"><?php echo $client["birthday"] ?></td>
+                    <td class="table__cell"><?php echo $client["gender"] ?></td>
+                    <td class="table__cell"><?php echo $client["role"] ?></td>
+                </tr>
             <?php endforeach; ?>
-        </div>
+            </tbody>
+        </table>
     </div>
     <div class="feedbacks admin__section">
-        <h2 class="admin__subtitle">Feedbacks</h2>
-        <div class="admin__table">
-            <ul class="admin__table-row">
-                <li class="admin__table-subtitle">username</li>
-                <li class="admin__table-subtitle">email</li>
-                <li class="admin__table-subtitle">phone</li>
-                <li class="admin__table-subtitle">content</li>
-            </ul>
+        <table class="admin__table table">
+            <caption class="table__caption">Feedbacks</caption>
+            <thead class="table__thead">
+            <tr class="table__row">
+                <th class="table__cell-head">username</th>
+                <th class="table__cell-head">message</th>
+            </tr>
+            </thead>
+            <tbody class="table__tbody">
             <?php foreach ($feedbacks as $feedback): ?>
-                <ul class="admin__table-row admin__table-row_hover">
-                    <li class="admin__table-data"><?php echo $feedback["username"] ?></li>
-                    <li class="admin__table-data"><?php echo $feedback["email"] ?></li>
-                    <li class="admin__table-data"><?php echo $feedback["phone"] ?></li>
-                    <li class="admin__table-data"><?php echo $feedback["content"] ?></li>
-                </ul>
+                <tr class="table__row table__row_hover">
+                    <td class="table__cell"><?php echo $feedback["username"] ?></td>
+                    <td class="table__cell"><?php echo $feedback["message"]?></td>
+                </tr>
             <?php endforeach; ?>
-        </div>
-
+            </tbody>
+        </table>
 </section>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
                 <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="company.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
                 <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
@@ -254,12 +233,16 @@ if (!$client || $client["role"] !== "admin") {
         <h2 class="footer__headline">Contacts</h2>
         <ul class="footer__contacts-list">
             <li class="footer__contacts-item">
-                <span class="footer__icon phone"></span>
-                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">8 903 123 45 67</a>
+                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon phone"></span>
+                    8 903 123 45 67
+                </a>
             </li>
             <li class="footer__contacts-item">
-                <span class="footer__icon email"></span>
-                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">certia@gmail.com</a>
+                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon email"></span>
+                    certia@gmail.com
+                </a>
             </li>
         </ul>
     </div>
