@@ -1,17 +1,12 @@
-@import "mixins.styl"
-
-.processing {
+.processing
   display: grid
   grid-template-columns: repeat(2, 1fr)
   grid-template-rows: repeat(2, max-content)
   width: 100%
   height: auto
-  padding: var(--main-padding)
+  padding: 0 70px
   margin-bottom: 100px
 
-  &__header {
+  &__header
     grid-column: 1 / 3
     margin: 70px 0
-  }
-}
-
