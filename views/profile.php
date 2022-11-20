@@ -1,6 +1,4 @@
 <?php
-require_once("../modules/current_session.php");
-if (!$client) header("Location:signin.php");
 require_once("../modules/clients/check_avatar.php");
 require_once("../modules/clients/client_info.php");
 require_once("../modules/clients/check_debting.php");
@@ -20,70 +18,82 @@ require_once("../modules/clients/movements.php");
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
     <title>Profile</title>
-    <link rel="stylesheet" href="../assets/stylus/profile.css">
-    <link rel="stylesheet" href="../assets/stylus/base.css">
-    <link rel="stylesheet" href="../assets/stylus/global.css">
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
     <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/openModal.js" defer></script>
-    <script src="../static/scripts/theme.js" defer></script>
-    <script src="../static/scripts/changeFileName.js" defer></script>
-    <script src="../static/scripts/errorChecker.js" defer></script>
-    <script src="../static/scripts/inputValidation.js" defer></script>
+    <script src="../static/scripts/open-modal.js" defer></script>
+    <script src="../static/scripts/change-file-name.js" defer></script>
+    <script src="../static/scripts/field-validation.js" defer></script>
+    <link rel="stylesheet" href="../assets/sass/styles/profile.css">
+    <link rel="stylesheet" href="../assets/sass/global.css">
 </head>
 <body>
 <header class="header">
     <nav class="header__nav">
-        <a href="./home.php" class="header__logo" title="Logo"></a>
+        <a href="#" class="header__logo" title="Logo"></a>
         <ul class="header__list">
-            <li class="header__item header__item_theme-switch header__item_hover header__item_focus">
-                <label class="header__label">
-                    <input type="checkbox" class="header__checkbox">
-                    <span class="header__theme-icon"></span>
-                </label>
+            <li class="header__item">
+                <button class="header__btn header__btn_hover header__btn_focus header__btn_search btn" title="Search"></button>
             </li>
-            <li class="header__item header__item_search header__item_hover header__item_focus">
-                <button class="header__btn btn search" title="Search"></button>
-            </li>
-            <li class="header__item header__item_menu-burger header__item_hover header__item_focus dropdown">
-                <button class="header__btn btn menu-burger" title="Menu"></button>
+            <li class="header__item dropdown">
+                <button class="header__btn header__dropdown-btn header__btn_hover header__btn_focus header__btn_burger btn" title="Menu"></button>
                 <div class="dropdown__content">
                     <ul class="dropdown__list">
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon home-icon"></span>
-                            <a href="./home.php" class="dropdown__link">Home</a>
+                        <li class="dropdown__item">
+                            <a href="#" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon home-icon"></span>
+                                Home
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon money-icon"></span>
-                            <a href="./credits.php" class="dropdown__link">Credits</a>
+                        <li class="dropdown__item">
+                            <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon money-icon"></span>
+                                Loans
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon pyramid-icon"></span>
-                            <a href="./deposits.php" class="dropdown__link">Deposits</a>
+                        <li class="dropdown__item">
+                            <a href="./deposits.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <span class="dropdown__icon pyramid-icon"></span>
+                                Deposits
+                            </a>
                         </li>
-                        <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                            <span class="dropdown__icon bank-icon"></span>
-                            <a href="./aboutus.php" class="dropdown__link">About us</a>
+                        <li class="dropdown__item">
+                            <a href="company.php" class="dropdown__link dropdown__link_focus dropdown__link_hover dropdown__link_active">
+                                <span class="dropdown__icon bank-icon"></span>
+                                About us
+                            </a>
                         </li>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover dropdown__item_active">
-                                <span class="dropdown__icon user-icon"></span>
-                                <a href="#" class="dropdown__link">Profile</a>
+                            <li class="dropdown__item">
+                                <a href="./profile.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Profile
+                                </a>
+                            </li>
+                        <?php else: ?>
+                            <li class="dropdown__item">
+                                <a href="login.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon user-icon"></span>
+                                    Sign in
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon admin-icon"></span>
-                                <a href="./admin.php" class="dropdown__link">Admin</a>
+                            <li class="dropdown__item">
+                                <a href="./admin.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon admin-icon"></span>
+                                    Admin
+                                </a>
                             </li>
                         <?php endif; ?>
                         <?php if (isset($_SESSION["user"]) === true): ?>
-                            <li class="dropdown__item dropdown__item_focus dropdown__item_hover">
-                                <span class="dropdown__icon log-out-icon"></span>
-                                <a href="./index.php?section=logout" class="dropdown__link">Log out</a>
+                            <li class="dropdown__item">
+                                <a href="../index.php?page=logout" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                    <span class="dropdown__icon log-out-icon"></span>
+                                    Log out
+                                </a>
                             </li>
                         <?php endif; ?>
                     </ul>
@@ -94,13 +104,10 @@ require_once("../modules/clients/movements.php");
 </header>
 <div class="search-backdrop">
     <div class="search-container">
-        <div class="search search_hover search_focus">
-            <label>
-                <input type="search" class="search__input search__input_placeholder-color" placeholder="Search">
-            </label>
-            <button class=" search__btn search__btn_hover search__btn_focus btn btn_background search-wt-icon"
-                    title="Search"></button>
-        </div>
+        <label class="search search_hover search_focus">
+            <input type="search" class="search__input input search__input_placeholder-color" placeholder="Search">
+            <button class="search__btn search__btn_hover search__btn_focus btn" title="Search"></button>
+        </label>
         <div class="results">
             <ul class="results__list">
             </ul>
@@ -136,8 +143,6 @@ require_once("../modules/clients/movements.php");
             <li class="user-card__item">
                 <?php if ($summ < 0): ?>
                     <p class="user-card__title user-card__title_red"> <?php echo $summ ?></p>
-
-
                     <span class="user-card__subtitle">debt</span>
                 <?php else : ?>
                     <p class="user-card__title user-card__title"> <?php echo $summ ?></p>
@@ -191,7 +196,7 @@ require_once("../modules/clients/movements.php");
                     </button>
                 </li>
             <?php endif;
-            if ($deposits > 0): ?>
+            if ($deposits > 1): ?>
                 <li class="operation__item">
                     <button class="operation__btn operation__btn-deposit operation__btn_hover operation__btn_focus"
                             onclick="showModal('deposit-info')">
@@ -226,7 +231,6 @@ require_once("../modules/clients/movements.php");
                         <li class="activity__table-data">
                             <?php echo $move["timestamp"] ?>
                         </li>
-
                     </ul>
                 <?php endforeach; ?>
             </div>
@@ -277,73 +281,6 @@ require_once("../modules/clients/movements.php");
         </form>
     </div>
 </dialog>
-<dialog class="success-modal successful-transfer">
-    <div class="success-modal__container">
-        <span class="success-modal__icon check"></span>
-        <p class="success-modal__content">Successful transfer</p>
-    </div>
-</dialog>
-<dialog class="modal info-modal loan-info">
-    <div class="info-modal__image"></div>
-    <div class="info-modal__container">
-        <header class="info-modal__header">
-            <h3 class="info-modal__headline">Loans info</h3>
-        </header>
-        <table class="info-modal__table">
-            <thead class="info-modal__table-head">
-            <tr class="info-modal__table-row">
-                <th class="info-modal__table-subtitle">account number</th>
-                <th class="info-modal__table-subtitle">opening date</th>
-                <th class="info-modal__table-subtitle">closing date</th>
-                <th class="info-modal__table-subtitle">percent</th>
-                <th class="info-modal__table-subtitle">status</th>
-                <th class="info-modal__table-subtitle">type</th>
-            </tr>
-            </thead>
-            <tbody class="info-modal__table-body">
-            <?php foreach ($client_credits as $credit): ?>
-                <tr class="info-modal__table-row info-modal__table-row_hover">
-                    <td class="info-modal__table-data"><?php echo $credit["AccountId"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $credit["OpeningDate"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $credit["ClosingDate"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $credit["Percent"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $credit["Status"] ?></td>
-                    <td class="info-modal__table-data info-modal_table-data_accent-color"><?php echo $credit["AccountType"] ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</dialog>
-<dialog class="modal info-modal deposit-info">
-    <div class="info-modal__container">
-        <header class="info-modal__header">
-            <h3 class="info-modal__headline">Deposits info</h3>
-        </header>
-        <table class="info-modal__table">
-            <thead class="info-modal__table-head">
-            <tr class="info-modal__table-row">
-                <th class="info-modal__table-subtitle">account number</th>
-                <th class="info-modal__table-subtitle">opening date</th>
-                <th class="info-modal__table-subtitle">closing date</th>
-                <th class="info-modal__table-subtitle">status</th>
-                <th class="info-modal__table-subtitle">type</th>
-            </tr>
-            </thead>
-            <tbody class="info-modal__table-body">
-            <?php foreach ($client_deposits as $deposit): ?>
-                <tr class="info-modal__table-row info-modal__table-row_hover">
-                    <td class="info-modal__table-data"><?php echo $deposit["AccountId"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $deposit["OpeningDate"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $deposit["ClosingDate"] ?></td>
-                    <td class="info-modal__table-data"><?php echo $deposit["Status"] ?></td>
-                    <td class="info-modal__table-data info-modal_table-data_accent-color"><?php echo $deposit["AccountType"] ?></td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</dialog>
 <dialog class="modal update-avatar">
     <div class="update-avatar__container">
         <form class="update-avatar__form" method="post"
@@ -360,31 +297,24 @@ require_once("../modules/clients/movements.php");
         </form>
     </div>
 </dialog>
-<div class="tooltip-wrap">
-    <div class="tooltip">
-        <div class="tooltip__content">
-            <p class="tooltip__text"></p>
-        </div>
-    </div>
-</div>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">
             <li class="footer__item">
-                <a href="./home.php" class="footer__link footer__link_hover footer__link_focus">Home</a>
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="./credits.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
                 <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
             </li>
             <li class="footer__item">
-                <a href="./aboutus.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
+                <a href="company.php" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="./profile.php" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
@@ -409,15 +339,20 @@ require_once("../modules/clients/movements.php");
         <h2 class="footer__headline">Contacts</h2>
         <ul class="footer__contacts-list">
             <li class="footer__contacts-item">
-                <span class="footer__icon phone"></span>
-                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">8 903 123 45 67</a>
+                <a href="tel:89031234567" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon phone"></span>
+                    8 903 123 45 67
+                </a>
             </li>
             <li class="footer__contacts-item">
-                <span class="footer__icon email"></span>
-                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">certia@gmail.com</a>
+                <a href="mailto:certia@gmail.com" class="footer__link footer__link_hover footer__link_focus">
+                    <span class="footer__icon email"></span>
+                    certia@gmail.com
+                </a>
             </li>
         </ul>
     </div>
+    <p class="footer__slogan">Certia - convenient everywhere and in everything</p>
 </footer>
 </body>
 </html>

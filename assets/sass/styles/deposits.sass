@@ -1,0 +1,76 @@
+@import "../tools"
+
+.deposits 
+  width: 100%
+  height: auto
+  padding: 0 70px
+  margin-bottom: 126px
+
+  &__header 
+    margin: 30px 0
+
+  &__cards 
+    display: flex
+    gap: 35px
+    flex-wrap: wrap
+    width: inherit
+    height: auto
+
+  &__card 
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    place-items: center
+    width: 550px
+    min-height: 250px
+    padding: 30px
+    background-color: $background-gr
+    border-radius: $border-radius
+
+  &__card-content 
+    display: grid
+    grid-template-rows: repeat(3, 1fr)
+    min-width: 300px
+    height: 193px
+
+  &__card-headline 
+    @include font-style(bold, $subtitle, $accent-font, $accent-color)
+
+  &__card-description 
+    display: flex
+    align-self: start
+    justify-content: space-between
+    width: inherit
+
+  &__card-description-title 
+    @include font-style(normal, 16px, $accent-font, $accent-color)
+  
+  &__card-description-subtitle 
+    display: block
+    @include font-style(normal, $small-size, $accent-font, $nickel)
+
+  &__card-image 
+    width: 120px
+    height: 120px
+
+    &.layout-fluid-icon
+      background: no-repeat center/100% url("../../../static/icons/layout-fluid.svg")
+
+    &.clock-icon
+      background: no-repeat center/100% url("../../../static/icons/clock.svg")
+
+    &.chart-pyramid-icon
+      background: no-repeat center/100% url("../../../static/icons/chart-pyramid-gr.svg")
+
+    &.chat-arrow-grow-icon
+      background: no-repeat center/100% url("../../../static/icons/chat-arrow-grow.svg")
+  
+  &__card-link 
+    display: block
+    margin-top: 17px
+    width: max-content
+    padding: 15px 30px
+    border: none
+    cursor: pointer
+    @include font-style(normal, $small-size, $accent-font, $white)
+    border-radius: $border-radius
+    background-color: $accent-color
