@@ -1,3 +1,5 @@
+const inputMaxlength = (field, maxlength) => field.value = (field.value.length > maxlength) ? field.value.slice(0, maxlength) : field.value
+const onlyNumber = field => field.value = field.value.replace(/\D/g, "").trimStart()
 const personalDataValidation = (field, title) => {
     switch (title) {
         case "firstName":
@@ -31,16 +33,16 @@ const locationDataValidation = (field, title) => {
             break
         case "house":
         case "flat":
-            let flatmask = new Inputmask("999")
-            flatmask.mask(field)
+            inputMaxlength(field, 3)
+            onlyNumber(field)
             break
         case "zipCode":
-            let zipmask = new Inputmask("999999")
-            zipmask.mask(field)
+            inputMaxlength(field, 6)
+            onlyNumber(field)
             break
         case "building":
-            let buildingmask = new Inputmask("99")
-            buildingmask.mask(field)
+            inputMaxlength(field, 2)
+            onlyNumber(field)
             break
     }
 }
