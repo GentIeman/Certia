@@ -33,10 +33,16 @@
                 <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
                 </label>
-                <label for="" class="form__label form__label_full-width form__label_password form__label_focus form__label_hover form__label_password">
+                <?php if(isset($_GET["phone-not-found"])): ?>
+                    <p class="auth__error">Phone not found</p>
+                <?php endif; ?>
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover form__label_password">
                     <input type="password" class="form__input form__input-password" name="password" placeholder="Password" oninput="personalDataValidation(this, 'password')" required autocomplete>
                     <span class="form__password-toggle" onclick="togglePassword(this, 'form__input-password')"></span>
                 </label>
+                <?php if(isset($_GET["wrong-password"])): ?>
+                    <p class="auth__error">Invalid password</p>
+                <?php endif; ?>
                 <button type="submit" class="form__btn btn form__btn-next-step form__btn_hover form__btn_focus">Sign in</button>
             </fieldset>
         </form>
