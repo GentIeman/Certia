@@ -5,12 +5,10 @@ const personalDataValidation = (field, title) => {
         case "patronymic":
             return field.value = field.value.replace(/[^A-Za-z\s]/gi, "").trimStart()
         case "phone":
-            let phonemask = new Inputmask("+7 (999) 999 99 99")
-            phonemask.mask(field)
+            Inputmask("+7 (999) 999 99 99", {greedy: false}).mask(field)
             break
         case "passport":
-            let passportMask = new Inputmask("9999 999999")
-            passportMask.mask(field)
+            Inputmask("9999 999999").mask(field)
             break
         case "email":
             return field.value = field.value.replace(/[^A-Za-z0-9@.]/gi, "").trimStart()
