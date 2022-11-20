@@ -2,6 +2,7 @@
 *.css
 *.ini
 *.jpeg
+*.css.map
 
 # Directories
 .idea

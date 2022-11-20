@@ -1,12 +1,12 @@
 <?php
-$client = R::findOne("clients", "phone = ?", array($_POST["phone"]));
+$client = R::findOne("clients", "client_phone = ?", array($_POST["phone"]));
 if ($client) {
-    if (password_verify($_POST["password"], $client->pswd)) {
+    if (password_verify($_POST["password"], $client->client_password)) {
         $_SESSION["user"] = $client;
-        echo ($client->role == "admin") ? "admin" : "ok";
+        header("location: ../index.php?page=home");
     } else {
-        exit("Invalid password");
+        header("location: ../index.php?page=login&wrong-password");
     }
 } else {
-    exit("User not found");
+    header("location: ../index.php?page=login&phone-not-found");
 }
