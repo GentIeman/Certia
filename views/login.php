@@ -48,12 +48,5 @@
         </p>
     </footer>
 </section>
-<div class="tooltip-wrap">
-    <div class="tooltip">
-        <div class="tooltip__content">
-            <p class="tooltip__text"></p>
-        </div>
-    </div>
-</div>
 </body>
 </html>
