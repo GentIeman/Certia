@@ -48,7 +48,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
                         <li class="dropdown__item">
                             <a href="loans.php" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                 <span class="dropdown__icon money-icon"></span>
-                                Credits
+                                Loans
                             </a>
                         </li>
                         <li class="dropdown__item">
@@ -210,7 +210,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
                 <a href="#" class="footer__link footer__link_hover footer__link_focus">Home</a>
             </li>
             <li class="footer__item">
-                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Credits</a>
+                <a href="loans.php" class="footer__link footer__link_hover footer__link_focus">Loans</a>
             </li>
             <li class="footer__item">
                 <a href="./deposits.php" class="footer__link footer__link_hover footer__link_focus">Deposits</a>
