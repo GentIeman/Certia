@@ -22,13 +22,13 @@
     <script src="../static/scripts/field-validation.js" defer></script>
 </head>
 <body class="page">
-<a href="./index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
+<a href="../index.php?page=home" class="home-link home-link_hover home-link_focus">Back to home</a>
 <section class="auth">
     <div class="auth__container">
         <header class="auth__header">
             <h1 class="auth__headline">Sign in</h1>
         </header>
-        <form class="auth__form form" method="post" action="./index.php?page=auth&action=login">
+        <form class="auth__form form" method="post" action="../index.php?page=login&action=auth">
             <fieldset class="form__section form__section_active">
                 <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
@@ -44,7 +44,7 @@
     <footer class="auth__footer">
         <p class="auth__footer-text">
             First time with us?
-            <a href="./index.php?page=registration" class="auth__link auth__link_hover auth__link_focus">Sign up</a>
+            <a href="../index.php?page=registration" class="auth__link auth__link_hover auth__link_focus">Sign up</a>
         </p>
     </footer>
 </section>
