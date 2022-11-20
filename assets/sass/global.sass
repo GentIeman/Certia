@@ -61,11 +61,14 @@ html, body
     border-radius: $input-border-radius
     transition: box-shadow .3s linear
 
+    &_invalid
+      box-shadow: 0 0 0 2px $invalid-color
+
     &_password
       grid-template-columns: auto 50px
       background-color: $decorative-color
 
-    &:is(&_hover:hover, &_focus:focus-within)
+    &:not(&_invalid):is(&_hover:hover, &_focus:focus-within)
       box-shadow: 0 0 0 3px $dark-green
 
     &_full-width
