@@ -7,20 +7,23 @@ const personalDataValidation = (field, title) => {
         case "patronymic":
             return field.value = field.value.replace(/[^A-Za-z\s]/gi, "").trimStart()
         case "phone":
-            Inputmask("+7 (999) 999 99 99", {greedy: false}).mask(field)
+            Inputmask("+7 (999) 999 99 99", {"placeholder": ""}).mask(field)
+            customValidity(field, "phone")
             break
         case "passport":
-            Inputmask("9999 999999").mask(field)
+            Inputmask("9999 999999", {"placeholder": ""}).mask(field)
+            customValidity(field, "passport")
             break
         case "email":
             return field.value = field.value.replace(/[^A-Za-z0-9@.]/gi, "").trimStart()
         case "birthDate":
-            birthdayValidation(field)
+            customValidity(field, "birthDate")
             break
         case "gender":
-            genderValidation(field)
+            customValidity(field, "gender")
             break
         case "password":
+            customValidity(field, "password")
             return field.value = field.value.replaceAll(/[^A-Za-z()+-{}0-9]/gi, "").trimStart()
     }
 }
@@ -39,6 +42,7 @@ const locationDataValidation = (field, title) => {
         case "zipCode":
             inputMaxlength(field, 6)
             onlyNumber(field)
+            customValidity(field, "zipCode")
             break
         case "building":
             inputMaxlength(field, 2)
@@ -47,19 +51,62 @@ const locationDataValidation = (field, title) => {
     }
 }
 
-const genderValidation = field => {
-    field.value = field.value.toLowerCase()
-    if (field.value === "man" || field.value === "woman") {
-        field.setCustomValidity("")
-    } else {
-        field.setCustomValidity("Enter gender: Man or Woman")
-    }
-}
-
-const birthdayValidation = field => {
-    if (new Date(field.value).getFullYear() > new Date().getFullYear() - 18) {
-        field.setCustomValidity("Most be over 18")
-    } else {
-        field.setCustomValidity("")
+const customValidity = (field, title) => {
+    let parent = gettingParentNode(field)
+    switch (title) {
+        case "gender":
+            if (field.value === "man" || field.value === "woman") {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            } else {
+                field.setCustomValidity("Enter gender: Man or Woman")
+                let parent = gettingParentNode(field)
+                parent.classList.add("form__label_invalid")
+            }
+            break
+        case "zipCode":
+            if (field.value.length < 6) {
+                field.setCustomValidity("Enter 6 digits")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "birthDate":
+            if (new Date(field.value).getFullYear() > new Date().getFullYear() - 18) {
+                field.setCustomValidity("Most be over 18")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "password":
+            if (field.value.length < 8) {
+                field.setCustomValidity("Password must be at least 8 characters long")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "phone":
+            if (field.value.length < 18) {
+                field.setCustomValidity("Not valid phone number")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
+            break
+        case "passport":
+            if (field.value.length < 11) {
+                field.setCustomValidity("Not valid passport number")
+                parent.classList.add("form__label_invalid")
+            } else {
+                field.setCustomValidity("")
+                parent.classList.remove("form__label_invalid")
+            }
     }
 }
