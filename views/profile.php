@@ -239,7 +239,7 @@ require_once("../modules/clients/movements.php");
     <section class="feedback">
         <h2 class="feedback__content">You liked the level of our work, or you have any suggestions?
             Then you can leave your feedback by filling out a special form</h2>
-        <a href="./feedbacks.php" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
+        <a href="../index.php?page=feedback" class="feedback__link feedback__link_hover feedback__link_focus">Feedback</a>
     </section>
 </section>
 <dialog class="modal transfer-modal">

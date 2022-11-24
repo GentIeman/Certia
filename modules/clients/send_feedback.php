@@ -1,10 +1,7 @@
 <?php
-$client = R::load("clients", $_GET["user_id"]);
+$client_id = $_SESSION["user"]->id;
+$client = R::load("clients", $client_id);
 $feedback = R::dispense("feedbacks");
-$feedback->username = $_POST["username"];
-$feedback->email = $_POST["email"];
-$feedback->phone = $_POST["phone"];
-$feedback->content = trim($_POST["content"]);
+$feedback->feedback_message = trim($_POST["message"]);
 $client->ownFeedbacksList[] = $feedback;
 R::storeAll([$client, $feedback]);
-echo "ok";

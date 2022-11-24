@@ -20,6 +20,7 @@ $location->location_house = $_POST["house"];
 $location->location_building = $_POST["building"];
 $location->location_flat = $_POST["flat"];
 $location->location_zipcode = $_POST["zip-code"];
+$client->ownLocationsList[] = $location;
 
 R::storeAll([$client, $location]);
 
