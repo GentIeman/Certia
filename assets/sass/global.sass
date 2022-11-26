@@ -640,3 +640,21 @@ html, body
 
     &_accent-color
       color: $accent-color
+
+.table
+  position: relative
+  border-collapse: collapse
+
+  &__row
+    transition: background-color .1s linear
+
+    &_hover:hover
+      background-color: $background-gr
+
+  &__head
+    text-align: left
+    @include font-style(normal, $small-size, $roboto, $decorative-color)
+
+  &__cell
+    padding: 10px 0
+    @include font-style(normal, $small-size, $accent-font, $accent-color)
