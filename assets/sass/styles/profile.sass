@@ -34,7 +34,6 @@
     transform: translate(-50%, -50%)
     border-radius: 50%
     background-color: $accent-color
-    cursor: pointer
 
   &__avatar 
     border-radius: 50%
@@ -155,31 +154,12 @@
   border-radius: $border-radius
   overflow-y: auto
 
-  &__header 
+  &__header
     margin-bottom: 20px
     @include font-style(bold, $medium-size, $accent-font, $accent-color)
 
   &__table 
-    width: inherit
-    border-collapse: collapse
-
-  &__table-row 
-    display: grid
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
-    transition: background-color .3s linear
-
-    &_hover:hover 
-      background-color: $background-gr
-
-    &:last-child 
-      border-bottom: none
-
-  &__table-subtitle 
-    @include font-style(normal, $small-size, $roboto, $decorative-color)
-
-  &__table-data 
-    padding: 10px 0
-    @include font-style(normal, $small-size, $accent-font, $accent-color)
+    width: 100%
 
   &__plug 
     @include font-style(normal, $medium-size, $roboto, $text-color-light-gr)
