@@ -173,35 +173,6 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
         </button>
     </form>
 </section>
-<dialog class="modal reference-modal">
-    <div class="reference-modal__container modal__container_grid">
-        <header class="reference-modal__header">
-            <h3 class="reference-modal__headline">Loan reference</h3>
-        </header>
-        <ul class="reference-modal__list">
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Loan details</h3>
-                <div class="loan-data">
-                    <label class="loan-data__label">
-                        <input type="text" class="loan-data__input" disabled value="<?php echo $plan["amount"] ?>$">
-                    </label>
-                    <span class="loan-data__under">for</span>
-                    <p class="loan-data__percent"><?php echo $plan["percent"] ?>%
-                        <span class="loan-data__subtitle">percent</span>
-                    </p>
-                </div>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Period</h3>
-                <p class="reference-modal__time">
-                    <?php echo $current_date ?> - <?php echo $end_date ?>
-                    (<?php echo $plan->term ?>days)
-                </p>
-            </li>
-        </ul>
-        <div class="reference-modal__image check"></div>
-    </div>
-</dialog>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>

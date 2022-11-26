@@ -191,36 +191,6 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
         </button>
     </form>
 </section>
-<dialog class="modal reference-modal">
-    <div class="reference-modal__container modal__container_grid">
-        <header class="reference-modal__header">
-            <h3 class="reference-modal__headline">Deposit reference</h3>
-        </header>
-        <ul class="reference-modal__list">
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Deposit details</h3>
-            </li>
-            <li class="reference-modal__item">
-                <div class="deposit-data">
-                    <label class="deposit-data__label">
-                        <input type="text" class="deposit-data__input" disabled value="4000$">
-                    </label>
-                </div>
-            </li>
-            <li class="reference-modal__item">
-                <p class="reference-modal__subtitle">Type: <span
-                            class="reference-modal__subtitle_accent-color"><?php echo $plan["type"] ?></span>
-                </p>
-            </li>
-            <li class="reference-modal__item">
-                <h3 class="reference-modal__subtitle">Period</h3>
-                <p class="reference-modal__time"><?php echo $current_date ?> - <?php echo $end_date ?>
-                    (<?php echo $plan->term ?>days)</p>
-            </li>
-        </ul>
-        <div class="reference-modal__image check"></div>
-    </div>
-</dialog>
 <footer class="footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
