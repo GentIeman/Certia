@@ -34,7 +34,6 @@
     transform: translate(-50%, -50%)
     border-radius: 50%
     background-color: $accent-color
-    cursor: pointer
 
   &__avatar 
     border-radius: 50%
@@ -78,7 +77,7 @@
     display: grid
     gap: 30px 0
     width: 100%
-    max-height: 388px
+    max-height: 270px
     overflow-y: auto
 
 .card 
@@ -89,16 +88,20 @@
   padding: 10px
   width: inherit
   min-height: 60px
-  background-color: var(--background-gr)
+  background-color: $background-gr
   border-radius: $border-radius
+  transition: background-color .3s linear
+
+  &:is(&_hover:hover, &_focus:focus)
+    background-color: $decorative-color
 
   &__icon 
     width: 50px
     height: 50px
-    background: no-repeat center / 60% url("../../../static/icons/credit-card.svg") #BFC6DA
+    background: no-repeat center / 60% url("../../../static/icons/credit-card.svg") $bed-blue
     border-radius: $border-radius
 
-  &__type 
+  &__system
     display: flex
     flex-direction: column
     @include font-style(bold, $medium-size, $accent-font, $accent-color)
@@ -151,31 +154,12 @@
   border-radius: $border-radius
   overflow-y: auto
 
-  &__header 
+  &__header
     margin-bottom: 20px
     @include font-style(bold, $medium-size, $accent-font, $accent-color)
 
   &__table 
-    width: inherit
-    border-collapse: collapse
-
-  &__table-row 
-    display: grid
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr))
-    transition: background-color .3s linear
-
-    &_hover:hover 
-      background-color: $background-gr
-
-    &:last-child 
-      border-bottom: none
-
-  &__table-subtitle 
-    @include font-style(normal, $small-size, $roboto, $decorative-color)
-
-  &__table-data 
-    padding: 10px 0
-    @include font-style(normal, $small-size, $accent-font, $accent-color)
+    width: 100%
 
   &__plug 
     @include font-style(normal, $medium-size, $roboto, $text-color-light-gr)
@@ -269,8 +253,8 @@
     padding: 15px 20px
     width: 100%
     border: none
-    background-color: var(--background-field)
-    border-radius: var(--input-border-radius)
+    background-color: $background-field
+    border-radius: $input-border-radius
     transition: box-shadow .3s linear
     @include font-style(bold, 16px, $roboto, $accent-color)
 
@@ -331,7 +315,7 @@
     justify-self: center
     border-radius: 5px
     border: none
-    @include font-style(normal, $small-size, $roboto, var(--text-color-wt))
+    @include font-style(normal, $small-size, $roboto, $white)
     background-color: $decorative-color
     transition: background-color .3s linear
     cursor: pointer

@@ -47,7 +47,7 @@ const locationDataValidation = (field, title) => {
             customValidity(field, "zipCode")
             break
         case "building":
-            inputMaxlength(field, 2)
+            inputMaxlength(field, 1)
             onlyNumber(field)
             break
     }

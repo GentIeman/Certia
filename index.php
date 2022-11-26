@@ -38,6 +38,7 @@ if (isset($_GET["page"])) {
             require_once "./views/loan-processing.php";
             break;
         case "feedback":
+            require_once "./modules/clients/client_info.php";
             require_once "./modules/handlers/handler_clients.php";
             require_once "./views/feedbacks.php";
             break;
@@ -45,6 +46,7 @@ if (isset($_GET["page"])) {
             require_once "./views/admin.php";
             break;
         case "profile":
+            require_once "./modules/clients/client_info.php";
             require_once "./views/profile.php";
             break;
     }

@@ -122,7 +122,7 @@
         </label>
         <label class="feedbacks__form-label">Message
             <textarea placeholder="Your message"
-                      name="content"
+                      name="message"
                       class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
                       required></textarea>
         </label>
