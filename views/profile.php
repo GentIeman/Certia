@@ -1,9 +1,3 @@
-<?php
-require_once("../modules/clients/check_avatar.php");
-require_once("../modules/clients/client_info.php");
-require_once("../modules/clients/check_debting.php");
-require_once("../modules/clients/movements.php");
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -22,12 +16,12 @@ require_once("../modules/clients/movements.php");
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
-    <script src="../static/scripts/search.js" defer></script>
-    <script src="../static/scripts/open-modal.js" defer></script>
-    <script src="../static/scripts/change-file-name.js" defer></script>
-    <script src="../static/scripts/field-validation.js" defer></script>
     <link rel="stylesheet" href="../assets/sass/styles/profile.css">
     <link rel="stylesheet" href="../assets/sass/global.css">
+    <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/open-modal.js" defer></script>
+    <script src="../static/scripts/field-validation.js" defer></script>
+    <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -119,67 +113,61 @@ require_once("../modules/clients/movements.php");
         <h1 class="profile__headline headings">Profile</h1>
     </header>
     <div class="user-card">
-        <div class="user-card__avatar-wrap" onclick="showModal('update-avatar')">
-            <img src="../static/<?php echo $pathToAvatar ?>" alt="Avatar" class="user-card__avatar" width="100"
-                 height="100">
+        <div class="user-card__avatar-wrap">
+            <img src="../static/icons/user-wt.svg" alt="Avatar" class="user-card__avatar" width="100" height="100">
         </div>
         <ul class="user-card__list">
             <li class="user-card__item">
-                <p class="user-card__title user-card__title_bold"><?php echo $client["fullname"] ?></p>
-                <span class="user-card__subtitle">username</span>
+                <p class="user-card__title user-card__title_bold"><?php echo $fullname ?></p>
+                <span class="user-card__subtitle">fullname</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $client["email"] ?></p>
+                <p class="user-card__title"><?php echo $client_birthdate ?></p>
+                <span class="user-card__subtitle">birthday</span>
+            </li>
+            <li class="user-card__item">
+                <p class="user-card__title"><?php echo $client["client_email"] ?></p>
                 <span class="user-card__subtitle">email</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $client["phone"] ?></p>
+                <p class="user-card__title"><?php echo $client["client_phone"] ?></p>
                 <span class="user-card__subtitle">phone</span>
             </li>
             <li class="user-card__item">
-                <p class="user-card__title"><?php echo $client["address"] ?></p>
+                <p class="user-card__title"><?php echo $client_address ?></p>
                 <span class="user-card__subtitle">address</span>
             </li>
-            <li class="user-card__item">
-                <?php if ($summ < 0): ?>
-                    <p class="user-card__title user-card__title_red"> <?php echo $summ ?></p>
-                    <span class="user-card__subtitle">debt</span>
-                <?php else : ?>
-                    <p class="user-card__title user-card__title"> <?php echo $summ ?></p>
-                    <span class="user-card__subtitle">balance</span>
-                <?php endif; ?>
-            </li>
-            <?php foreach ($client->ownBankaccountsList as $account): ?>
-                <li class="user-card__item">
-                    <p class="user-card__title"><?php echo $account["id"] ?></p>
-                    <span class="user-card__subtitle">account number</span>
-                </li>
-            <?php endforeach; ?>
         </ul>
     </div>
     <section class="cards">
         <header class="cards__header">
-            <h2 class="cards__headline">Cards</h2>
+            <h1 class="cards__headline">Cards</h1>
         </header>
         <ul class="cards__list">
             <?php foreach ($client_cards as $card): ?>
                 <li class="cards__item">
-                    <div class="card">
+                    <a href="../index.php?page=account-info&card_id=<?php echo $card["id"] ?>" class="card card_hover card_focus">
                         <div class="card__icon"></div>
-                        <p class="card__type"><?php echo $card["CardName"] ?>
+                        <p class="card__system"><?php echo $card["card_system"] ?>
                             <span class="card__number">
-                                * <?php echo substr($card["CardNumber"], -4) ?>
+                                * <?php echo substr($card["card_number"], -4) ?>
                             </span>
                         </p>
-                        <p class="card__balance"><?php echo $card["AmountAccount"] ?>$</p>
-                    </div>
+                        <p class="card__balance">
+                            <?php foreach ($accounts as $account): ?>
+                                <?php if ($account["id"] == $card["accounts_id"]): ?>
+                                    <?php echo $account["account_balance"] ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        $</p>
+                    </a>
                 </li>
             <?php endforeach; ?>
         </ul>
     </section>
     <section class="operation">
         <header class="operation__header">
-            <h2 class="operation__headline">Operation</h2>
+            <h1 class="operation__headline">Operation</h1>
         </header>
         <ul class="operation__list">
             <li class="operation__item">
@@ -188,52 +176,37 @@ require_once("../modules/clients/movements.php");
                     Transfer to a person
                 </button>
             </li>
-            <?php if ($credits > 0): ?>
-                <li class="operation__item">
-                    <button class="operation__btn operation__btn-loan operation__btn_hover operation__btn_focus"
-                            onclick="showModal('loan-info')">
-                        Loan status
-                    </button>
-                </li>
-            <?php endif;
-            if ($deposits > 1): ?>
-                <li class="operation__item">
-                    <button class="operation__btn operation__btn-deposit operation__btn_hover operation__btn_focus"
-                            onclick="showModal('deposit-info')">
-                        Deposit status
-                    </button>
-                </li>
-            <?php endif; ?>
         </ul>
     </section>
     <section class="activity">
         <header class="activity__header">
             <h2 class="activity__headline">Activity</h2>
         </header>
-        <?php if (!$movements): ?>
+        <?php if (!$activity): ?>
             <p class="activity__plug">Not activity</p>
         <?php else: ?>
-            <div class="activity__table">
-                <ul class="activity__table-row">
-                    <li class="activity__table-subtitle">from</li>
-                    <li class="activity__table-subtitle">to</li>
-                    <li class="activity__table-subtitle">amount</li>
-                    <li class="activity__table-subtitle">timestamp</li>
-                </ul>
-                <?php foreach ($movements as $move): ?>
-                    <ul class="activity__table-row activity__table-row_hover">
-                        <li class="activity__table-data"><?php echo $move["from"] ?></li>
-                        <li class="activity__table-data"><?php echo $move["to"] ?></li>
-                        <li class="activity__table-data">
-                            <?php echo $move["direction"] . $move["amount"] ?>
-                            $
-                        </li>
-                        <li class="activity__table-data">
-                            <?php echo $move["timestamp"] ?>
-                        </li>
-                    </ul>
-                <?php endforeach; ?>
-            </div>
+        <table class="activity__table table">
+            <thead class="table__thead">
+                <tr class="table__row">
+                    <th class="table__head">client</th>
+                    <th class="table__head">amount</th>
+                    <th class="table__head">card</th>
+                    <th class="table__head">date</th>
+                    <th class="table__head">type</th>
+                </tr>
+            </thead>
+            <tbody class="table__tbody">
+            <?php foreach ($activity as $active): ?>
+                <tr class="table__row table__row_hover">
+                    <td class="table__cell"><?php echo $active["client"] ?></td>
+                    <td class="table__cell"><?php echo $active["direction"]?><?php echo $active["amount"] ?>$</td>
+                    <td class="table__cell">* <?php echo substr($active["card"], -4) ?></td>
+                    <td class="table__cell"><?php echo $active["date"] ?></td>
+                    <td class="table__cell"><?php echo $active["type"] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
         <?php endif; ?>
     </section>
     <section class="feedback">
@@ -247,52 +220,29 @@ require_once("../modules/clients/movements.php");
         <header class="transfer-modal__header">
             <h3 class="transfer-modal__headline">transfer to another account</h3>
         </header>
-        <form class="transfer-modal__form" method="post"
-              action="#">
+        <form class="transfer-modal__form" method="post" action="#">
             <label class="transfer-modal__label">
-                <input type="text" list="card" name="card"
-                       class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_card"
-                       placeholder="Transfer from" pattern="[0-9]{4} *[0-9]{4} *[0-9]{4} *[0-9]{4}"
-                       oninput="onlyNumber(this)"
-                       maxlength="16" required>
+                <input type="text" list="card" name="card" class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_card" placeholder="Transfer from" pattern="[0-9]{4} *[0-9]{4} *[0-9]{4} *[0-9]{4}" oninput="onlyNumber(this)" maxlength="16" required>
                 <datalist id="card">
                     <?php foreach ($client_cards as $card): ?>
-                        <?php if ($card["AmountAccount"] > 0): ?>
-                            <option value="<?php echo $card["CardNumber"] ?>"><?php echo $card["AmountAccount"] ?></option>
+                        <?php if ($card["card_amount"] > 0): ?>
+                            <option value="<?php echo $card["card_number"] ?>"><?php echo $card["card_amount"] ?></option>
                         <?php endif; ?>
                     <?php endforeach; ?>
                 </datalist>
             </label>
             <label class="transfer-modal__label">
-                <input type="number" name="recipient" min="16"
+                <input type="text" name="recipient"
                        class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_recipient"
-                       placeholder="Recipient's card number" oninput="recipientValidation(this, 16)" required>
+                       placeholder="Recipient's card number" required>
             </label>
             <label class="transfer-modal__label">
                 <input type="number" min="50" max="10000" name="amount"
                        class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_amount"
                        placeholder="Amount" oninput="onlyNumber(this)" required>
             </label>
-            <button type="submit"
-                    onclick="trySendData('transfer-modal__form', 'transfer-money&user_id=<?php echo $client["id"] ?>', 'profile.php', 'transfer-modal', 'successful-transfer')"
-                    class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip ">
+            <button type="submit" class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip ">
                 Transfer
-            </button>
-        </form>
-    </div>
-</dialog>
-<dialog class="modal update-avatar">
-    <div class="update-avatar__container">
-        <form class="update-avatar__form" method="post"
-              action="#" enctype="multipart/form-data">
-            <div class="update-avatar__content update-avatar__content_hover update-avatar__content_focus">
-                <p class="update-avatar__subtitle">Choose file (.jpg)</p>
-                <input type="file" name="avatar" class="update-avatar__input" accept=".jpg" required>
-            </div>
-            <button type="submit"
-                    onclick="trySendData('update-avatar__form', 'update-avatar&user_id=<?php echo $client["id"] ?>', 'profile.php', 'update-avatar')"
-                    class="update-avatar__btn update-avatar__btn_hover update-avatar__btn_focus">
-                Update
             </button>
         </form>
     </div>
