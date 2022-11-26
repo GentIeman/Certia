@@ -1,3 +1,3 @@
 <?php
 unset($_SESSION["user"]);
-header("Location:home.php");
+header("Location:../index.php?page=home");
