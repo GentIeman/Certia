@@ -19,9 +19,11 @@
     <link rel="stylesheet" href="../assets/sass/styles/profile.css">
     <link rel="stylesheet" href="../assets/sass/global.css">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../libs/inputmask.js" defer></script>
     <script src="../static/scripts/open-modal.js" defer></script>
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
+    <script src="../static/scripts/checking-card-reference.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -218,28 +220,28 @@
 <dialog class="modal transfer-modal">
     <div class="transfer-modal__container">
         <header class="transfer-modal__header">
-            <h3 class="transfer-modal__headline">transfer to another account</h3>
+            <h3 class="transfer-modal__headline">Transfer to another account</h3>
         </header>
-        <form class="transfer-modal__form" method="post" action="#">
+        <form class="transfer-modal__form" method="post" action="../index.php?page=profile&action=transaction">
             <label class="transfer-modal__label">
-                <input type="text" list="card" name="card" class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_card" placeholder="Transfer from" pattern="[0-9]{4} *[0-9]{4} *[0-9]{4} *[0-9]{4}" oninput="onlyNumber(this)" maxlength="16" required>
-                <datalist id="card">
-                    <?php foreach ($client_cards as $card): ?>
-                        <?php if ($card["card_amount"] > 0): ?>
-                            <option value="<?php echo $card["card_number"] ?>"><?php echo $card["card_amount"] ?></option>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </datalist>
+                <select class="transfer-modal__select transfer-model__client-card transfer-modal__select_hover transfer-modal__select_focus" oninput="checkingCard(this)" name="selected-card" required>
+                    <option value="0" selected disabled>Choose a card</option>
+                        <?php foreach ($client_cards as $card): ?>
+                            <?php foreach ($accounts as $account): ?>
+                                <?php if ($account["id"] == $card["accounts_id"]): ?>
+                                    <option value="<?php echo $card["card_number"] ?>">
+                                        <?php echo $card["card_system"] ?> * <?php echo substr($card["card_number"], -4) ?> <?php echo $account["account_balance"]?>$
+                                    </option>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php endforeach; ?>
+                </select>
             </label>
             <label class="transfer-modal__label">
-                <input type="text" name="recipient"
-                       class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_recipient"
-                       placeholder="Recipient's card number" required>
+                <input type="text" name="recipient-card" class="transfer-modal__input transfer-model__recipient-card transfer-modal__input-to transfer-modal__input_hover transfer-modal__input_focus" placeholder="Recipient's card number" oninput="checkingCard(this)" required>
             </label>
             <label class="transfer-modal__label">
-                <input type="number" min="50" max="10000" name="amount"
-                       class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_amount"
-                       placeholder="Amount" oninput="onlyNumber(this)" required>
+                <input type="number" min="50" max="10000" name="amount" class="transfer-modal__input transfer-modal__input_hover transfer-modal__input_focus transfer-modal__input_amount" placeholder="Amount" oninput="onlyNumber(this)" required>
             </label>
             <button type="submit" class="transfer-modal__btn transfer-modal__btn_hover transfer-modal__btn_focus open-tooltip ">
                 Transfer

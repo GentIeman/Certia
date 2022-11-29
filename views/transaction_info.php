@@ -6,19 +6,20 @@
           content="width=device-width, initial-scale=1.0, maximum-scale=5, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Web resource for Certia Bank">
-    <meta name="keywords" content="bank, certia, Bank, Certia">
     <meta name="author" content="Ilya Shepelev">
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
-    <title>Feedbacks</title>
+    <title>Transaction info</title>
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/sass/styles/feedbacks.css">
+    <link rel="stylesheet" href="../assets/sass/styles/info.css">
     <link rel="stylesheet" href="../assets/sass/global.css">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../static/scripts/open-modal.js" defer></script>
+    <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
 <body>
@@ -106,31 +107,42 @@
         </div>
     </div>
 </div>
-<section class="feedbacks">
-    <header class="feedbacks__header">
-        <h1 class="feedbacks__headline headings">Feedbacks</h1>
-        <a href="../index.php?page=profile" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
-            <span class="feedbacks__back-icon"></span>Back</a>
+<section class="account-info">
+    <header class="account-info__header">
+        <h1 class="account-info__headline headings">Transaction info</h1>
     </header>
-    <form class="feedbacks__form" method="post" action="../index.php?page=profile&action=send-feedback">
-        <header class="feedbacks__form-header">
-            <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
-        </header>
-        <label class="feedbacks__form-label">Your name
-            <input type="text" name="username" value="<?php echo $fullname ?>"
-                   class="feedbacks__input input" readonly disabled>
-        </label>
-        <label class="feedbacks__form-label">Message
-            <textarea placeholder="Your message"
-                      name="message"
-                      class="feedbacks__textarea feedbacks__textarea_hover feedbacks__textarea_focus"
-                      required></textarea>
-        </label>
-        <button type="submit"
-                class="feedbacks__btn feedbacks__btn_hover feedbacks__btn_focus btn">Send Message
-        </button>
-    </form>
-    <div class="feedbacks__circle"></div>
+    <div class="card-container">
+        <div class="account-info__card card">
+            <header class="card__header">
+                <h2 class="card__headline">Transaction summary</h2>
+            </header>
+            <?php if ($isEnoughMoney === false && $isAccountNotFound === false): ?>
+                <ul class="card__list">
+                    <li class="card__item">
+                        <p class="card__text">Status: completed</p>
+                    </li>
+                    <li class="card__item">
+                        <p class="card__text">Date: <?php echo $transaction_date ?> </p>
+                    </li>
+                    <li class="card__item">
+                        <p class="card__text">Card number: <?php echo $card_to?></p>
+                    </li>
+                    <li class="card__item">
+                        <p class="card__text">Amount: <?php echo $transaction["transaction_amount"] ?>$</p>
+                    </li>
+                </ul>
+            <?php endif; ?>
+            <?php if ($isAccountNotFound): ?>
+                <p class="card__text card__text_danger">Account not found</p>
+            <?php endif; ?>
+            <?php if ($isEnoughMoney): ?>
+                <p class="card__text card__text_danger">Not enough money</p>
+            <?php endif; ?>
+            <footer class="card__footer">
+                <a href="../index.php?page=profile" class="card__link card__link_hover card__link_focus">Back to profile</a>
+            </footer>
+        </div>
+    </div>
 </section>
 <footer class="footer">
     <div class="footer__menu">
@@ -149,7 +161,7 @@
                 <a href="../index.php?page=company" class="footer__link footer__link_hover footer__link_focus">About us</a>
             </li>
             <li class="footer__item">
-                <a href="../index.php?page=profile" class="footer__link footer__link_hover footer__link_focus">Profile</a>
+                <a href="#" class="footer__link footer__link_hover footer__link_focus">Profile</a>
             </li>
         </ul>
     </div>
