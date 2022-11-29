@@ -5,6 +5,7 @@ require_once "./modules/database/ConnectDataBase.php";
 $connectDB = new ConnectDataBase("dbconfig");
 $connectDB->Connect();
 $connectDB->startSession();
+
 if (isset($_SESSION["user"]) === true) {
     $client = R::load("clients", $_SESSION["user"]->id);
 }
@@ -38,15 +39,15 @@ if (isset($_GET["page"])) {
             require_once "./views/loan-processing.php";
             break;
         case "feedback":
-            require_once "./modules/clients/client_info.php";
-            require_once "./modules/handlers/handler_clients.php";
+            require_once "./modules/clients/getting_client_info.php";
             require_once "./views/feedbacks.php";
             break;
         case "admin-panel":
             require_once "./views/admin.php";
             break;
         case "profile":
-            require_once "./modules/clients/client_info.php";
+            require_once "./modules/handlers/handler_clients.php";
+            require_once "./modules/clients/getting_client_info.php";
             require_once "./views/profile.php";
             break;
     }
