@@ -51,7 +51,7 @@ if (isset($_GET["page"])) {
             require_once "./views/profile.php";
             break;
         case "account-info":
-            require_once "./modules/accounts/getting_account_info.php";
+            require_once "./modules/accounts/getting_account_statistic.php";
             require_once "./views/account_info.php";
             break;
         case "transaction-info":
