@@ -19,9 +19,11 @@
     <link rel="stylesheet" href="../assets/sass/styles/profile.css">
     <link rel="stylesheet" href="../assets/sass/global.css">
     <script src="../static/scripts/search.js" defer></script>
+    <script src="../libs/inputmask.js" defer></script>
     <script src="../static/scripts/open-modal.js" defer></script>
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
+    <script src="../static/scripts/checking-card-reference.js" defer></script>
 </head>
 <body>
 <header class="header">

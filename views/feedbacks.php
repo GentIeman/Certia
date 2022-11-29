@@ -112,7 +112,7 @@
         <a href="../index.php?page=profile" class="feedbacks__link feedbacks__link_hover feedbacks__link_focus">
             <span class="feedbacks__back-icon"></span>Back</a>
     </header>
-    <form class="feedbacks__form" method="post" action="../index.php?page=feedback&action=send-feedback">
+    <form class="feedbacks__form" method="post" action="../index.php?page=profile&action=send-feedback">
         <header class="feedbacks__form-header">
             <h2 class="feedbacks__form-headline">Leave your feedback so that we strive for it</h2>
         </header>
