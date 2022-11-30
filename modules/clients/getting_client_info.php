@@ -10,11 +10,11 @@ function gettingFullName($client) {
     return $client->client_last_name . " " . $client->client_name . " " . $client->client_patronymic;
 }
 
+$fullname = gettingFullName($client);
+
 function gettingInitials($client) {
     return $client->client_last_name . " " . strtoupper(mb_substr($client->client_name, 0, 1)) . ". " . strtoupper(mb_substr($client->client_patronymic, 0, 1)) . ".";
 }
-
-$fullname = gettingFullName($client);
 
 function gettingClientAddress($locations) {
     foreach ($locations as $location) {
@@ -31,11 +31,11 @@ $client_address = gettingClientAddress($locations);
 
 
 function gettingClientCards($accounts) {
-    foreach ($accounts as $account){
+    foreach ($accounts as $account) {
         $account_statistics = R::findAll("accountstatistics", "accounts_id = " . $account->id);
         foreach ($account_statistics as $statistic) {
             if ($statistic->account_statistic_status == 0) {
-                $cards = R::findAll("cards", "accounts_id = ?", [$account->id]);
+                $cards[] = R::findOne("cards", "accounts_id = ?", [$account->id]);
             }
         }
     }
@@ -43,11 +43,10 @@ function gettingClientCards($accounts) {
 }
 $client_cards = gettingClientCards($accounts);
 
-
 function gettingTransactions($accounts) {
-    $transactions = [];
+    $transactions = null;
     foreach ($accounts as $account) {
-        $transactions[] = R::findAll("transactions", "accounts_id = " . $account->id . " OR transaction_to_account = " . $account->id);
+        $transactions[] = R::findAll("transactions", "accounts_id = " . $account->id);
     }
     return $transactions;
 }
@@ -59,26 +58,26 @@ function gettingTransactionCard($account) {
 }
 
 $activity = [];
-$movement = [];
+
 foreach ($transactions as $transaction) {
     foreach ($transaction as $move) {
         if ($move->transaction_type === "transfer") {
             $activity[] = [
-                "client" => gettingInitials(R::load("clients", $move->transaction_to_account)),
+                "client" => gettingInitials(R::load("clients", R::load("accounts", $move->transaction_to_account)->clients_id)),
                 "date" =>date("d F Y", strtotime($move->transaction_date)),
                 "direction" => "-",
                 "amount" => $move->transaction_amount,
                 "type" => $move->transaction_type,
-                "card" => gettingTransactionCard(R::load("accounts", $move->transaction_to_account))->card_number,
+                "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
             ];
         } else {
             $activity[] = [
-                "client" => gettingInitials(R::load("clients", $move->accounts_id)),
+                "client" => gettingInitials(R::load("clients", R::load("accounts", $move->accounts_id)->clients_id)),
                 "date" =>date("d F Y", strtotime($move->transaction_date)),
                 "direction" => "+",
                 "amount" => $move->transaction_amount,
                 "type" => $move->transaction_type,
-                "card" => gettingTransactionCard(R::load("accounts",  $move->transaction_to_account))->card_number,
+                "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
             ];
         }
     }
