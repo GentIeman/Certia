@@ -32,7 +32,12 @@ $client_address = gettingClientAddress($locations);
 
 function gettingClientCards($accounts) {
     foreach ($accounts as $account){
-        $cards = R::findAll("cards", "accounts_id = ?", [$account->id]);
+        $account_statistics = R::findAll("accountstatistics", "accounts_id = " . $account->id);
+        foreach ($account_statistics as $statistic) {
+            if ($statistic->account_statistic_status == 0) {
+                $cards = R::findAll("cards", "accounts_id = ?", [$account->id]);
+            }
+        }
     }
     return $cards;
 }
