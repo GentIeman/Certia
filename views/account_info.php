@@ -22,8 +22,8 @@
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
-<body>
-<header class="header">
+<body class="page">
+<header class="page__header header">
     <nav class="header__nav">
         <a href="../index.php?page=home" class="header__logo" title="Logo"></a>
         <ul class="header__list">
@@ -107,12 +107,12 @@
         </div>
     </div>
 </div>
-<section class="account-info">
-    <header class="account-info__header">
-        <h1 class="account-info__headline headings">Account info</h1>
+<section class="page__info info">
+    <header class="info__header">
+        <h1 class="info__headline headings">Account info</h1>
     </header>
     <div class="card-container">
-        <div class="account-info__card card">
+        <div class="info__card card">
             <header class="card__header">
                 <?php if (isset($plan) === true && $plan->plan_type == "Loan"): ?>
                     <h2 class="card__headline">Loan account</h2>
@@ -150,6 +150,18 @@
                 <li class="card__item">
                     <p class="card__text">Status: <?php echo $account_status ?></p>
                 </li>
+                <li class="card__item card__item_border-top">
+                    <p class="card__text">Card system: <?php echo $card["card_system"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card number: <?php echo $card["card_number"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card cvv: <?php echo $card["card_cvv"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card validity date: <?php echo $card_validity_date?></p>
+                </li>
                 <?php if (isset($plan) === true): ?>
                     <li class="card__item card__item_border-top">
                         <p class="card__text">Plan: <?php echo $plan["plan_name"] ?></p>
@@ -172,8 +184,36 @@
             </footer>
         </div>
     </div>
+    <div class="card-container">
+        <div class="transactions-history">
+            <header class="transaction-history__header">
+                <h2 class="transaction-history__subtitle">History</h2>
+            </header>
+            <table class="transactions-history__table table">
+                <thead class="table__thead">
+                    <tr class="table__row">
+                        <th class="table__head">client</th>
+                        <th class="table__head">amount</th>
+                        <th class="table__head">date</th>
+                        <th class="table__head">type</th>
+                    </tr>
+                </thead>
+                <tbody class="table__tbody">
+                <?php foreach ($activity as $active): ?>
+                    <tr class="table__row table__row_hover">
+                        <td class="table__cell"><?php echo $active["client"] ?></td>
+                        <td class="table__cell"><?php echo $active["direction"]?><?php echo $active["amount"] ?>$</td>
+                        <td class="table__cell">* <?php echo substr($active["card"], -4) ?></td>
+                        <td class="table__cell"><?php echo $active["date"] ?></td>
+                        <td class="table__cell"><?php echo $active["type"] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
-<footer class="footer">
+<footer class="page__footer footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">

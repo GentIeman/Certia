@@ -22,8 +22,8 @@
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
-<body>
-<header class="header">
+<body class="page">
+<header class="page__header header">
     <nav class="header__nav">
         <a href="../index.php?page=home" class="header__logo" title="Logo"></a>
         <ul class="header__list">
@@ -107,12 +107,12 @@
         </div>
     </div>
 </div>
-<section class="account-info">
-    <header class="account-info__header">
-        <h1 class="account-info__headline headings">Transaction info</h1>
+<section class="page__info info">
+    <header class="info__header">
+        <h1 class="info__headline headings">Transaction info</h1>
     </header>
     <div class="card-container">
-        <div class="account-info__card card">
+        <div class="info__card card">
             <header class="card__header">
                 <h2 class="card__headline">Transaction summary</h2>
             </header>
@@ -144,7 +144,7 @@
         </div>
     </div>
 </section>
-<footer class="footer">
+<footer class="page__footer footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">
