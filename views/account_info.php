@@ -116,7 +116,7 @@
             <header class="card__header">
                 <?php if (isset($plan) === true && $plan->plan_type == "Loan"): ?>
                     <h2 class="card__headline">Loan account</h2>
-                <?php elseif (isset($plan) === true && $plan->plan_type == "Deposit"): ?>
+                <?php elseif (isset($plan) === true && $plan->plan_type !== "Loan"): ?>
                     <h2 class="card__headline">Deposit account</h2>
                 <?php else: ?>
                     <h2 class="card__headline">Debit Account</h2>
@@ -127,7 +127,7 @@
                     <p class="card__text">Account number: <?php echo $account["account_number"]?></p>
                 </li>
                 <li class="card__item">
-                    <p class="card__text">Balance: <?php echo $account["account_balance"]?>$</p>
+                    <p class="card__text">Balance: <?php echo $account["account_balance"]?> $</p>
                 </li>
                 <?php if ($account["account_debt"] > 0): ?>
                     <li class="card__item">
@@ -154,11 +154,13 @@
                     <li class="card__item card__item_border-top">
                         <p class="card__text">Plan: <?php echo $plan["plan_name"] ?></p>
                     </li>
+                    <?php if ($plan["plan_percent"]): ?>
+                        <li class="card__item">
+                            <p class="card__text">Percent: <?php echo $plan["plan_percent"] ?> %</p>
+                        </li>
+                    <?php endif; ?>
                     <li class="card__item">
-                        <p class="card__text">Percent: <?php echo $plan["plan_percent"] ?>%</p>
-                    </li>
-                    <li class="card__item">
-                        <p class="card__text">Term: <?php echo $plan["plan_term"] ?>days</p>
+                        <p class="card__text">Term: <?php echo $plan["plan_term"] ?> days</p>
                     </li>
                 <?php endif;?>
             </ul>
