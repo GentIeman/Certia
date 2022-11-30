@@ -60,9 +60,11 @@
     &:is(&_hover:hover, &_focus:focus)
       box-shadow: 0 0 0 2px $accent-color
 
-  &__btn
+  &__btn,
+  &__link
     margin-top: 20px
     padding: 15px 45px
+    @include font-style(normal, $medium-size, $accent-font, $white)
     align-self: center
     font-size: $medium-size
     background-color: $decorative-color
