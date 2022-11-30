@@ -77,6 +77,11 @@
     &:is(&_hover:hover, &_focus:focus)
       background-color: $accent-color
 
+  &__hint
+    text-align: center
+    margin-top: 20px
+    @include font-style(bold, $medium-size, $roboto, $invalid-color)
+
   .agreement
     display: flex
     align-items: center
