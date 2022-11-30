@@ -48,15 +48,16 @@
     &_accent-color
       color: $accent-color
 
-  &__select-card
+  &__select
     padding: $input-padding
+    min-width: 200px
     background-color: $background-field
     border: none
     border-radius: 5px
     @include font-style(normal, $small-size, $roboto, $accent-color)
     transition: box-shadow .4s linear
 
-    &:is(&_hover:hover, &_focus:focus-within)
+    &:is(&_hover:hover, &_focus:focus)
       box-shadow: 0 0 0 2px $accent-color
 
   &__btn
