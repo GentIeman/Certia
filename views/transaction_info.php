@@ -112,7 +112,7 @@
         <h1 class="info__headline headings">Transaction info</h1>
     </header>
     <div class="card-container">
-        <div class="info__card card">
+        <div class="transaction__card card">
             <header class="card__header">
                 <h2 class="card__headline">Transaction summary</h2>
             </header>
