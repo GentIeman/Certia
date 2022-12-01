@@ -30,7 +30,7 @@ if ($plan->plan_type === "Loan") {
         $payment = R::dispense("creditpayperiods");
         $payment->credit_pay_date = $datetime->format("Y-m-d");
         $payment->credit_pay_amount = $payment_value;
-        $payment->credit_pay_status = "Not paid";
+        $payment->credit_pay_status = "not paid";
         $payment->accounts = $account;
         R::store($payment);
     }
