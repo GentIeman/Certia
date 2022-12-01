@@ -1,4 +1,6 @@
 <?php
+require_once "./modules/clients/getting_client_info.php";
+
 $card_id = null;
 if (isset($_GET["card_id"])) {
     $card_id = $_GET["card_id"];
@@ -24,18 +26,8 @@ if ($account_statistic["account_statistic_actual_closing_date"] !== NULL) {
 }
 if ($account_status == 0) {
     $account_status = "Opened";
-} else {
-    $account_status = "Closed";
 }
 $activity = [];
-
-function gettingInitials($client) {
-    return $client->client_last_name . " " . strtoupper(mb_substr($client->client_name, 0, 1)) . ". " . strtoupper(mb_substr($client->client_patronymic, 0, 1)) . ".";
-}
-
-function gettingTransactionCard($account) {
-    return R::findOne("cards", "accounts_id = ?", [$account->id]);
-}
 
 $transactions = R::findAll("transactions", "accounts_id = " . $account->id);
 foreach ($transactions as $transaction) {

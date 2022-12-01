@@ -1,6 +1,4 @@
 <?php
-$client_id = $_SESSION["user"]->id;
-$client = R::load("clients", $client_id);
 $accounts_for_check = [];
 foreach ($client->ownAccountsList as $account) {
     if ($account->status === 1 && $account->plans->plan_type === "Loan" && $account->account_balance < 0) {

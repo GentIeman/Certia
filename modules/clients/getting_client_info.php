@@ -1,6 +1,4 @@
 <?php
-$client_id = $_SESSION["user"]->id;
-$client = R::load("clients", $client_id);
 $accounts = $client->ownAccountsList;
 $locations = $client->ownLocationsList;
 $cards = null;

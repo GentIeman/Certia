@@ -1,12 +1,10 @@
 <?php
-$client = $_SESSION["user"];
 $received_plan_id = $_GET["plan_id"];
 $plan = R::load("plans", $received_plan_id);
 
 $account = R::dispense("accounts");
 $account->plans_id = $plan->id;
 
-$client = R::load("clients", $client->id);
 $client->ownAccountsList[] = $account;
 
 $start = new DateTime();
