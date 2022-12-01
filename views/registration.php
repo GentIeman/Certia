@@ -41,15 +41,24 @@
                 <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="text" class="form__input" name="patronymic" placeholder="Patronymic" oninput="personalDataValidation(this, 'patronymic')" required>
                 </label>
-                <label for="" class="form__label form__label_focus form__label_hover">
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="tel" class="form__input" name="phone" placeholder="Phone number" oninput="personalDataValidation(this, 'phone')" required>
                 </label>
-                <label for="" class="form__label form__label_focus form__label_hover">
+                <?php if (isset($_GET["error"]) == true && $_GET["error"] == "phone"): ?>
+                    <p class="form__hint">this phone is already registered</p>
+                <?php endif; ?>
+                <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="text" class="form__input" name="passport" placeholder="Passport" oninput="personalDataValidation(this, 'passport')" required>
                 </label>
+                <?php if (isset($_GET["error"]) == true && $_GET["error"] == "passport"): ?>
+                    <p class="form__hint">this passport is already registered</p>
+                <?php endif; ?>
                 <label for="" class="form__label form__label_full-width form__label_focus form__label_hover">
                     <input type="email" class="form__input" name="email" placeholder="Email address" oninput="personalDataValidation(this, 'email')" required>
                 </label>
+                <?php if (isset($_GET["error"]) == true && $_GET["error"] == "email"): ?>
+                    <p class="form__hint form__label_full-width">this email is already registered</p>
+                <?php endif; ?>
                 <label for="" class="form__label form__label_focus form__label_hover">
                     <input type="date" class="form__input" name="birthday" placeholder="Birthday" oninput="personalDataValidation(this, 'birthDate')" required dataformatas="">
                 </label>
