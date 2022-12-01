@@ -1,8 +1,3 @@
-<?php
-$plan = R::load("plans", $_GET["plan_id"]);
-$current_date = date("m/d/Y");
-$end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->term . "D")), "m/d/Y");
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,7 +11,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
     <meta name="copyright" content="Ilya Shepelev">
     <meta name="publisher" content="Ilya Shepelev">
     <meta name="robots" content="all">
-    <title>Deposit processing</title>
+    <title>Account processing</title>
     <link rel="icon" href="../static/icons/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +21,7 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
     <script src="../static/scripts/search.js" defer></script>
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
+    <script src="../static/scripts/checking-card-reference.js" defer></script>
 </head>
 <body>
 <header class="header">
@@ -114,81 +110,88 @@ $end_date = date_format(date_add(new DateTime(), new DateInterval("P" . $plan->t
 </div>
 <section class="processing">
     <header class="processing__header">
-        <h1 class="processing__headline headings">Deposit processing</h1>
+        <h1 class="processing__headline headings">Account processing</h1>
     </header>
-    <div class="user-data">
-        <header class="user-data__header">
-            <h2 class="user-data__headline">User info</h2>
-        </header>
-        <ul class="user-data__list">
-            <li class="user-data__item">
-                <p class="user-data__content"><?php echo $client["fullname"] ?></p>
-                <span class="user-data__subtitle">Username</span>
-            </li>
-            <?php foreach ($client->ownBankaccountsList as $account): ?>
-                <li class="user-data__item">
-                    <p class="user-data__content"><?php echo $account["id"] ?></p>
-                    <span class="user-data__subtitle">account number</span>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <form class="form-registration" method="post"
-          action="index.php?section=new-account&plan_id=<?php echo $plan["id"] ?>">
+    <form class="form-registration" method="post" action="../index.php?page=account-processing&action=open-account&plan_id=<?php echo $plan["id"] ?>">
         <header class="form-registration__header">
-            <h2 class="form-registration__headline">Deposit form</h2>
+            <h2 class="form-registration__headline">Account opening form</h2>
         </header>
         <ul class="form-registration__list">
             <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Deposit details</h3>
-                <div class="deposit-data">
-                    <label class="deposit-data__label">
-                        <input type="text" class="deposit-data__input" disabled value="<?php echo $plan["amount"] ?>$">
+                <?php if($plan->plan_type == "Loan"):?>
+                    <h3 class="form-registration__subtitle">Loan details</h3>
+                <?php else: ?>
+                    <h3 class="form-registration__subtitle">Deposit details</h3>
+                <?php endif; ?>
+                <div class="account-data">
+                    <label class="account-data__label">
+                        <input type="text" class="account-data__input" disabled value="<?php echo $plan["plan_amount"] ?>$">
                     </label>
+                    <?php if ($plan->plan_type == "Loan"): ?>
+                        <span class="account-data__under">for</span>
+                        <p class="account-data__percent"><?php echo $plan["plan_percent"] ?>%
+                            <span class="account-data__subtitle">percent</span>
+                        </p>
+                    <?php endif; ?>
                 </div>
             </li>
             <li class="form-registration__item">
-                <p class="form-registration__deposit-type">Type:
-                    <span class="form-registration__deposit-type_accent-color"><?php echo $plan["type"] ?></span>
+                <p class="form-registration__account-type">Type:
+                    <span class="form-registration__account-type_accent-color"><?php echo $plan["plan_type"] ?></span>
                 </p>
             </li>
+            <?php if ($plan["plan_type"] != "Loan"): ?>
+                <?php foreach ($debit_accounts as $account): ?>
+                    <?php if ($account["balance"] > $plan["plan_amount"] && $account["plan"] === NULL): ?>
+                        <li class="form-registration__item">
+                            <h3 class="form-registration__subtitle">Select card</h3>
+                            <label class="form-registration__label">
+                                <select class="form-registration__select form-registration__select_hover form-registration__select_focus" name="selected-card" required>
+                                    <option disabled>
+                                        Select card
+                                    </option>
+                                        <?php foreach ($client_cards as $card): ?>
+                                            <?php if ($card["accounts_id"] == $account["id"] && $account["balance"] > $plan["plan_amount"]): ?>
+                                                <option value="<?php echo $card["id"] ?>">
+                                                    <?php echo $card["card_system"] ?> * <?php echo substr($card["card_number"], -4) ?> <?php echo $account["balance"]?>$
+                                                </option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                </select>
+                            </label>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
             <li class="form-registration__item">
                 <h3 class="form-registration__subtitle">Period</h3>
                 <p class="form-registration__time">
-                    <?php echo $current_date ?> - <?php echo $end_date ?>(<?php echo $plan->term ?>days)
+                    <?php echo $current_date ?> - <?php echo $end_date ?> (<?php echo $plan->plan_term ?> days)
                 </p>
-            </li>
-            <li class="form-registration__item">
-                <h3 class="form-registration__subtitle">Select card</h3>
-                <label class="form-registration__label">
-                    <input type="text" list="cards" name="card"
-                           class="form-registration__select-card form-registration__select-card_hover form-registration__select-card_focus"
-                           maxlength="16" oninput="onlyNumber(this)" required>
-                </label>
-                <datalist id="cards">
-                    <?php foreach ($client_cards as $card): ?>
-                        <?php if ($card["AmountAccount"] > $plan->amount): ?>
-                            <option value="<?php echo $card["CardNumber"] ?>">
-                                <?php echo $card["AmountAccount"] ?>$
-                            </option>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </datalist>
             </li>
         </ul>
         <div class="agreement">
             <label class="agreement__checkbox-wrap agreement__checkbox-wrap_hover agreement__checkbox-wrap_focus">
-                <input type="checkbox" class="agreement__checkbox" name="check" required>
+                <input type="checkbox" class="agreement__checkbox" required>
                 <span class="agreement__checkbox-icon"></span>
             </label>
             <p class="agreement__content">I agree with the <span class="agreement__content_accent-color">company's policies</span>
                 and <span class="agreement__content_accent-color">requirements</span></p>
         </div>
-        <button type="submit"
-                class="form-registration__btn form-registration__btn_hover form-registration__btn_focus open-modal"
-                onclick="trySendData('form-registration', 'new-account&plan_id=<?php echo $plan["id"] ?>', 'deposits-processing.php?plan_id=<?php echo $plan["id"] ?>', null, 'reference-modal')">
-            Checkout
-        </button>
+        <?php if ($plan["plan_type"] != "Loan"): ?>
+            <?php foreach($debit_accounts as $account): ?>
+                <?php if ($account["balance"] > $plan["plan_amount"]): ?>
+                    <button class="form-registration__btn btn btn_hover btn_focus" type="submit">Open account</button>
+                <?php else: ?>
+                    <p class="form-registration__hint">You don't want to open this account. Not enough money</p>
+                    <a href="../index.php?page=<?php echo ($plan["plan_type"] == "Loan" ? "loans" : "deposits")?>" class="form-registration__link link form-registration__link_hover form-registration__link_focus">
+                        Back
+                    </a>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <button class="form-registration__btn btn form-registration__btn_hover form-registration__btn_focus" type="submit">Open account</button>
+        <?php endif; ?>
     </form>
 </section>
 <footer class="footer">

@@ -23,6 +23,13 @@ function transferMoney($fromAccount, $toAccount, $amount)
         header("Location: ../index.php?page=transaction-info&event=not-enough-money");
         return false;
     }
+
+    if ($to->account_balance == 0 && $to->account_debt > 0) {
+        $to->account_debt = $to->account_debt - $amount;
+    } else {
+        $to->account_balance += $amount;
+    }
+
     $from->account_balance -= $amount;
     $transaction->transaction_amount = $amount;
     $transaction->transaction_type = "transfer";
@@ -30,7 +37,6 @@ function transferMoney($fromAccount, $toAccount, $amount)
     $transaction->transaction_to_account = $to->id;
     R::store($transaction);
 
-    $to->account_balance += $amount;
     $transaction = R::dispense("transactions");
     $transaction->accounts_id = $to->id;
     $transaction->transaction_type = "receiving";

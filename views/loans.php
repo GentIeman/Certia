@@ -129,7 +129,7 @@
                 <h2 class="products__card-headline">Cash loan</h2>
                 <p class="products__card-description">Don't delay shopping - fill out an application
                     and get a loan for your needs</p>
-                <a href="./loan-processing.php?plan_id=1" class="products__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=1" class="products__card-link">Learn more</a>
             </div>
             <div class="products__card-image money-icon"></div>
         </li>
@@ -137,7 +137,7 @@
             <div class="products__card-content">
                 <h2 class="products__card-headline">Educational loan</h2>
                 <p class="products__card-description">Education may be available</p>
-                <a href="./loan-processing.php?plan_id=2" class="products__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=2" class="products__card-link">Learn more</a>
             </div>
             <div class="products__card-image book-icon"></div>
         </li>
@@ -146,7 +146,7 @@
                 <h2 class="products__card-headline">Loan for equipment</h2>
                 <p class="products__card-description">Replacement of your favorite equipment without collateral and
                     guarantors</p>
-                <a href="./loan-processing.php?plan_id=3" class="products__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=3" class="products__card-link">Learn more</a>
             </div>
             <div class="products__card-image computer-icon"></div>
         </li>
@@ -155,7 +155,7 @@
                 <h2 class="products__card-headline">Repair loan</h2>
                 <p class="products__card-description">Cosmetic or capital. Apartments or houses. Without collateral and
                     guarantors</p>
-                <a href="./loan-processing.php?plan_id=4" class="products__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=4" class="products__card-link">Learn more</a>
             </div>
             <div class="products__card-image fill-icon"></div>
         </li>

@@ -125,7 +125,7 @@
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="deposit-processing.php?plan_id=5" class="deposits__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=5" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image layout-fluid-icon"></div>
         </li>
@@ -143,7 +143,7 @@
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="deposit-processing.php?plan_id=6" class="deposits__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=6" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image clock-icon"></div>
         </li>
@@ -161,7 +161,7 @@
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="deposit-processing.php?plan_id=7" class="deposits__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=7" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image chart-pyramid-icon"></div>
         </li>
@@ -179,7 +179,7 @@
                         <span class="deposits__card-description-subtitle">Term</span>
                     </p>
                 </div>
-                <a href="deposit-processing.php?plan_id=8" class="deposits__card-link">Learn more</a>
+                <a href="../index.php?page=account-processing&plan_id=8" class="deposits__card-link">Learn more</a>
             </div>
             <div class="deposits__card-image chat-arrow-grow-icon"></div>
         </li>

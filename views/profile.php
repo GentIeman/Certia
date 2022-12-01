@@ -146,25 +146,31 @@
             <h1 class="cards__headline">Cards</h1>
         </header>
         <ul class="cards__list">
-            <?php foreach ($client_cards as $card): ?>
+            <?php if ($client_cards !== NULL): ?>
+                <?php foreach ($client_cards as $card): ?>
+                    <li class="cards__item">
+                        <a href="../index.php?page=account-info&card_id=<?php echo $card["id"] ?>" class="card card_hover card_focus">
+                            <div class="card__icon"></div>
+                            <p class="card__system"><?php echo $card["card_system"] ?>
+                                <span class="card__number">
+                                    * <?php echo substr($card["card_number"], -4) ?>
+                                </span>
+                            </p>
+                            <p class="card__balance">
+                                <?php foreach ($accounts as $account): ?>
+                                    <?php if ($account["id"] == $card["accounts_id"]): ?>
+                                        <?php echo $account["account_balance"] ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            $</p>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <li class="cards__item">
-                    <a href="../index.php?page=account-info&card_id=<?php echo $card["id"] ?>" class="card card_hover card_focus">
-                        <div class="card__icon"></div>
-                        <p class="card__system"><?php echo $card["card_system"] ?>
-                            <span class="card__number">
-                                * <?php echo substr($card["card_number"], -4) ?>
-                            </span>
-                        </p>
-                        <p class="card__balance">
-                            <?php foreach ($accounts as $account): ?>
-                                <?php if ($account["id"] == $card["accounts_id"]): ?>
-                                    <?php echo $account["account_balance"] ?>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        $</p>
-                    </a>
+                    <p class="cards__empty">You don't have any cards yet</p>
                 </li>
-            <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
     </section>
     <section class="operation">
@@ -228,7 +234,7 @@
                     <option value="0" selected disabled>Choose a card</option>
                         <?php foreach ($client_cards as $card): ?>
                             <?php foreach ($accounts as $account): ?>
-                                <?php if ($account["id"] == $card["accounts_id"]): ?>
+                                <?php if ($account["id"] == $card["accounts_id"] && $account["account_balance"] > 0): ?>
                                     <option value="<?php echo $card["card_number"] ?>">
                                         <?php echo $card["card_system"] ?> * <?php echo substr($card["card_number"], -4) ?> <?php echo $account["account_balance"]?>$
                                     </option>

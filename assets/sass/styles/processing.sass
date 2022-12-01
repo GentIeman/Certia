@@ -1,6 +1,8 @@
+@import "../tools"
+
 .processing
   display: grid
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: 1fr
   grid-template-rows: repeat(2, max-content)
   width: 100%
   height: auto
@@ -10,3 +12,180 @@
   &__header
     grid-column: 1 / 3
     margin: 70px 0
+
+.form-registration
+  display: flex
+  flex-direction: column
+  justify-self: center
+  padding: 50px
+  width: 1000px
+  min-height: 450px
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+  border-radius: $border-radius
+
+  &__header
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 30px
+    width: 100%
+    height: auto
+
+  &__headline
+    @include font-style(bold, $large-size, $accent-font, $accent-color)
+
+  &__subtitle
+    margin: 20px 0 10px
+    @include font-style(normal, $subtitle, $accent-font, $black)
+
+  &__time
+    @include font-style(normal, $medium-size, $accent-font, $accent-color)
+
+  &__account-type
+    margin: 20px 0 10px
+    @include font-style(normal, 24px, $accent-font, $black)
+
+    &_accent-color
+      color: $accent-color
+
+  &__select
+    padding: $input-padding
+    min-width: 200px
+    background-color: $background-field
+    border: none
+    border-radius: 5px
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+    transition: box-shadow .4s linear
+
+    &:is(&_hover:hover, &_focus:focus)
+      box-shadow: 0 0 0 2px $accent-color
+
+  &__btn,
+  &__link
+    margin-top: 20px
+    padding: 15px 45px
+    @include font-style(normal, $medium-size, $accent-font, $white)
+    align-self: center
+    font-size: $medium-size
+    background-color: $decorative-color
+    border-radius: $border-radius
+    border: none
+    color: $white
+    transition: background-color .3s linear
+    cursor: pointer
+
+    &:is(&_hover:hover, &_focus:focus)
+      background-color: $accent-color
+
+  &__hint
+    text-align: center
+    margin-top: 20px
+    @include font-style(bold, $medium-size, $roboto, $invalid-color)
+
+  .agreement
+    display: flex
+    align-items: center
+    margin-top: 10px
+    gap: 0 15px
+
+    &__checkbox-wrap
+      display: flex
+      justify-content: center
+      align-items: center
+      position: relative
+      width: 15px
+      height: 15px
+      border-radius: 3px
+      background-color: $checkbox-color
+      transition: box-shadow .4s linear
+
+      &:is(&_hover:hover, &_focus:focus-within)
+        box-shadow: 0 0 0 1px $accent-color
+
+    &__checkbox
+      position: absolute
+      opacity: 0
+      cursor: pointer
+
+      &:checked ~ .agreement__checkbox-icon
+        display: block
+
+    &__checkbox-icon
+      display: none
+      position: relative
+      border-radius: 3px
+      width: 15px
+      height: 15px
+      background-color: $accent-color
+      cursor: pointer
+
+      &:after
+        content: ""
+        position: absolute
+        transform: translate(2px, -2px)
+        width: 15px
+        height: 15px
+        background: no-repeat center / 100% url("../../../static/icons/check-gr.svg")
+
+    &__content
+      @include font-style(normal, $small-size, $roboto, $gray)
+
+      &_accent-color
+        color: $accent-color
+
+.account-data
+  display: flex
+  align-items: center
+  gap: 0 10px
+  width: 100%
+
+  &_column
+    flex-direction: column
+    gap: 20px 0
+
+  &__item
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 0 30px
+    width: 100%
+
+    &_column
+      align-items: flex-start
+      flex-direction: column
+
+  &__status
+    @include font-style(normal, $subtitle, $accent-font, $black)
+
+    &_accent-color
+      color: $accent-color
+
+  &__period
+    @include font-style(normal, $subtitle, $accent-font, $black)
+
+  &__time
+    @include font-style(normal, $medium-size, $accent-font, $accent-color)
+
+  &__input
+    padding: $input-padding
+    background-color: $background-field
+    border: none
+    border-radius: 5px
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+
+  &__under
+    @include font-style(normal, $small-size, $accent-font, $accent-color)
+
+  &__percent
+    display: flex
+    flex-direction: column
+    @include font-style(normal, 21px, $accent-font, $accent-color)
+
+  &__subtitle
+    @include font-style(normal, $small-size, $accent-font, $decorative-color)
+
+  &__type
+    @include font-style(normal, 24px, $accent-font, $black)
+
+    &_accent-color
+      color: $accent-color

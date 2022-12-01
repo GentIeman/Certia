@@ -22,8 +22,8 @@
     <script src="../static/scripts/field-validation.js" defer></script>
     <script src="../static/scripts/dropdown-toggle.js" defer></script>
 </head>
-<body>
-<header class="header">
+<body class="page">
+<header class="page__header header">
     <nav class="header__nav">
         <a href="../index.php?page=home" class="header__logo" title="Logo"></a>
         <ul class="header__list">
@@ -107,16 +107,16 @@
         </div>
     </div>
 </div>
-<section class="account-info">
-    <header class="account-info__header">
-        <h1 class="account-info__headline headings">Account info</h1>
+<section class="page__info info">
+    <header class="info__header">
+        <h1 class="info__headline headings">Account info</h1>
     </header>
     <div class="card-container">
-        <div class="account-info__card card">
+        <div class="info__card card">
             <header class="card__header">
                 <?php if (isset($plan) === true && $plan->plan_type == "Loan"): ?>
                     <h2 class="card__headline">Loan account</h2>
-                <?php elseif (isset($plan) === true && $plan->plan_type == "Deposit"): ?>
+                <?php elseif (isset($plan) === true && $plan->plan_type !== "Loan"): ?>
                     <h2 class="card__headline">Deposit account</h2>
                 <?php else: ?>
                     <h2 class="card__headline">Debit Account</h2>
@@ -127,7 +127,7 @@
                     <p class="card__text">Account number: <?php echo $account["account_number"]?></p>
                 </li>
                 <li class="card__item">
-                    <p class="card__text">Balance: <?php echo $account["account_balance"]?>$</p>
+                    <p class="card__text">Balance: <?php echo $account["account_balance"]?> $</p>
                 </li>
                 <?php if ($account["account_debt"] > 0): ?>
                     <li class="card__item">
@@ -150,28 +150,104 @@
                 <li class="card__item">
                     <p class="card__text">Status: <?php echo $account_status ?></p>
                 </li>
+                <li class="card__item card__item_border-top">
+                    <p class="card__text">Card system: <?php echo $card["card_system"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card number: <?php echo $card["card_number"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card cvv: <?php echo $card["card_cvv"] ?></p>
+                </li>
+                <li class="card__item">
+                    <p class="card__text">Card validity date: <?php echo $card_validity_date?></p>
+                </li>
                 <?php if (isset($plan) === true): ?>
                     <li class="card__item card__item_border-top">
-                        <p class="card__text">Plan: <?php echo $plan["plan_name"] ?></p>
+                        <p class="card__text">Plan name: <?php echo $plan["plan_name"] ?></p>
                     </li>
                     <li class="card__item">
-                        <p class="card__text">Percent: <?php echo $plan["plan_percent"] ?>%</p>
+                        <p class="card__text">Plan type: <?php echo $plan["plan_type"] ?></p>
                     </li>
+                    <?php if ($plan["plan_percent"]): ?>
+                        <li class="card__item">
+                            <p class="card__text">Percent: <?php echo $plan["plan_percent"] ?> %</p>
+                        </li>
+                    <?php endif; ?>
                     <li class="card__item">
-                        <p class="card__text">Term: <?php echo $plan["plan_term"] ?>days</p>
+                        <p class="card__text">Term: <?php echo $plan["plan_term"] ?> days</p>
                     </li>
                 <?php endif;?>
             </ul>
             <footer class="card__footer">
                 <a href="../index.php?page=profile" class="card__link card__link_hover card__link_focus">Back to profile</a>
-                <?php if(isset($plan) === true && ($plan->plan_type == "Deposit")): ?>
+                <?php if(isset($plan) === true && ($plan["plan_type"] == "Loan") && $account["account_balance"] == 0 && $account["account_debt"] == 0): ?>
                     <a href="#" class="card__link card__link_danger card__link_hover card__link_focus">Closing account</a>
                 <?php endif; ?>
             </footer>
         </div>
+        <div class="transactions__card card">
+            <div class="transactions-history">
+                <header class="card__header">
+                    <h2 class="card__headline">History</h2>
+                </header>
+                <?php if (!$activity): ?>
+                    <p class="card__hint">Not activity</p>
+                <?php else: ?>
+                    <table class="transactions-history__table table">
+                        <thead class="table__thead">
+                        <tr class="table__row">
+                            <th class="table__head">client</th>
+                            <th class="table__head">amount</th>
+                            <th class="table__head">date</th>
+                            <th class="table__head">type</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table__tbody">
+                        <?php foreach ($activity as $active): ?>
+                            <tr class="table__row table__row_hover">
+                                <td class="table__cell"><?php echo $active["client"] ?></td>
+                                <td class="table__cell"><?php echo $active["direction"]?><?php echo $active["amount"] ?>$</td>
+                                <td class="table__cell">* <?php echo substr($active["card"], -4) ?></td>
+                                <td class="table__cell"><?php echo $active["date"] ?></td>
+                                <td class="table__cell"><?php echo $active["type"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if (isset($plan) && $plan["plan_type"] == "Loan"): ?>
+            <div class="periods__card card">
+                <div class="periods">
+                    <header class="card__header">
+                        <h2 class="card__headline">Pay periods</h2>
+                    </header>
+                    <table class="periods__table table">
+                        <thead class="table__thead">
+                        <tr class="table__row">
+                            <th class="table__head">pay amount</th>
+                            <th class="table__head">date</th>
+                            <th class="table__head">status</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table__tbody">
+                        <?php foreach ($pay_periods as $pay): ?>
+                            <tr class="table__row table__row_hover">
+                                <td class="table__cell"><?php echo $pay["credit_pay_amount"] ?>$</td>
+                                <td class="table__cell"><?php echo date("d F Y", strtotime($pay["credit_pay_date"]))?></td>
+                                <td class="table__cell"><?php echo $pay["credit_pay_status"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
-<footer class="footer">
+<footer class="page__footer footer">
     <div class="footer__menu">
         <div class="footer__logo"></div>
         <ul class="footer__list">

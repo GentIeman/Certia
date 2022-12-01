@@ -10,7 +10,7 @@ if (isset($_GET["event"])) {
             $isAccountNotFound = true;
             break;
         case "transaction-completed":
-            require_once "./modules/transactions/getting_transaction_info.php";
+            require_once "./modules/accounts/getting_transaction_info.php";
             break;
     }
 }

@@ -22,6 +22,10 @@ $location->location_flat = $_POST["flat"];
 $location->location_zipcode = $_POST["zip-code"];
 $client->ownLocationsList[] = $location;
 
-R::storeAll([$client, $location]);
+$account = R::dispense("accounts");
+$account->account_number = rand(1000, 9999) . " " . rand(1000, 9999) . " " . rand(1000, 9999) . " " . rand(1000, 9999) . " " . rand(1000, 9999);
+$client->ownAccountsList[] = $account;
+
+R::storeAll([$client, $location, $account]);
 
 header("Location: ../index.php?page=home");

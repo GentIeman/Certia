@@ -1,10 +1,10 @@
 @import "../tools"
 
-.footer
-  position: absolute
-  bottom: 0
+.page
+  display: grid
+  grid-template-rows: max-content 1fr 1fr
 
-.account-info
+.info
   width: 100%
   height: auto
   padding: 0 70px
@@ -13,22 +13,43 @@
     margin: 30px 0
 
 .card-container
-  display: flex
-  justify-content: center
-  align-items: center
-  width: inherit
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  grid-template-rows: repeat(2, 1fr)
+  gap: 30px
+  width: 100%
   height: auto
   margin-bottom: 40px
+
+  &:not(:has(.transactions__card, .periods__card))
+    place-items: center
+    grid-template-columns: 1fr
+    grid-template-rows: 1fr
+
+  &:not(:has(.periods__card))
+    grid-template-rows: 1fr
+
+.info__card
+  grid-column: 1 / 2
+
+.transactions__card
+  grid-column: 2 / 4
+
+.periods__card
+  grid-column: 1 / span 3
+
+.transaction__card
+  width: 500px
 
 .card
   display: flex
   flex-direction: column
   padding: 30px
-  width: 500px
-  height: auto
-  max-height: 450px
+  min-width: 400px
+  max-height: 600px
   box-shadow: 0 4px 4px rgba(0, 0, 0, .25)
   border-radius: $border-radius
+  overflow: auto
 
   &__header
     text-align: center
@@ -74,3 +95,6 @@
 
     &_danger
       background-color: $invalid-color
+
+  &__hint
+    @include font-style(normal, $medium-size, $accent-font, $invalid-color)

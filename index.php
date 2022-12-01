@@ -29,14 +29,14 @@ if (isset($_GET["page"])) {
         case "deposits":
             require_once "./views/deposits.php";
             break;
-        case "deposit-processing":
-            require_once "./views/deposit-processing.php";
+        case "account-processing":
+            require_once "./modules/handlers/handler_clients.php";
+            require_once "./modules/accounts/getting_plan_info.php";
+            require_once "./modules/clients/getting_client_info.php";
+            require_once "./views/account_processing.php";
             break;
         case "loans":
             require_once "./views/loans.php";
-            break;
-        case "loan-processing":
-            require_once "./views/loan-processing.php";
             break;
         case "feedback":
             require_once "./modules/clients/getting_client_info.php";
