@@ -82,3 +82,20 @@ foreach ($transactions as $transaction) {
         }
     }
 }
+
+function gettingDebitAccounts($accounts) {
+    $debit_accounts = null;
+    foreach ($accounts as $account) {
+        if ($account->plans_id == 0) {
+            $debit_accounts[] = [
+                "account" => $account->account_number,
+                "balance" => $account->account_balance,
+                "id" => $account->id,
+                "plan" => $account->plans_id
+            ];
+        }
+    }
+    return $debit_accounts;
+}
+
+$debit_accounts = gettingDebitAccounts($accounts);
