@@ -164,7 +164,10 @@
                 </li>
                 <?php if (isset($plan) === true): ?>
                     <li class="card__item card__item_border-top">
-                        <p class="card__text">Plan: <?php echo $plan["plan_name"] ?></p>
+                        <p class="card__text">Plan name: <?php echo $plan["plan_name"] ?></p>
+                    </li>
+                    <li class="card__item">
+                        <p class="card__text">Plan type: <?php echo $plan["plan_type"] ?></p>
                     </li>
                     <?php if ($plan["plan_percent"]): ?>
                         <li class="card__item">
@@ -178,39 +181,70 @@
             </ul>
             <footer class="card__footer">
                 <a href="../index.php?page=profile" class="card__link card__link_hover card__link_focus">Back to profile</a>
-                <?php if(isset($plan) === true && ($plan->plan_type == "Deposit")): ?>
+                <?php if(isset($plan) === true && ($plan["plan_type"] == "Loan") && $account["account_balance"] == 0 && $account["account_debt"] == 0): ?>
                     <a href="#" class="card__link card__link_danger card__link_hover card__link_focus">Closing account</a>
                 <?php endif; ?>
             </footer>
         </div>
-    </div>
-    <div class="card-container">
-        <div class="transactions-history">
-            <header class="transaction-history__header">
-                <h2 class="transaction-history__subtitle">History</h2>
-            </header>
-            <table class="transactions-history__table table">
-                <thead class="table__thead">
-                    <tr class="table__row">
-                        <th class="table__head">client</th>
-                        <th class="table__head">amount</th>
-                        <th class="table__head">date</th>
-                        <th class="table__head">type</th>
-                    </tr>
-                </thead>
-                <tbody class="table__tbody">
-                <?php foreach ($activity as $active): ?>
-                    <tr class="table__row table__row_hover">
-                        <td class="table__cell"><?php echo $active["client"] ?></td>
-                        <td class="table__cell"><?php echo $active["direction"]?><?php echo $active["amount"] ?>$</td>
-                        <td class="table__cell">* <?php echo substr($active["card"], -4) ?></td>
-                        <td class="table__cell"><?php echo $active["date"] ?></td>
-                        <td class="table__cell"><?php echo $active["type"] ?></td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div class="transactions__card card">
+            <div class="transactions-history">
+                <header class="card__header">
+                    <h2 class="card__headline">History</h2>
+                </header>
+                <?php if (!$activity): ?>
+                    <p class="card__hint">Not activity</p>
+                <?php else: ?>
+                    <table class="transactions-history__table table">
+                        <thead class="table__thead">
+                        <tr class="table__row">
+                            <th class="table__head">client</th>
+                            <th class="table__head">amount</th>
+                            <th class="table__head">date</th>
+                            <th class="table__head">type</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table__tbody">
+                        <?php foreach ($activity as $active): ?>
+                            <tr class="table__row table__row_hover">
+                                <td class="table__cell"><?php echo $active["client"] ?></td>
+                                <td class="table__cell"><?php echo $active["direction"]?><?php echo $active["amount"] ?>$</td>
+                                <td class="table__cell">* <?php echo substr($active["card"], -4) ?></td>
+                                <td class="table__cell"><?php echo $active["date"] ?></td>
+                                <td class="table__cell"><?php echo $active["type"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
+            </div>
         </div>
+        <?php if (isset($plan) && $plan["plan_type"] == "Loan"): ?>
+            <div class="periods__card card">
+                <div class="periods">
+                    <header class="card__header">
+                        <h2 class="card__headline">Pay periods</h2>
+                    </header>
+                    <table class="periods__table table">
+                        <thead class="table__thead">
+                        <tr class="table__row">
+                            <th class="table__head">pay amount</th>
+                            <th class="table__head">date</th>
+                            <th class="table__head">status</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table__tbody">
+                        <?php foreach ($pay_periods as $pay): ?>
+                            <tr class="table__row table__row_hover">
+                                <td class="table__cell"><?php echo $pay["credit_pay_amount"] ?>$</td>
+                                <td class="table__cell"><?php echo date("d F Y", strtotime($pay["credit_pay_date"]))?></td>
+                                <td class="table__cell"><?php echo $pay["credit_pay_status"] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </section>
 <footer class="page__footer footer">
