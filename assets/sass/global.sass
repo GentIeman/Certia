@@ -112,6 +112,10 @@ html, body
     &:not(&_disabled):is(&_hover:hover, &_focus:focus)
       background-color: $accent-color
 
+  &__hint
+    grid-column: 1 / span 2
+    @include font-style(bold, $small-size, $roboto, $invalid-color)
+
 .header
   position: relative
   width: 100%
