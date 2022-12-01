@@ -7,5 +7,7 @@ if (isset($_GET["action"])) {
         case "transaction":
             require_once "./modules/clients/transaction.php";
             break;
+        case "open-account":
+            require_once "./modules/clients/opening_account.php";
     }
 }
