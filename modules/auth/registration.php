@@ -1,11 +1,20 @@
 <?php
+function checkingAvailability($data, $field) {
+    if (R::count("clients", "client_" . $field .  " = ?", [$data]) > 0) {
+        header("Location: ../index.php?page=registration&error=$field");
+    } else {
+        return $data;
+    }
+}
+
 $client = R::dispense("clients");
 $client->client_name = trim($_POST["first-name"]);
 $client->client_last_name = trim($_POST["last-name"]);
 $client->client_patronymic = trim($_POST["patronymic"]);
-$client->client_phone = $_POST["phone"];
-$client->client_passport = $_POST["passport"];
-$client->client_email = trim($_POST["email"]);
+$client->client_phone = checkingAvailability($_POST["phone"], "phone");
+$client->client_passport = checkingAvailability($_POST["passport"], "passport");
+$client->client_email = checkingAvailability($_POST["email"], "email");
+$client->client_password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 $client->client_birthday = $_POST["birthday"];
 $client->client_gender = $_POST["gender"];
 $client->client_password = trim(password_hash($_POST["password"], PASSWORD_DEFAULT));

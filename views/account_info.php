@@ -73,9 +73,9 @@
                                 </a>
                             </li>
                         <?php endif; ?>
-                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->role == "admin"): ?>
+                        <?php if (isset($_SESSION["user"]) === true && $_SESSION["user"]->roles_id == 1): ?>
                             <li class="dropdown__item">
-                                <a href="../index.php?page=admin" class="dropdown__link dropdown__link_focus dropdown__link_hover">
+                                <a href="../index.php?page=admin-panel&section=dashboard" class="dropdown__link dropdown__link_focus dropdown__link_hover">
                                     <span class="dropdown__icon admin-icon"></span>
                                     Admin
                                 </a>
@@ -129,9 +129,9 @@
                 <li class="card__item">
                     <p class="card__text">Balance: <?php echo $account["account_balance"]?> $</p>
                 </li>
-                <?php if ($account["account_debt"] > 0): ?>
+                <?php if ($account["account_debt"] < 0): ?>
                     <li class="card__item">
-                        <p class="card__text">Debt: <?php echo $account["account_debt"]?></p>
+                        <p class="card__text">Debt: <?php echo $account["account_debt"]?> $</p>
                     </li>
                 <?php endif; ?>
                 <li class="card__item">

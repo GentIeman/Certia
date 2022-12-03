@@ -1,4 +1,6 @@
 <?php
+require_once "./modules/clients/getting_client_info.php";
+
 $card_id = null;
 if (isset($_GET["card_id"])) {
     $card_id = $_GET["card_id"];
@@ -24,34 +26,33 @@ if ($account_statistic["account_statistic_actual_closing_date"] !== NULL) {
 }
 if ($account_status == 0) {
     $account_status = "Opened";
-} else {
-    $account_status = "Closed";
 }
 $activity = [];
-
-function gettingInitials($client) {
-    return $client->client_last_name . " " . strtoupper(mb_substr($client->client_name, 0, 1)) . ". " . strtoupper(mb_substr($client->client_patronymic, 0, 1)) . ".";
-}
-
-function gettingTransactionCard($account) {
-    return R::findOne("cards", "accounts_id = ?", [$account->id]);
-}
 
 $transactions = R::findAll("transactions", "accounts_id = " . $account->id);
 foreach ($transactions as $transaction) {
     if ($transaction->transaction_type == "transfer") {
         $activity[] = [
             "client" => gettingInitials(R::load("clients", R::load("accounts", $transaction->transaction_to_account)->clients_id)),
-            "date" =>date("d F Y", strtotime($transaction->transaction_date)),
+            "date" => date("d F Y", strtotime($transaction->transaction_date)),
             "direction" => "-",
             "amount" => $transaction->transaction_amount,
             "type" => $transaction->transaction_type,
             "card" => gettingTransactionCard(R::load("accounts", $transaction->accounts_id))->card_number,
         ];
+    } else if ($transaction->transaction_type === "debt"){
+        $activity[] = [
+            "client" => gettingInitials(R::load("clients", R::load("accounts", $move->accounts_id)->clients_id)),
+            "date" =>date("d F Y", strtotime($move->transaction_date)),
+            "direction" => "",
+            "amount" => $move->transaction_amount,
+            "type" => $move->transaction_type,
+            "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
+        ];
     } else {
         $activity[] = [
             "client" => gettingInitials(R::load("clients", R::load("accounts", $transaction->accounts_id)->clients_id)),
-            "date" =>date("d F Y", strtotime($transaction->transaction_date)),
+            "date" => date("d F Y", strtotime($transaction->transaction_date)),
             "direction" => "+",
             "amount" => $transaction->transaction_amount,
             "type" => $transaction->transaction_type,

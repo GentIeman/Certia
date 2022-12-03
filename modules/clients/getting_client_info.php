@@ -1,6 +1,4 @@
 <?php
-$client_id = $_SESSION["user"]->id;
-$client = R::load("clients", $client_id);
 $accounts = $client->ownAccountsList;
 $locations = $client->ownLocationsList;
 $cards = null;
@@ -13,7 +11,7 @@ function gettingFullName($client) {
 $fullname = gettingFullName($client);
 
 function gettingInitials($client) {
-    return $client->client_last_name . " " . strtoupper(mb_substr($client->client_name, 0, 1)) . ". " . strtoupper(mb_substr($client->client_patronymic, 0, 1)) . ".";
+    return $client->client_last_name . " " . strtoupper(substr($client->client_name, 0, 1)) . ". " . strtoupper(substr($client->client_patronymic, 0, 1)) . ".";
 }
 
 function gettingClientAddress($locations) {
@@ -28,7 +26,6 @@ function gettingClientAddress($locations) {
 }
 
 $client_address = gettingClientAddress($locations);
-
 
 function gettingClientCards($accounts) {
     foreach ($accounts as $account) {
@@ -61,11 +58,20 @@ $activity = [];
 
 foreach ($transactions as $transaction) {
     foreach ($transaction as $move) {
-        if ($move->transaction_type === "transfer") {
+        if ($move->transaction_type === "transfer" && $move->transaction_to_account !== NULL && $move->transaction_accounts_id !== NULL) {
             $activity[] = [
                 "client" => gettingInitials(R::load("clients", R::load("accounts", $move->transaction_to_account)->clients_id)),
                 "date" =>date("d F Y", strtotime($move->transaction_date)),
                 "direction" => "-",
+                "amount" => $move->transaction_amount,
+                "type" => $move->transaction_type,
+                "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
+            ];
+        } else if ($move->transaction_type === "debt"){
+            $activity[] = [
+                "client" => gettingInitials(R::load("clients", R::load("accounts", $move->accounts_id)->clients_id)),
+                "date" =>date("d F Y", strtotime($move->transaction_date)),
+                "direction" => "",
                 "amount" => $move->transaction_amount,
                 "type" => $move->transaction_type,
                 "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
@@ -99,3 +105,27 @@ function gettingDebitAccounts($accounts) {
 }
 
 $debit_accounts = gettingDebitAccounts($accounts);
+
+if (isset($_POST["client-data"]) && isset($_POST["option"])) {
+    $client_info = null;
+    $client_data = trim($_POST["client-data"]);
+    $option = $_POST["option"];
+    $client_info = gettingClientInfoOnOptions($client_data, $option);
+}
+
+function gettingClientInfoOnOptions($data, $option) {
+    switch ($option) {
+        case "client_age":
+            $client_year = date("Y") - $data;
+            return $client_info = R::findAll("clients", "client_birthday Like ?", ["$client_year%"]);
+        case "client_last_name" :
+            return $client_info = R::findAll("clients", "client_last_name = ?", [$data]);
+        case "client_gender" :
+            return $client_info = R::findAll("clients", "client_gender = ?", [$data]);
+        case "account":
+            $account = R::findOne("accounts", "account_number = ?", [$data]);
+            return $client_info = R::findAll("clients", "id = ?", [$account->clients_id]);
+        case "client_phone":
+            return $client_info = R::findAll("clients", "client_phone = ?", [$data]);
+    }
+}

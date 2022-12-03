@@ -112,6 +112,10 @@ html, body
     &:not(&_disabled):is(&_hover:hover, &_focus:focus)
       background-color: $accent-color
 
+  &__hint
+    grid-column: 1 / span 2
+    @include font-style(bold, $small-size, $roboto, $invalid-color)
+
 .header
   position: relative
   width: 100%
@@ -478,6 +482,10 @@ html, body
   border-collapse: collapse
   width: 100%
 
+  &__caption
+    text-align: left
+    @include font-style(bold, $large-size, $accent-font, $accent-color)
+
   &__row
     transition: background-color .1s linear
 
@@ -491,3 +499,22 @@ html, body
   &__cell
     padding: 10px 0
     @include font-style(normal, $small-size, $accent-font, $accent-color)
+
+.aside
+  position: relative
+
+  &__header
+    padding: 30px 30px 0 70px
+    margin-bottom: 20px
+
+  &__headline
+    @include font-style(bold, $medium-size, $accent-font, $accent-color)
+
+  &__link
+    display: block
+    padding: 10px 70px
+    @include font-style(normal, $small-size, $accent-font, $accent-color)
+    transition: background-color .2s ease
+
+    &:is(&_hover:hover, &_focus:focus, &_active)
+      background-color: $dark-green
