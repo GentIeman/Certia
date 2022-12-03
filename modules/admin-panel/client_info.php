@@ -19,24 +19,18 @@ foreach ($overdue_accounts as $overdue_account) {
     }
 }
 
-
-// получение клиента с наибольшей суммой задолженности
 $client_max_debt = R::findOne("clients", "id = ?", [min(R::findAll("accounts", "account_debt < 0"))->clients_id]);
-// получение счета с наибольшей суммой задолженности
+
 $account_max_debt = R::findOne("accounts", "id = ?", [min(R::findAll("accounts", "account_debt < 0"))->id]);
 
-// получение клиента с наименьшей суммой задолженности
 $client_min_debt = R::findOne("clients", "id = ?", [max(R::findAll("accounts", "account_debt < 0"))->clients_id]);
-// получение счета с наименьшей суммой задолженности
+
 $account_min_debt = R::findOne("accounts", "id = ?", [max(R::findAll("accounts", "account_debt < 0"))->id]);
 
-// получение клиента с наибольшей суммой по кредиту
 $client_max_sum_loan = R::findOne("clients", "id = ?", [min(R::findAll("accounts", "account_balance < 0"))->clients_id]);
-// получение счета с наибольшей суммой по кредиту
+
 $account_max_sum_loan = R::findOne("accounts", "id = ?", [min(R::findAll("accounts", "account_balance < 0"))->id]);
 
-// получение клиента с наименьшей суммой по кредиту
 $client_min_sum_loan = R::findOne("clients", "id = ?", [max(R::findAll("accounts", "account_balance < 0"))->clients_id]);
-// получение счета с наименьшей суммой по кредиту
-$account_min_sum_loan = R::findOne("accounts", "id = ?", [max(R::findAll("accounts", "account_balance < 0"))->id]);
 
+$account_min_sum_loan = R::findOne("accounts", "id = ?", [max(R::findAll("accounts", "account_balance < 0"))->id]);
