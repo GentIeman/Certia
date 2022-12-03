@@ -46,12 +46,14 @@ if (isset($_GET["page"])) {
             break;
         case "admin-panel":
             if (!$client) header("Location: ../index.php?page=login");
+            require_once "./modules/handlers/handler_admin_panel.php";
             require_once "./views/admin.php";
             break;
         case "profile":
             if (!$client) header("Location: ../index.php?page=login");
             require_once "./modules/handlers/handler_clients.php";
             require_once "./modules/clients/getting_client_info.php";
+            require_once "./modules/accounts/check_debting.php";
             require_once "./views/profile.php";
             break;
         case "account-info":
