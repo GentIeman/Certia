@@ -1,46 +1,165 @@
 @import "../tools"
 
+.page
+  display: grid
+  grid-template-rows: 80px auto auto
+
 .admin 
   display: grid
-  gap: 30px 0
+  grid-template-columns: 300px 1fr
+  grid-template-rows: 88px 1fr
   width: 100%
-  height: auto
-  padding: 0 70px
-  margin-bottom: 80px
+  height: 100%
 
   &__header
     margin-top: 30px
+    margin-left: 30px
 
-  &__section 
+  &__aside
     width: 100%
     height: 100%
-    border: solid 2px $accent-color
+    background-color: $decorative-color
+    grid-row: 1 / -1
+
+  &__table-container
+    display: grid
+    grid-template-rows: repeat(auto-fit, minmax(100px, max-content))
+    gap: 30px 0
     padding: 30px
-    border-radius: 10px
+    grid-column: 2 / -1
 
-.table
-  width: 100%
-  max-height: 500px
-  overflow: auto
-  border-collapse: collapse
+  &__table-wrap
+    border: solid 3px $accent-color
+    border-radius: $border-radius
+    padding: 10px 30px
 
-  &__caption
-    text-align: left
-    margin-bottom: 20px
-    @include font-style(normal, $large-size, $accent-font, $accent-color)
+  &__plug
+    @include font-style(bold, $medium-size, $accent-font, $invalid-color)
 
-  &__row
+.client-info,
+.plans-info,
+.settings
+  position: relative
+
+  &__form
+    display: flex
+    gap: 30px
+    align-items: center
+    width: 700px
+    margin-top: 30px
+    margin-left: 30px
+
+  &__separator
+    white-space: nowrap
+    width: 100%
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+
+  &__cross-circle
+    position: absolute
+    top: 10px
+    right: 30px
+    display: block
+    width: 30px
+    height: 30px
+    background: no-repeat center/100% url("../../../static/icons/cross-circle.svg")
+
+  &__label
+    display: flex
+    align-items: center
+    gap: 0 10px
+    width: 100%
+    max-width: 300px
+    min-width: 160px
+    @include font-style(normal, $small-size, $roboto, $decorative-color)
+    position: relative
+
+    &_hide
+      display: none
+
+  &__input,
+  &__select
+    width: 100%
+    padding: 10px 15px
+    border: none
+    background-color: $background-field
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+    border-radius: 5px
+    transition: box-shadow .3s linear
+
+    &:is(&_hover:hover, &_focus:focus)
+      box-shadow: 0 0 0 2px $accent-color
+
+  &__btn
+    padding: 10px 15px
+    border-radius: 5px
+    background-color: $decorative-color
     transition: background-color .3s linear
-    &_hover:hover
-      background-color: $background-gr
 
-  &__cell-head
-    text-align: left
-    padding-left: 10px
-    @include font-style(normal, $medium-size, $roboto, $decorative-color)
+    &:is(&_hover:hover, &_focus:focus)
+      background-color: $accent-color
+      color: $white
 
-  &__cell
-    text-align: left
-    padding: 10px
-    @include font-style(normal, $small-size, $accent-font, $accent-color)
-    transition: background-color .3s linear
+  &__results
+    display: grid
+    gap: 5px
+    margin: 10px 30px 0 30px
+
+  &__result
+    position: relative
+
+    &_border-top
+      padding-top: 10px
+      border-top: solid 2px $accent-color
+
+  &__text
+    @include font-style(normal, $small-size, $roboto, $accent-color)
+
+.settings
+
+  &__form
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    gap: 30px
+    width: 700px
+    margin-top: 30px
+    margin-bottom: 40px
+
+  &__fieldset
+    display: flex
+    width: auto
+    border: none
+    gap: 0 20px
+
+  &__fieldset-container
+    display: grid
+    grid-template-rows: 20px 50px auto
+    align-items: center
+
+  &__label
+    width: 700px
+
+    &-file
+      position: relative
+      border: dashed 2px $decorative-color
+      transition: border .3s linear
+      cursor: pointer
+
+      &:is(&_hover:hover, &_focus:focus-within)
+        border-color: $accent-color
+
+      &:before
+        content: "Choose file"
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        @include font-style(normal, $small-size, $roboto, $accent-color)
+
+  &__input
+
+    &_hide
+      opacity: 0
+
+  &__subtitle
+    @include font-style(normal, $small-size, $roboto, $text-color-light-gr)
