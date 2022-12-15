@@ -67,15 +67,6 @@ foreach ($transactions as $transaction) {
                 "type" => $move->transaction_type,
                 "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
             ];
-        } else if ($move->transaction_type === "debt"){
-            $activity[] = [
-                "client" => gettingInitials(R::load("clients", R::load("accounts", $move->accounts_id)->clients_id)),
-                "date" =>date("d F Y", strtotime($move->transaction_date)),
-                "direction" => "",
-                "amount" => $move->transaction_amount,
-                "type" => $move->transaction_type,
-                "card" => gettingTransactionCard(R::load("accounts", $move->accounts_id))->card_number,
-            ];
         } else {
             $activity[] = [
                 "client" => gettingInitials(R::load("clients", R::load("accounts", $move->accounts_id)->clients_id)),
